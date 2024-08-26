@@ -1,0 +1,1312 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Aug 21, 2024 at 05:37 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `memo_management`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `active_sessions`
+--
+
+CREATE TABLE `active_sessions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `lokasi` int(11) NOT NULL,
+  `login_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `logout_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache`
+--
+
+CREATE TABLE `cache` (
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ccs`
+--
+
+CREATE TABLE `ccs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `cc_email` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emails`
+--
+
+CREATE TABLE `emails` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `letter_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `sent_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `folders`
+--
+
+CREATE TABLE `folders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `base_rujukan_no` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_batches`
+--
+
+CREATE TABLE `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `letters`
+--
+
+CREATE TABLE `letters` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kepada` bigint(20) UNSIGNED NOT NULL,
+  `daripada` bigint(20) UNSIGNED NOT NULL,
+  `rujukan_no` varchar(255) NOT NULL,
+  `tarikh` date NOT NULL,
+  `panggilan` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `contents` text NOT NULL,
+  `signature` varchar(255) NOT NULL,
+  `folder_id` bigint(20) UNSIGNED NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `name` varchar(255) NOT NULL,
+  `jawatan` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `signature_2` varchar(255) DEFAULT NULL,
+  `name_2` varchar(255) DEFAULT NULL,
+  `position_2` varchar(255) DEFAULT NULL,
+  `signature_3` varchar(255) DEFAULT NULL,
+  `name_3` varchar(255) DEFAULT NULL,
+  `position_3` varchar(255) DEFAULT NULL,
+  `signature_date_1` date DEFAULT NULL,
+  `signature_date_2` date DEFAULT NULL,
+  `signature_date_3` date DEFAULT NULL,
+  `catatan_1` varchar(255) DEFAULT NULL,
+  `catatan_2` varchar(255) DEFAULT NULL,
+  `sk_1` varchar(255) DEFAULT NULL,
+  `no_phone_1` varchar(15) DEFAULT NULL,
+  `email_1` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `locations`
+--
+
+CREATE TABLE `locations` (
+  `id` int(11) NOT NULL,
+  `lokasi_id` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `lokasi_id`, `name`) VALUES
+(1, 'FB00086', 'BAHAGIAN PEMASARAN'),
+(2, 'FB00235', 'CAWANGAN PENJUALAN BTS'),
+(3, 'FB00300', 'BAHAGIAN ESTET KOMERSIAL'),
+(4, 'FB00301', 'CAWANGAN ESTET KOMERSIAL'),
+(5, 'FB00306', 'CAWANGAN PEMBELIAN BTS'),
+(6, 'KF00052', 'BAHAGIAN PEMBANGUNAN & HILIRAN KILANG'),
+(7, 'KF00054', 'BAHAGIAN TRADING CPO'),
+(8, 'KF00055', 'CAWANGAN TRADING CPO'),
+(9, 'KF00056', 'CAWANGAN DOWNSTREAM'),
+(10, 'KF00061', 'PENGARAH PERKILANGAN & INFRASTRUKTUR'),
+(11, 'KF00062', 'BAHAGIAN OPERASI KILANG'),
+(12, 'KF00063', 'CAWANGAN OPERASI KILANG'),
+(13, 'KF00065', 'BAHAGIAN KHIDMAT NASIHAT KILANG'),
+(14, 'KF00067', 'CAWANGAN SENGGARAAN'),
+(15, 'KF00068', 'CAWANGAN PEMBANGUNAN & HILIRAN KILANG'),
+(16, 'KF00070', 'CAWANGAN KELESTARIAN & KHIDMAT NASIHAT KILANG'),
+(17, 'SM00012', 'PENGARAH HAL EHWAL PESERTA'),
+(18, 'SM00034', 'BAHAGIAN PENGURUSAN PESERTA'),
+(19, 'SM00035', 'CAWANGAN KESEJAHTERAAN PESERTA'),
+(20, 'SM00039', 'CAWANGAN PENGHASILAN WILAYAH 1'),
+(21, 'SM00040', 'CAWANGAN OPERASI PEMBANGUNAN'),
+(22, 'SM00041', 'CAWANGAN PENGURUSAN BAJA'),
+(23, 'SM00088', 'BAHAGIAN INPUT PERTANIAN'),
+(24, 'SM00089', 'BAHAGIAN R&D'),
+(25, 'SM00105', 'BAHAGIAN PERANCANGAN PROJEK'),
+(26, 'SM00107', 'CAWANGAN PENGURUSAN UKUR'),
+(27, 'SM00108', 'BAHAGIAN INSTITUSI PESERTA'),
+(28, 'SM00160', 'CAWANGAN PENTADBIRAN & MODAL INSAN PESERTA'),
+(29, 'SM00162', 'CAWANGAN PEMBANGUNAN KOPERASI'),
+(30, 'SM00163', 'CAWANGAN PEMBANGUNAN BELIA & WANITA'),
+(31, 'SM00164', 'CAWANGAN PERKHIDMATAN & PEMBANGUNAN'),
+(32, 'SM00165', 'CAWANGAN PERUNDINGAN & VENTURES BARU'),
+(33, 'SM00182', 'BAHAGIAN PEMBANGUNAN LADANG'),
+(34, 'SM00183', 'BAHAGIAN PENGHASILAN LADANG'),
+(35, 'SM00204', 'PENGARAH PERLADANGAN'),
+(36, 'SM00216', 'BAHAGIAN KHIDMAT NASIHAT LADANG'),
+(37, 'SM00224', 'CAWANGAN KHIDMAT INFORMASI PESERTA'),
+(38, 'SM00239', 'BAHAGIAN TANAH & UKUR'),
+(39, 'SM00241', 'BAHAGIAN KOMUNIKASI KORPORAT'),
+(40, 'SM00242', 'CAWANGAN STATISTIK, GEOSPATIAL & PENTADBIRAN'),
+(41, 'SM00246', 'CAWANGAN PENTADBIRAN PERANCANGAN PROJEK'),
+(42, 'SM00251', 'CAWANGAN PERANCANGAN PROJEK P&P & TANAM SEMULA'),
+(43, 'SM00288', 'BAHAGIAN KEUSAHAWANAN & SUMBER SOSIO EKONOMI'),
+(44, 'SM00308', 'CAWANGAN KHIDMAT PESERTA'),
+(45, 'SM00310', 'CAWANGAN PENGURUSAN PERUNDANGAN PESERTA'),
+(46, 'SM00311', 'CAWANGAN PENGURUSAN TANAH'),
+(47, 'SM00312', 'CAWANGAN PEMASARAN PRODUK USAHAWAN'),
+(48, 'SM00316', 'CAWANGAN BISNES BERSEPADU'),
+(49, 'SM00320', 'CAWANGAN PENGAWASAN'),
+(50, 'SM00321', 'CAWANGAN KHIDMAT NASIHAT AGRONOMI'),
+(51, 'SM00323', 'CAWANGAN PENTADBIRAN PEMBANGUNAN'),
+(52, 'SM00324', 'CAWANGAN PENGHASILAN WILAYAH 2'),
+(53, 'SM00325', 'CAWANGAN MEKANISASI & TENAGA KERJA'),
+(54, 'SM00326', 'CAWANGAN BAHAN TANAMAN & INPUT PERTANIAN'),
+(55, 'SM00335', 'CAWANGAN PEMATUHAN KUALITI & PENTADBIRAN'),
+(56, 'SS00001', 'PEJABAT PENGERUSI'),
+(57, 'SS00002', 'PEJABAT KETUA PEGAWAI EKSEKUTIF'),
+(58, 'SS00004', 'PENGARAH KEWANGAN'),
+(59, 'SS00011', 'CAWANGAN SETIAUSAHA SYARIKAT 1'),
+(60, 'SS00013', 'CAWANGAN OPERASI AUDIT DALAM KOMERSIAL'),
+(61, 'SS00014', 'CAWANGAN APLIKASI TERAS'),
+(62, 'SS00017', 'CAWANGAN PENGURUSAN SUMBER MANUSIA'),
+(63, 'SS00018', 'BAHAGIAN PENGURUSAN SUMBER MANUSIA'),
+(64, 'SS00022', 'BAHAGIAN KEWANGAN KOMERSIAL'),
+(65, 'SS00023', 'CAWANGAN AKAUN SYARIKAT'),
+(66, 'SS00024', 'CAWANGAN PENGURUSAN BAJET KERAJAAN'),
+(67, 'SS00026', 'CAWANGAN PEROLEHAN'),
+(68, 'SS00029', 'CAWANGAN AKAUN KILANG SAWIT'),
+(69, 'SS00045', 'CAWANGAN INFRASTRUKTUR & KOMUNIKASI'),
+(70, 'SS00046', 'KUMPULAN AUDIT DALAM'),
+(71, 'SS00064', 'CAWANGAN KAWALAN KEWANGAN'),
+(72, 'SS00077', 'CAWANGAN UNDANG-UNDANG 1'),
+(73, 'SS00085', 'BAHAGIAN KEJURUTERAAN'),
+(74, 'SS00101', 'PENGARAH SUMBER MANUSIA & PENTADBIRAN'),
+(75, 'SS00103', 'BAHAGIAN OPERASI SISTEM MAKLUMAT'),
+(76, 'SS00159', 'CAWANGAN LATIHAN & KOMPETENSI'),
+(77, 'SS00166', 'CAWANGAN INTEGRITI'),
+(78, 'SS00168', 'CAWANGAN PEMANTAUAN PRESTASI'),
+(79, 'SS00173', 'CAWANGAN AKAUN PROJEK'),
+(80, 'SS00174', 'KUMPULAN PENASIHAT UNDANG-UNDANG'),
+(81, 'SS00175', 'CAWANGAN AKAUN ANAK SYARIKAT'),
+(82, 'SS00199', 'BAHAGIAN PEMANTAUAN PRESTASI'),
+(83, 'SS00200', 'BAHAGIAN KELESTARIAN'),
+(84, 'SS00208', 'KUMPULAN SETIAUSAHA SYARIKAT'),
+(85, 'SS00219', 'CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS'),
+(86, 'SS00220', 'CAWANGAN PENGGAJIAN, ELAUN & KEMUDAHAN'),
+(87, 'SS00221', 'CAWANGAN PERHUBUNGAN PERUSAHAAN'),
+(88, 'SS00227', 'BAHAGIAN KEWANGAN P&P'),
+(89, 'SS00231', 'BAHAGIAN PEMBANGUNAN SUMBER MANUSIA'),
+(90, 'SS00232', 'CAWANGAN AKAUN ESTET FB'),
+(91, 'SS00233', 'BAHAGIAN PEROLEHAN'),
+(92, 'SS00243', 'CAWANGAN KESELAMATAN, KESIHATAN & PERSEKITARAN'),
+(93, 'SS00244', 'BAHAGIAN ORGANISASI & METHOD'),
+(94, 'SS00252', 'CAWANGAN FELCRA TEKNOLOGI'),
+(95, 'SS00275', 'BAHAGIAN STRATEGI, RISIKO & PELABURAN'),
+(96, 'SS00277', 'BAHAGIAN UNDANG-UNDANG'),
+(97, 'SS00278', 'CAWANGAN PENSIJILAN'),
+(98, 'SS00281', 'BAHAGIAN PENTADBIRAN & FASILITI'),
+(99, 'SS00282', 'BAHAGIAN AUDIT DALAM AKTIVITI KOMERSIAL'),
+(100, 'SS00284', 'BAHAGIAN BAJET'),
+(101, 'SS00295', 'CAWANGAN INFRASTRUKTUR BANGUNAN'),
+(102, 'SS00296', 'CAWANGAN INFRASTRUKTUR LADANG'),
+(103, 'SS00298', 'CAWANGAN UKUR BAHAN'),
+(104, 'SS00299', 'CAWANGAN KEJURUTERAAN MEKANIKAL'),
+(105, 'SS00327', 'PENGARAH TRANSFORMASI & STRATEGI'),
+(106, 'SS00333', 'CAWANGAN AKAUN SYARIKAT USAHASAMA 1 (JV)'),
+(107, 'SS00334', 'CAWANGAN SISTEM KEWANGAN'),
+(108, 'SS00336', 'CAWANGAN PERANCANGAN STRATEGIK'),
+(109, 'SS00337', 'CAWANGAN BUSINESS PROCESS IMRPOVEMENT'),
+(110, 'SS00339', 'CAWANGAN EMERGING TECHNOLOGY'),
+(111, 'SS00342', 'CAWANGAN KELESTARIAN'),
+(112, 'SS00345', 'CAWANGAN AUDIT DALAM KOMERSIAL 1'),
+(113, 'SS00346', 'CAWANGAN AUDIT DALAM KOMERSIAL 2'),
+(114, 'SS00347', 'CAWANGAN AUDIT DALAM P&P 1'),
+(115, 'SS00348', 'CAWANGAN AUDIT DALAM P&P 2'),
+(116, 'SS00349', 'CAWANGAN AUDIT DALAM SIASATAN'),
+(117, 'SS00351', 'CAWANGAN PENGURUSAN BAJET SYARIKAT'),
+(118, 'SS00352', 'CAWANGAN PENTADBIRAN & FASILITI'),
+(119, 'SS00355', 'CAWANGAN SUMBER STRATEGIK 2'),
+(120, 'SS00356', 'CAWANGAN PENGURUSAN KONTRAK'),
+(121, 'SS00357', 'CAWANGAN PENTADBIRAN PEROLEHAN'),
+(122, 'SS00360', 'CAWANGAN SUMBER STRATEGIK 1'),
+(123, 'SS00364', 'BAHAGIAN KETERJAMINAN MAKANAN & BISNES BARU'),
+(124, 'SS00365', 'CAWANGAN AKAUN SYARIKAT USAHASAMA 2 (JV)'),
+(125, 'SS00368', 'PEJABAT TIMBALAN KETUA PEGAWAI EKSEKUTIF'),
+(126, 'SS00226', 'CAWANGAN RISIKO & TADBIR URUS');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `old_memo`
+--
+
+CREATE TABLE `old_memo` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `folder_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `rujukan_no` varchar(255) NOT NULL,
+  `date_created` date NOT NULL,
+  `pdf_file_path` varchar(255) NOT NULL,
+  `uploaded_by` bigint(20) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `id` int(11) NOT NULL,
+  `no_staff` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recipients`
+--
+
+CREATE TABLE `recipients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `recipient_email` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `no_staff` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `jawatan` varchar(255) NOT NULL,
+  `lokasi` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `role` tinyint(1) NOT NULL DEFAULT 0,
+  `profile_pic` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `no_staff`, `name`, `email`, `password`, `jawatan`, `lokasi`, `created_at`, `updated_at`, `role`, `profile_pic`) VALUES
+(1, '0', 'NUR ANIS UMAIRAH BINTI NOR AZMI', 'anisumairaha@gmail.com', '$2y$10$4PqsfRx7fH8VfVy60.zFU.2TpuVmYoY5S5PUDF/0LSGnOONNr1ZdS', 'INTERN', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, ''),
+(2, '3380', 'DALJIT SINGH A/L D. KARTAR SINGH', 'daljit@felcra.com.my', '$2y$12$LuaXcqP8OQgqyM8mgc0Iw.7JXNLb/qJG2tBQ7A5A0ATkT4NQHbWbi', 'PENOLONG PENGURUS PENTABIRAN', 47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(3, '3428', 'SHARIFUL AZHAR BIN ABDULLAH', 'sazhar@felcra.com.my', '$2y$12$hBRABP3cw447fwFC9t5mpOui5IKAMiilW/f3Obw7BKqoVV9V6XJXu', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(4, '3503', 'MUHIJAN BIN SUMAR @ HJ ABD RAHIM', 'muhijan@felcra.com.my', '$2y$12$A8t13m.m1kK8rqeVitjHp.0w9eJ8im61RCv.o/RLV.4ZUfrv35nha', 'PENOLONG PENGURUS PERLADANGAN', 33, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(5, '3582', 'ZAINOL ABIDIN BIN SABLI', 'zainol@felcra.com.my', '$2y$12$gA8doVzp6ZymYr0qN7cnK.rDXlvv7rUMuhgMub00dAQR7lkSXmNuW', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 99, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(6, '3615', 'NOOR AISHAH BINTI AHMAT', 'aishah.ahmat@felcra.com.my', '$2y$12$eCYw42dl/LlxlYpKIaRQx.lnIfZEp4jBgl.jBdt70fqYix6iHh/oe', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 51, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(7, '3752', 'AHMAD SUHAIMI BIN ABDULLAH', 'suhaimi.abdullah@felcra.com.my', '$2y$12$uFte6wEdCly33b9Q8bquduorSUCq04bbVb1BX5NLM9RrnwwtRM5A.', 'PENOLONG EKSEKUTIF KANAN UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(8, '3754', 'ZAINAL ABIDIN BIN ABDUL LATIF', 'zainal.abidin@felcra.com.my', '$2y$12$yoo8vtNVQ/VGxJhNN2xWAOEoAklsfiA9lGRG31rl7BFFtKSLmVgHy', 'PEMBANTU EKSEKUTIF PENTADBIRAN', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(9, '3867', 'ROHAYA BINTI MOHD YUSOF', 'rohayamy@felcra.com.my', '$2y$12$K0T9EA6/R6eSAlLoYaKJM.dhkQNFMFKEvgjdVXNFrARWUYSFaI3My', 'PENOLONG EKSEKUTIF PENTADBIRAN', 73, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(10, '3875', 'ADDZALITA BINTI ABDULLAH', 'addzalita@felcra.com.my', '$2y$12$aC20eR/7SzXrpL34vzc0ZeC/ijX.H6oY.llSeTZr7Z5RmZPmIpmym', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 100, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(11, '3882', 'ZORKARNAIN BIN MOHAMED', 'zorkarnain@felcra.com.my', '$2y$12$U3j/sNwk14Nia9YpdpHKA.cgpWLPcGWDYdRmK0s4mwT8KoeOQM/T.', 'PENGARAH SUMBER MANUSIA & PENTADBIRAN', 74, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(12, '4043', 'AZIZAN BIN MAT AKHIR', 'azizan@felcra.com.my', '$2y$12$UxsLLRZtkk8cycMdhY3WCugNo30XADOYZsEzvLN.p7LMDjjmpYsra', 'PENGURUS KANAN', 98, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(13, '4072', 'HALIZA BINTI YUSOFF', 'haliza@felcra.com.my', '$2y$12$i20I6mx9BYmvPwTFT6BYFO.Gy3mz3DZCglwj0llyp6VgkvSNwPGLy', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 63, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(14, '4121', 'IDRIS BIN LASIM', 'idrislasim@felcra.com.my', '$2y$12$v1xnng.f2HcQg2yxW2vFjO7pEIcQMDF5o3kIk0NolA2YHZ5IAMYTG', 'KETUA PEGAWAI EKSEKUTIF', 57, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(15, '4122', 'ZAAFAR BIN MOHD DAHLAN', 'zaafar.dahlan@felcra.com.my', '$2y$12$O9Km54IKvuYjPhHiJFxo0.6SgT22OVFl7o29dKC6uvQQE3PnPATta', 'PENGURUS KANAN KHIDMAT NASIHAT AGRONOMI', 50, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(16, '4149', 'SUBHIAH ROSLINA BINTI SHAHIBI', 'subhiah@felcra.com.my', '$2y$12$A/zBw2ZUJ32uK3z/akxzp.r.9JQ2Xk.iZ47ZDHanLZDmecMP4OWQ2', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(17, '4167', 'KHIRUL ANUAR BIN ABDULLAH', 'khirul@felcra.com.my', '$2y$12$LB5I4i3POCq35MlGNgiS1u2YWNauQbtcU2Ej/NoliWg93lJuBhLIy', 'EKSEKUTIF UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(18, '4315', 'HASSAN BIN KHAMIS', 'hassank@felcra.com.my', '$2y$12$2j0kkdOmjiZ3t2bUJiilgue7l.3TGPrZq2m47rWFTzsNmAJs004v.', 'TIMBALAN PENGARAH PERANCANG PROJEK', 25, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(19, '4319', 'MOHAMMAD BIN AB RAHMAN', 'mohammad@felcra.com.my', '$2y$12$Pao/frPKsZ40qyZJd2kjte.xIScrNaAq6uCUM2U99GYTSZmEyvfpO', 'PENGARAH HAL EHWAL PESERTA', 17, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(20, '4444', 'ABDULLAH SOHAINI BIN HASSAN', 'abdullahsohaini@felcra.com.my', '$2y$12$d3OWBL0JZBaHjIfKPu0LmOHhPo7ihnefJSIML63RE3dEhbtiUpQsK', 'TIMBALAN PENGARAH PENGARAH TANAH & UKUR', 38, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(21, '4447', 'ROSLAN BIN AHMAD ZAKI', 'roslan.zaki@felcra.com.my', '$2y$12$OHjkpYrreZf6TvWxhenRZ.SsNgqZ6qb/tTPcjPHCtN0V.mpC2GAaK', 'EKSEKUTIF PEMBANGUNAN PESERTA', 44, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(22, '4490', 'HAFIZUDDIN BIN YAAKOB', 'hafizuddin.yaakob@felcra.com.my', '$2y$12$Mcp2AGBJ.cey3OhGM3vreOFl21YKZRL5ySNMhGfN6Bdu/ODrb8Qyi', 'PENOLONG PENGURUS PERLADANGAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(23, '4503', 'HASHIM BIN MAT ISA', 'hashim@felcra.com.my', '$2y$12$gS/B2yXn/IX1itTmRexqMezv.xwOFOTIh/m6AGKLQPXamfuSf72.C', 'PENGURUS KANAN PENTADBIRAN & MODAL INSAN PESERTA', 28, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(24, '4541', 'IDRIS BIN OSMAN', 'idris@felcra.com.my', '$2y$12$jLF67jEviNuIpDzkxZCtHeqvkVW2NXlyCUeMH5E5k1XdkIjY0IQUi', 'PENOLONG EKSEKUTIF PENTADBIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(25, '4663', 'SAHARUDIN BIN SHAHLI', 'saharudin@felcra.com.my', '$2y$12$xpuHiIfNIQ.fvAr/1Q9lLOaT8MvbUqePe0z6OOR.mLu7T0crrPtQe', 'SETIAUSAHA SYARIKAT', 59, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(26, '4666', 'SHAMSUL NIZAM BIN ISHAK', 'snizam@felcra.com.my', '$2y$12$FzJ3Cs.uDkFja2Ys83bOM.9k.mrc0kg8E8CANjt.2rnivDyV.5eQK', 'EKSEKUTIF PENTADBIRAN', 53, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(27, '4706', 'SHA\'ARI BIN ABD RAHMAN', 'shaari@felcra.com.my', '$2y$12$bmkpL0QnfPCtQRbagMfktud4sM5oemTEAaK5I49yXFmZzglCM7BWu', 'PENGURUS KANAN OPERASI AUDIT DALAM KOMERSIAL', 60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(28, '4708', 'YUSRI BIN ZAKARIA', 'yusri@felcra.com.my', '$2y$12$xmjYQtuZRNFvfsQMUOwUnuLx6gm40Db0rVZwU3p1WUtK7aEvSAhD.', 'EKSEKUTIF PENTADBIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(29, '4737', 'ZUMAINI BIN MOHAMMED YASIM', 'zumaini@felcra.com.my', '$2y$12$z/SDv2DN/shClaQEve3ff.81zjKIYo8ndDEh7EPEqe6dAD6rwc2wC', 'PENOLONG PENGURUS PERLADANGAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(30, '4739', 'MUHAMAD RIDHA BIN MD YUSOF', 'ridha@felcra.com.my', '$2y$12$.mf5mOmINoyhGISsfxsPk.XnfwJwnDfo7PlKNit4QD.PILa.eldXm', 'PENGURUS KANAN', 74, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(31, '4743', 'MOHD SUHAIMI BIN MANSOR', 'suhaimi.mansor@felcra.com.my', '$2y$12$OUhdEJKiKtVrEOrKGSekme3sSTD4qQtdJMlryDmI/3RNLx1E5bixO', 'PENGURUS KANAN PEMBELIAN BTS', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(32, '4744', 'ABDUL MALEK BIN HASHIM', 'malek@felcra.com.my', '$2y$12$xW29g/R6d63PXUFK3pfbNONUiPufWsOKO9nef5s1tKRrWXwqeiTke', 'TIMBALAN PENGARAH KHIDMAT NASIHAT LADANG', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(33, '4769', 'MOHD RASHID BIN MOHD JADI', 'rashid@felcra.com.my', '$2y$12$8.uKM08QRhjfPIkopO0afuoZ//KNr5t4KmJacvdIqZ/GnTY9b/Bna', 'TIMBALAN PENGARAH PENGARAH PEROLEHAN', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(34, '4771', 'ROHAIZAT BIN AHMAD', 'rohaizat@felcra.com.my', '$2y$12$duEo18q71tS0A5MIX18aFOyP34MBS2cxk7vlfjrvRhuW/5pCp5Mma', 'PENGURUS KANAN PERANCANGAN STRATEGIK', 108, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(35, '4828', 'KASUMAWATI BINTI HAMZAH @ ABAS', 'kasumawati@felcra.com.my', '$2y$12$pwkVkG0dN4zJl9Dx9xt7DuqMV7pa0G/HY/zi6.bA6PyPt2I1OpSWu', 'PEMBANTU KHAS', 125, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(36, '4849', 'DINA ALFHA BINTI ARUND', 'dinaalfha@felcra.com.my', '$2y$12$OXmuLep9UGSiReeRwH5LeeNwotYyzBHyRzSwP3t0LM2yS7sQbdHnC', 'TIMBALAN PENGARAH KEUSAHAWANAN & SUMBER SOSIO EKONOMI', 43, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(37, '4856', 'NORMA BINTI AHMAD', 'norma@felcra.com.my', '$2y$12$6zS2LvIud2OpVaPd6gzd5uBOz/TGHCzlUfsfmUJbPrzTJGhlPnZmy', 'TIMBALAN PENGARAH', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(38, '4872', 'MOHD AZLI BIN MOHAMAD RIPIN', 'azli@felcra.com.my', '$2y$12$9Yk7aXRNwgGmuqC1y2US8ONQ1aC67kKLBn46GTpZGwgaP4AeyJylu', 'PENGURUS KANAN STATISTIK, GEOSPATIAL & PENTADBIRAN', 40, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(39, '4878', 'HAMIDON BIN KHAMIS', 'hamidon@felcra.com.my', '$2y$12$loaIQo1wkMW0uqw/CbtR6uiv3RnDn9Sui/hIQEPAqnWlAs8FEhLAm', 'EKSEKUTIF KANAN PERLADANGAN', 54, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(40, '4966', 'KAMALUDDIN BIN MUSA', 'kamaluddin@felcra.com.my', '$2y$12$vMSUQeiyhxlEvq4SORk8geaUvOwgKqnL43r8MGUE8o/uLbI8kJYQG', 'PENGURUS KANAN PEMASRAN PRODUK USAHAWAN', 47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(41, '4989', 'AZILAWATI BINTI YUNOS', 'azilawati@felcra.com.my', '$2y$12$plQqqDp.0hrAHud5YMSJgeJgP/GfMCyn5hPdHGY2THGKvOKhe.bBO', 'EKSEKUTIF PEMBANGUNAN PESERTA', 37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(42, '4993', 'ROSNANI BINTI HASHIM', 'rosnani.hashim@felcra.com.my', '$2y$12$qdZPsTXQsbvL6TKnGBvyXuxr8yLELf6LWP/4OG1AJAztfJL89TZNG', 'PENOLONG EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 31, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(43, '5004', 'WAN KAMARUDIN BIN WAN IDRIS', 'wandin@felcra.com.my', '$2y$12$C6AaYVnNmhX7/TwWbVFQ3OC9a6J2ppFpDMT8DwaShh42gSQQ27ojq', 'PENGURUS KANAN PENGURUSAN PERUNDANGAN PESERTA', 45, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(44, '5008', 'ROSHAYATI BINTI CHE MAMAT', 'roshayati@felcra.com.my', '$2y$12$wbKhonCrQIygLN6/gbD1QeAezwd91Cq66pIJe/yEwLPOZ9xfxnZwi', 'PENOLONG EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(45, '5017', 'KALSOM BINTI A.RAHMAN', 'kalsom@felcra.com.my', '$2y$12$Z6ayhGMAjgiQw2AjHHdcYeAyR8YPA36a1WJLKc8uydcoEi2Rka5rG', 'TIMBALAN PENGARAH PEMANTAUAN PRESTASI', 82, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(46, '5035', 'ZAINAL ABIDIN BIN YUSOF', 'zainal.yusof@felcra.com.my', '$2y$12$L2nUjp2l0t/tQk3Y4zb4veIU9dxSmmGdd4fYzLPWmsMupLqykVpXC', 'EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(47, '5070', 'ZAINUL ANZAID BIN SEMAN', 'z_anzaid@felcra.com.my', '$2y$12$sC68K4FAmyFFCxSP3TRjy.uckXG0quNR17vnbPbw3eZpwg77dqzxS', 'TIMBALAN PENGARAH INSTITUSI PESERTA', 27, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(48, '5074', 'ZULKHAIRI BIN ABDUL RAHIM', 'zulkhairi@felcra.com.my', '$2y$12$nIgZGlqRCTAC.SHEfCnPvOVEHyY7Enda/Vi1dmFKeaea/PdQ7jg.2', 'PENGARAH PERKILANGAN & INFRASTRUKTUR', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(49, '5095', 'NOORDIN BIN SAAD', 'noordinsaad@felcra.com.my', '$2y$12$Ing3Z3wzPFcXPyjNz8mP1etKdFZ2ovMpF6cvWepjFNaTTSb47Lw/a', 'TIMBALAN PENGARAH', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(50, '5102', 'SITI NORHAYA BTE SHAHARUL ANWAR', 'siti.norhaya@felcra.com.my', '$2y$12$pBAmgzxKYRKyrPlAgH.DiOWkQ.weRbEiU40OD6cqvNEa6QXn.fIjy', 'PENOLONG PENGURUS PENTABIRAN', 117, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(51, '5106', 'MOHAMAD KHALID BIN MOHAMAD NOOR', 'mkhalid@felcra.com.my', '$2y$12$RFo/sUfVZ.8qa8.Rm5wADeepxNtIeB6r/SN5ko8cJElsZe41psMq6', 'PENGARAH TRANSFORMASI & STRATEGI', 105, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(52, '5121', 'RAZALI BIN OSMAN', 'razali.osman@felcra.com.my', '$2y$12$1PD7FmXe7nn/55bXXcztwOwFFFpQGocM2rWGe7Eq9NGAi8WtCKrIm', 'EKSEKUTIF PEMBANGUNAN PESERTA', 29, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(53, '5148', 'SUBRI BIN SHAARI', 'subri@felcra.com.my', '$2y$12$RlCibzHm9zWi.6Yoy9YwU.PhQn0n./1Xz2/CZvIUo5toViNyh3kj.', 'PENGURUS BINAAN', 98, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(54, '5152', 'MOHD RASHIDI BIN HJ SALLEH', 'rashidi@felcra.com.my', '$2y$12$Dw8NQycuEukzumAxvaEsYe8KZemG/6KZ02X9.80Uy2kfdh1OcpuLK', 'TIMBALAN PENGARAH INPUT PERTANIAN', 67, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(55, '5171', 'KHAIZATI NAZIMA BINTI ABDUL KADIR', 'khaizati@felcra.com.my', '$2y$12$4yeOdNVLI5wJd/VAGR7ojuFchtErPRH4p8W1woEngr7sVafKjkK7i', 'PEMBANTU KHAS', 35, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(56, '5172', 'NURHAZILA BINTI AJIB', 'norhazila@felcra.com.my', '$2y$12$O4EfgUrzpOnbmsY5M0t.8.CO1xpWx78DLncnBfM.4e2HrL.zAZ.Oq', 'PENOLONG PENGURUS PENTABIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(57, '5184', 'WAN MOHD SYAHARIN BIN WAN HUSAIN', 'wsyaharin@felcra.com.my', '$2y$12$.tHLoZSLBDMXcvlLfEcg1ujjIGY6l4HMnyr6Ipt36ktaJM2gEWbEe', 'PENGURUS MEKANIKAL', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(58, '5217', 'MOHD ZAHIRUDDIN BIN SALLEH', 'zahiruddin@felcra.com.my', '$2y$12$HjiWOAU7RtGhNfBsqaKqH.TwBuhBnpFSwFqvbjW000umvRqm2gTCe', 'TIMBALAN PENGARAH PEMBANGUNAN & HILIRAN KILANG', 6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(59, '5251', 'IRMAN BIN ABOK', 'irman@felcra.com.my', '$2y$12$EadlNKcLWwdp6lnklejYiOL/fggo9dU.0X9irhWEiL8DDjwihXXbi', 'PENGURUS KANAN PEROLEHAN', 67, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(60, '5258', 'MARIAH BINTI HUSAIN', 'mariahasm@felcra.com.my', '$2y$12$4be135s/KXx/657zL5V0keZCA0z4.yb7dI7pM.GAUZoyYF2fzrDFy', 'TIMBALAN PENGARAH KEWANGAN KOMERSIAL', 64, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(61, '5259', 'SAZALI BIN ISMAIL', 'sazali@felcra.com.my', '$2y$12$8dD0lylOqMpdZapxdei5Fe2Fd79P/yYD7H1cqhGvTlGujXIrhCkyG', 'PENGURUS KANAN SISTEM KEWANGAN', 107, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(62, '5264', 'NOORAFEDAH BINTI ABDUL RASHID', 'fiedah@felcra.com.my', '$2y$12$Zb0DOqhgPbvyoSbyY1SeDO.HV27FiS2FFHqpA2c5waAABt.1OJGEu', 'PENOLONG EKSEKUTIF PENTADBIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(63, '5269', 'MOHD ISKANDAR BUDIMAN BIN MD ARIFF', 'mohd.iskandar@felcra.com.my', '$2y$12$2fa7RcZQ4uun3m7HtMt9y.yMnnhLppeMsoAX6i887iaHkt3bjYzDi', 'TIMBALAN PENGARAH PENGARAH KEJURUTERAAN', 73, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(64, '5273', 'MUHAMMAD AMIN BIN AHMAD TAJUDIN', 'muhdamin@felcra.com.my', '$2y$12$SX0UojbYM0XH9U2XYIfL9OZFt4N6qpq/GamoZqq8PsKgi2cw6DNB6', 'PENGURUS KANAN KEJURUTERAAN MEKANIKAL', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(65, '5276', 'HASNUNYATI BINTI MOHD RADZI', 'hasnunyati@felcra.com.my', '$2y$12$mUJGGViFn2eQaPIJdI0f2OoFToiOJ.FVPau1Mx5046.XnWZGWGdXS', 'PENGURUS KANAN AKAUN SYARIKAT', 65, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(66, '5277', 'AZRIMAN BIN RIDOUAN', 'azriman@felcra.com.my', '$2y$12$MgPltLAZYhD.fWDq/qxUOOUWgSluD09ZzKY6FUYZWVu33aKedCe8m', 'PENGURUS KANAN', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(67, '5279', 'MOHAMMAD NAJIB BIN MISWAN', 'mnajib@felcra.com.my', '$2y$12$eIf831j2zZYRXgkgfOvL/OOqwAR6pjosV9jl58YsuBeF5YdTy4J1e', 'PENGURUS KANAN AKAUN PROJEK', 79, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(68, '5281', 'NOORASMAWATI BINTI ISMAIL', 'noorasmawati@felcra.com.my', '$2y$12$buQOMKF7OpgomvAP8Z.VCO2rLhiogxvn8xZrHEU1wShJ6PoMsiuqu', 'PENGURUS KANAN AUDIT DALAM P&P 1', 114, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(69, '5288', 'MAZLAN BIN AHMAD', 'irmazlan@felcra.com.my', '$2y$12$pgfadU1MAHJ5XjOjDHeqN.MjAZrsvLEfL8J8mgW3qLM50pOXxnQUy', 'TIMBALAN PENGARAH ORGANISASI & METHOD', 93, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(70, '5299', 'MOHAMED IKBAL BIN ABDUL RASHID', 'mikbal@felcra.com.my', '$2y$12$5CS31geTtAedCvDDk9X2TeHiY9vuF7hL3GRLuzhvZ0l2KhIgRjKdG', 'PENOLONG EKSEKUTIF KANAN CHARGEMAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(71, '5312', 'MARZUKI BIN ZULKIFLI', 'marzuki5312@felcra.com.my', '$2y$12$GAvvX23Xjlkm80T0jgZzD.iTGQfbaAgnSMiCELrD2fknm2oZZ1WQ6', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(72, '5313', 'SITI MAZURA BT RANAAI', 'mazura@felcra.com.my', '$2y$12$VhwqI/.kocTXy0F2Pr5f/uWXK2BP2KgCYvYoCqNoQQ8BCMKwAQ5Sa', 'EKSEKUTIF KANAN SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(73, '5316', 'IMRAN BIN KHAIRUDDIN', 'imran@felcra.com.my', '$2y$12$VGUOBz9ZNnBrO3i..wY25u6uZTKKksuaZMVDJjwQBVlYrE86aT7Eq', 'EKSEKUTIF KANAN KEWANGAN', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(74, '5317', 'HANIS FAZLINA BINTI MD YUSOP', 'hanis@felcra.com.my', '$2y$12$hmL2OEW.GFncCaLu6vhVJ.TV1BBVkNI3BWZoNvsxkJVVn.43CpTxi', 'PENGURUS KANAN AKAUN SYARIKAT USAHASAMA 2 (JV)', 124, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(75, '5318', 'MOHD HELMI BIN ABU TALIP', 'helmi@felcra.com.my', '$2y$12$Cs4D8dsrLH6sP9obpRdK0OqGE.RIxCyETNQKdxs6upT.x56AK61iK', 'PENGURUS KEWANGAN', 90, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(76, '5321', 'SITI AIDA BINTI MOHD SUPIAN', 'sitiaida@felcra.com.my', '$2y$12$QYLLdhdS0TYuabUp8d3qXOclorsLqP6HR3qQMffzWvSHgaDBxUime', 'PENGURUS KANAN PENGURUSAN BAJET SYARIKAT', 117, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(77, '5322', 'SUHEZRENSHAH BIN SALAMON', 'shah@felcra.com.my', '$2y$12$pMemOQf.aaofsITfhmX77uaWB0dj57hK7sku4dPKpW4uxbcLEPeU6', 'PENGURUS KANAN AKAUN KILANG SAWIT', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(78, '5323', 'MOHD SHAHRUL HAFIZ BIN MOHD IBRAHIM', 'shahrul@felcra.com.my', '$2y$12$59kWvDNZnRZRrGiarlsTB.Qhnz9AfATykz8MwzypsGfnqJhe85c5O', 'PENGURUS KANAN PENTADBIRAN & FASILITI', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(79, '5326', 'MAZLEEN BINTI ZAHARI', 'mazleen@felcra.com.my', '$2y$12$QN6zGOgOjHdUE81DJtCCmOkl6OpW7hEtZn0mJzsJHgpsGSjSPHd5e', 'PENOLONG PENGURUS PENTABIRAN', 106, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(80, '5329', 'ROHAIDAROHA BINTI MUHAMAD', 'rohaida@felcra.com.my', '$2y$12$mUd79O6ag1wTiC.6GYJLSOseUVi5WtDPBJ7OyRuZ/fgZrh5YeHNNC', 'PENGURUS KANAN BUSINESS PROCESS IMPROVEMENT', 109, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(81, '5335', 'MASTURA BINTI MAHMUD TARIDI', 'mastura@felcra.com.my', '$2y$12$lg9r6GuyMa1P4FaS64JZiu/VBjiAPw6ibvxMAl/DPyLnHaufcF1Eu', 'TIMBALAN PENGARAH OPERASI SISTEM MAKLUMAT', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(82, '5336', 'PUTRISAL BINTI PUTEH', 'putrisal@felcra.com.my', '$2y$12$Yl0JtGTb5u78IrB.yce/J.bqlAMGD3M0Etejv7Xd0eTHyHcrSEq8u', 'TIMBALAN PENGARAH PENTADBIRAN & FASILITI', 98, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(83, '5341', 'MOHD ARIF BIN HASHIM', 'arif.hashim@felcra.com.my', '$2y$12$NgJ01WFaDXgFPX9U4RmiOeLN6Hixr3FDfAjv6cy100cOCWbhvCnaa', 'PENOLONG EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(84, '5343', 'KHAIRUL NIZAM BIN ABU HASAN', 'knizam@felcra.com.my', '$2y$12$rfthGhsLK53dFcAbDh.8h.o6hSoF6aHV54bm.jViXIukjDm9tjEpi', 'PENGURUS KANAN', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(85, '5345', 'AMIRAH KAUSAR BINTI BASIRON', 'amirah@felcra.com.my', '$2y$12$Dw2k51s1/1/ZTxQWOS4DdeKtb28z2SJNnN3dzJ8uddbR0dVGT5D/a', 'PENASIHAT UNDANG-UNDANG', 80, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(86, '5346', 'SHUHAIMI BIN OTOK LAMAK', 'shuhaimi@felcra.com.my', '$2y$12$LFNLV8NcqsEJzaaQMqgrSeFyVmAQpj2ndcfM6virZL414uz0Q0uAe', 'TIMBALAN PENGARAH OPERASI KILANG', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(87, '5348', 'NIRAM MAZURA BINTI MOHAMED BEDERI', 'nmazura@felcra.com.my', '$2y$12$gGmkskCSP1ryCd2y56BSDeNjdqddbre5iD0.UMRFoP27bhi0vUkVS', 'PENGURUS KANAN AKAUN SYARIKAT USAHAMA 1 (JV)', 106, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(88, '5350', 'SYAFINAZ BINTI KAMALUDDIN', 'syafinaz@felcra.com.my', '$2y$12$8y0TNhXh5JzqCWs69G7QK.muczdCUnV05zFF2m0SizZI/YB4x0btS', 'PENGURUS KANAN PERUNDINGAN & VENTURES BARU', 32, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(89, '5351', 'FADILATULUSRAH BINTI OTHMAN', 'fadilatulusrah@felcra.com.my', '$2y$12$SyVTQp97Ndc5a/cobuZrt.uF9UgMFh/VYMuhtdzGmr0EqIFqyx7pe', 'PENGURUS KANAN PEMBANGUNAN BELIA & WANITA', 30, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(90, '5378', 'CHE ROSLIZA BINTI CHE DAUD', 'rosliza@felcra.com.my', '$2y$12$Fzxtd73L/V4M1uwqrvQ04Ox1W7COOcx3Kur10ppqNW6Ugw/w1gSFW', 'EKSEKUTIF KANAN SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(91, '5385', 'RAIMI BIN DARMAN', 'raimi.darman@felcra.com.my', '$2y$12$GVGXaZVlpRW8BpfQeNpzeORhkbFrreMhTcVFigcHIlNUA2E2qHZk.', 'PENGURUS MEKANIKAL', 119, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(92, '5386', 'MOHD SHAHRULNIZAM BIN MOHD NAWI', 'shahrulnizam@felcra.com.my', '$2y$12$G0/skxstLbkb0jvfwY8TnOJ1rHks3GuK5Iinjthmg4kmuKVDvlzGm', 'PENGURUS MEKANIKAL', 12, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(93, '5387', 'ZAKARIA BIN HASSAN', 'zakaria@felcra.com.my', '$2y$12$JMDruqzmxeo1rEeK0FyWTeHKx4/um6omAdQwBGgEiFz3KnaImeLEe', 'EKSEKUTIF KANAN MEKANIKAL', 13, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(94, '5388', 'YUSMIZAN BIN DESA', 'yusmizan@felcra.com.my', '$2y$12$vbQarZs5Tp9vzCdFyyBe2u9HSQTgwk3kEdEOrCcuEM2orletXJTqe', 'EKSEKUTIF KANAN MEKANIKAL', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(95, '5389', 'MOHD FADELY BIN MD ASRI', 'fadely@felcra.com.my', '$2y$12$1rADar.83hAl27a7.tlu9OWJ.LsTuEiUrX4975kqCZehcFa/UBDqu', 'PENGURUS MEKANIKAL', 14, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(96, '5400', 'HARMIZI BIN ABDULLAH @ ABD HALIM', 'harmizi@felcra.com.my', '$2y$12$CYid/Lkf0bgds82bV7ytRuEoPMY06wzJHypEmhBTmjNwntwe2egH2', 'PENGURUS KANAN APLIKASI TERAS', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(97, '5409', 'NUR AZHANI BINTI AB.GHANI', 'nurazhani@felcra.com.my', '$2y$12$yjGpIq3jUvvFS6oGVYrDaOq9zuBSQthPE3Vln81HFx18wvsskI1PK', 'TIMBALAN PENGARAH KETERJAMINAN MAKANAN & BISNES BARU', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(98, '5410', 'KHAIRANI BINTI BUCHARI', 'khairani@felcra.com.my', '$2y$12$RlXqOz7Jwle4JfcMddlWdeJ0Yx9zh/vlXQXsVUOdLPVj.AaE89RxG', 'PENOLONG PENGURUS PENTABIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(99, '5411', 'SITI FUZIAH BINTI HJ SAID', 'sitifuziah@felcra.com.my', '$2y$12$vcY3QztZwt7Huv6ongwIru9tSZC1Dbc.KJdK7IldBT3kFAQM5FqX.', 'TIMBALAN PENGARAH PENGARAH BAJET', 100, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(100, '5412', 'AIDATUL SIMA BINTI MOHD SHARIF', 'aidatul@felcra.com.my', '$2y$12$lk1nC4bp9Zx5oDJLPsKnIO5gFutRbiC3Cr5PTrD7RNktXwNOzcCsu', 'TIMBALAN PENGARAH PENGURUSAN SUMBER MANUSIA', 63, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(101, '5413', 'ABD KHALIL BIN ABD GHAFFAR', 'abdkhalil@felcra.com.my', '$2y$12$4XjNchNExWkpUzgb05W7ZO.atUdp2yAL47X6AleH.vyCqpTGqb0Y6', 'PENGURUS KANAN BISNES BERSEPADU', 48, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(102, '5416', 'MARZIANA BINTI MANGSOR', 'marziana@felcra.com.my', '$2y$12$EbVZ.UvmuCoDKr0bicWssuFF3vXnsmfWST/cJtOxjYZwOcrsEtKHm', 'TIMBALAN PENASIHAT UNDANG-UNDANG', 96, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(103, '5417', 'SYARIFAH NOOR IRMA SURYANI BT SYD AHMAD', 'syarifah@felcra.com.my', '$2y$12$X0zJcQYOMx5MnIt4dO5B0u13XJwOlTYfh7goMjVTddvZYs7vRQ7Ku', 'PENGURUS KANAN PENGAWASAN', 49, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(104, '5419', 'MOHD FAIZATUL AKMAL BIN ISMAIL', 'faizatul@felcra.com.my', '$2y$12$096glCaNk5wKRX5EJnYwV.xznJxSLy71877xrgkUlbSmOUpBnPL9O', 'PENOLONG PENGURUS PERLADANGAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(105, '5423', 'MOHD ZIN BIN DERAMAN', 'mdzin@felcra.com.my', '$2y$12$Q9zA1NXgmayu4SB7.eyOm.XHJZRO4Mdf92H7t5abbvrJ2r/7DREfa', 'PENGURUS KANAN MEKANISASI & TENAGA KERJA', 53, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(106, '5431', 'ROSHADAH BINTI IBRAHIM', 'roshadah@felcra.com.my', '$2y$12$O/IFsG5sTrksPiTeInd1G.eRTrsiL9LHU9egvZoz/83vPOs9vuOmO', 'PENOLONG PENGURUS PENTABIRAN', 102, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(107, '5443', 'SUHAIMI BIN ABD. HAMID', 'suhaimi.hamid@felcra.com.my', '$2y$12$k5MsGFv6kULwpsUhuPVqBOWlO988BAZOdeKdWUtVJQSSVFGRMYrqK', 'PENGURUS KANAN UKUR BAHAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(108, '5465', 'NORZAMILA BINTI FAUZI', 'zamila@felcra.com.my', '$2y$12$KFgYTEh4YMMbfsQ8uIzcuOQOmQS9RsrMiTLpYF1qF1bf2TMe0aYJe', 'PENOLONG PENGURUS PENTABIRAN', 106, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(109, '5467', 'AMAL BINTI AHMAD ZAKUAN', 'amal@felcra.com.my', '$2y$12$tr6uLtB62P0CUlWNba6AYeal.Cu.HiUf0jWii3rHpzJpZTz3462ga', 'PEGAWAI KHAS', 57, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(110, '5468', 'ANUAR MERICAN BIN AKBAR MERICAN', 'merican@felcra.com.my', '$2y$12$Fwb1cqIfKX.qJDGANbdhmeQ9JtLUR8bEPQWyiiqgdmFkBwo6qDlxK', 'PEMANGKU PENGARAH PERLADANGAN', 35, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(111, '5519', 'NUR ZAKEENA BINTI JUNIT', 'zakeena@felcra.com.my', '$2y$12$bjdoeKhrDEq03AWXCe5GIeVP86KS7Pl270IsWI1baTiiDBA12dh2.', 'EKSEKUTIF PEMASARAN', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(112, '5520', 'MOHAMAD KHAIRIL BIN MUSTAFA', 'khairil@felcra.com.my', '$2y$12$xRAGHk7K8.g9mj686W/pUuKGHVLLVYj/6KzDts2dHxdPWTgS6Pv.6', 'EKSEKUTIF PENTADBIRAN', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(113, '5529', 'ZURINA BINTI ABDUL RAHIM', 'zurina@felcra.com.my', '$2y$12$ZeAD70ZgG/UfvNlnAkX6ReZ30Sf3k/pIgfQ2Jx284znPsHGvd6z8m', 'PENOLONG EKSEKUTIF PENTADBIRAN', 89, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(114, '5533', 'NURISNAINI BINTI SAHAK', 'nuris@felcra.com.my', '$2y$12$eQgT5/derBfXzS5aMYR4U.bLVtai5kIIxAEqJWD5PQni7Q3/TtUtS', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 97, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(115, '5535', 'NURSYAZANA BINTI BASAR', 'syazana@felcra.com.my', '$2y$12$UbL4hfwbElsKohV.kRkaTeS6BDakohfL0YP90mVvxbZBy7WA0Ii1m', 'EKSEKUTIF KANAN PENTADBIRAN', 111, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(116, '5539', 'SUZITA BINTI MAT DAHALI', 'suzita@felcra.com.my', '$2y$12$78PmX/c36iBVrGUhQRItKOEm.5R6VyfuV05DsqEq4udRoI5k7A1Ja', 'EKSEKUTIF KANAN PENTADBIRAN', 106, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(117, '5545', 'NUR SARAH BINTI MOHD ZOLKIFLI', 'nursarah@felcra.com.my', '$2y$12$hKCZEYcoWUzSvRdUNgdjK.KYldPaBDEIVBf/g6SQ.CLDKCdeVo9wC', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(118, '5546', 'NORAZLINA BINTI ABD RASHID', 'norazlina@felcra.com.my', '$2y$12$SU9k7BwmbOvp1M8ad95hSua42dmYtqf40hKs4WRvcR5hNQLO/0EBq', 'PENOLONG EKSEKUTIF PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(119, '5550', 'WAN HASRENA BINTI WAN MOHD NOR', 'hasrena@felcra.com.my', '$2y$12$NSCXMb2SPncwQrY6Ss3ROeaYymTrMoEtZFcIIF1W92tZmCsUZpVVy', 'TIMBALAN PENGARAH PEMBANGUNAN SUMBER MANUSIA', 89, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(120, '5551', 'MOHAMAD NIZAM BIN YUSOF', 'nizamyusof@felcra.com.my', '$2y$12$TC.tVrF1bnYWhKwl1sax.u1T5E0cJyxREGjQgZi4EmIZdGnG9LRhm', 'PENGURUS KANAN AUDIT DALAM KOMERSIAL 1', 112, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(121, '5552', 'SHARIPAH FATAHIAH BINTI SYED MUHAMAD', 'fatahiah@felcra.com.my', '$2y$12$BXAPr4fWPHRYwYMBx1LqTOlL0lxjfD2Bw3ks30kTB//K5LOBU6hsG', 'PENGURUS KANAN AKAUN ANAK SYARIKAT', 81, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(122, '5608', 'MOHD FIRDAUS BIN ABD WAHAB', 'firdaus.wahab@felcra.com.my', '$2y$12$T2QyaFOiFy6HiII6iyuLR./QAmAEbbcxBOl4vTUfRoKwV4RVfMmt6', 'PENGURUS KANAN INTEGRITI', 77, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(123, '5637', 'MOHD KAMAL SHAHRIL BIN MOHD ALI', 'kamalshahril@felcra.com.my', '$2y$12$ebXLmagL5KnKy/VKu0IS5.eYObcATgubEA6uXv5tPaC/IKqtL0IBS', 'PENOLONG EKSEKUTIF MEKANIKAL', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(124, '5643', 'RATNA BINTI ARON', 'ratna@felcra.com.my', '$2y$12$kGN124fbMtOFZYkPhdbE2.6efvCBQDlEoII9seoFrLqLpMGZ2Roim', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(125, '5657', 'PUTRI WASLINA BINTI JAAFAR', 'putri@felcra.com.my', '$2y$12$ZwGk/0Qz8k8F/Ek1JGNstuwgBQmfOAcnpgAA6KUxKgZ6pPMEw7cgy', 'PENOLONG PENGURUS PENTABIRAN', 30, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(126, '5659', 'KHAWARRI BIN ANUAR', 'khawari@felcra.com.my', '$2y$12$mWCmO7N4HmG2qPx9prLHIeUF27Ava2dqQa38k2OpdpG9zXfeTk6xi', 'PENGURUS KANAN PENGURUSAN UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(127, '5660', 'MOHAMMAD FAKARUDDIN BIN ABDUL KADIR', 'fakaruddin@felcra.com.my', '$2y$12$moORpzUNW08/PdKwQ1qGTuetKwLl3IdwCa9x3Db/ZUbgU96NfgsU.', 'EKSEKUTIF KANAN PENTADBIRAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(128, '5664', 'SITI NAZIRAH BINTI ALI', 'ctnazirah@felcra.com.my', '$2y$12$tRCVWx7SFzWymLhn6wnq.O.QQQCgw6dMmyl9QXJqmoSrcnEczLlNu', 'PENOLONG PENGURUS PENTABIRAN', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(129, '5667', 'ANN ESTELLA ANAK MANI', 'ann.estella@felcra.com.my', '$2y$12$DKV4ANjJg4r5hfDWjh6AaeDtSGL49MWtvMWw/1P5CgolRPYu2hZ6q', 'PENOLONG PENGURUS PENTABIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(130, '5668', 'NOORWATI BT AB HAMID', 'noorwati@felcra.com.my', '$2y$12$wAOtlkixCqSlhQpmuxuUK.cWE7joMP66p8eGHZufFnWRKjkM7DB6y', 'EKSEKUTIF KANAN KEWANGAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(131, '5669', 'NORLISUZAIMAH BINTI AW SUDIN', 'norlisuzaimah@felcra.com.my', '$2y$12$jtD3VS5vsDVRhlXDF4QRfOVQvZmE446u0jPomSR7ik2y23sfkICia', 'PENOLONG PENGURUS PENTABIRAN', 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(132, '5670', 'ZAMRI BIN ZAINON ABIDIN', 'zamri@felcra.com.my', '$2y$12$7.QmjU1do9hVDcPIEL9ahelBWLsUWTvs4GKev9UYxJdyaGfT2qe6W', 'PENOLONG PENGURUS PENTABIRAN', 76, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(133, '5671', 'NORLELA BINTI HAMID', 'norlela@felcra.com.my', '$2y$12$cVvYaHF2Lz3OCGSQeTL5P.d8NtoshrU/9bL6lnKzVBX0cmf.Cv1YK', 'TIMBALAN PENGARAH PENGHASILAN LADANG', 34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(134, '5672', 'NORHAFIZAH BINTI MASIRIN', 'norhafizah@felcra.com.my', '$2y$12$FUso/viD7EdGTcgA7.0miOinewsIWMWexn.4FFUV7hXXIWVKjSo0m', 'EKSEKUTIF KANAN PERLADANGAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(135, '5677', 'SYAHRUL BAHRIN BIN ABD KARIM', 'syahrul@felcra.com.my', '$2y$12$HXLC87zQvbPzx7Z7joRVsOeBfa1/vxedktjxGiX/4pKxf1wS0cR46', 'EKSEKUTIF KANAN MEKANIKAL', 16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(136, '5678', 'WAN SHARIENA BINTI ZAKARIA', 'shariena@felcra.com.my', '$2y$12$.jVCobVeSwsKdm7GBCUBd.X1pop5qcgJF.yemXZ1hxfZYe3XL7Uii', 'PENGURUS KANAN KELESTARIAN', 111, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(137, '5742', 'MOHD ILIAS BIN MAHADI', 'ilias@felcra.com.my', '$2y$12$oJO/9iEIqH1MUo.XnIvddOe/T9mIFREROEMN5HTfd5yUJhwA8WhyS', 'EKSEKUTIF KANAN MEKANIKAL', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(138, '5749', 'AHMAD TAREDI BIN MUSA', 'taredi@felcra.com.my', '$2y$12$/bZ9cs78uUUv95xzkwHXg.mVY2qD6CmiIUADKkg5J6AWkGV7BVDgW', 'PENGURUS KANAN KELESTARIAN & KHIDMAT NASIHAT KILANG', 16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(139, '5757', 'HAJARUL ASWAD BIN ATAN', 'hajarul.aswad@felcra.com.my', '$2y$12$q6CyuiuwceMVL75o2Gpdl.zkrRSHe2Ns2HyC0BVPfSImAPFa6Tn8K', 'PENGURUS KANAN PEMBANGUNAN & HILIRAN KILANG', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(140, '5758', 'AZAHAR BIN ALI', 'azahar.ali@felcra.com.my', '$2y$12$KR9XaMwgq17KCVbeDAdZK.HS3a6HAYNoRujj523f4VzaoZ3vSPBS.', 'PENGURUS KANAN PENSIJILAN', 97, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(141, '5760', 'MOHD ISSAMRUDDIN BIN MUDA', 'issamruddin@felcra.com.my', '$2y$12$coRchS9C5Xl4KMEwm.ec3uD48TIj7417ZNW0iK0uQiABSsF/GKI5a', 'PENGURUS KANAN INFRATRUKTUR LADANG', 102, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(142, '5782', 'MOHD REDZUAN BIN AB RAHMAN', 'mohd.redzuan@felcra.com.my', '$2y$12$9DZd3XY7BSMPsU3LvarSRuI1g33RBiWMTlcBZw74p/lTiEF4NaDBi', 'PENGURUS KANAN INFRASTRUKTUR BANGUNAN', 101, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(143, '5789', 'MOHAMMAD AZRUL BIN TAJUDIN', 'mohdazrul@felcra.com.my', '$2y$12$3IVBEWvb..vWMEZ0mRb7ButpZ7YxOwnX3yAaSrwPy9UM9evd63S52', 'PENOLONG PENGURUS PENTABIRAN', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(144, '5874', 'MOHD FAUZI BIN TALIF', 'fauzi.talif@felcra.com.my', '$2y$12$SK6SN5opHKmQYjQDk3/I2uk51hcLNpqxSNC7dF9jT8Z4SlfC5wUHC', 'PENOLONG EKSEKUTIF PENTADBIRAN', 97, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(145, '5897', 'PANG HWEI YUE', 'panghy@felcra.com.my', '$2y$12$E55or8sY.z6wB2K.cP2IAuscnqdeG6DfxuJXEqeqKcEe5kmbzicrq', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(146, '5898', 'MOHAMAD FAHMEE BIN JAMALUDDIN', 'fahmee@felcra.com.my', '$2y$12$BHTUbWcD6fUX0MzaUcrJUeA8OShsoV9aT4cyzuGOSphmo0wqtltjO', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(147, '5921', 'EDIE ARMAN BIN MOHD NOOR', 'ediy@felcra.com.my', '$2y$12$E4z0txwfFBr9LM.2RuK7pOlOjp5WAEK7ixJKToKJF71rDo/S.rERa', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(148, '5922', 'MOHD HELMY BIN ROSLI', 'mohdhelmy@felcra.com.my', '$2y$12$2Mx9NxABatclB5KSI39EpuQipAOvgFyxOz0cy7mDs8SmmFeF5GLXi', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 22, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(149, '5965', 'ROSIDAH BINTI MOHAMED JUSIN', 'rosidahfa@felcra.com.my', '$2y$12$WqvoErw8cc35iz2x1UA8OeaLba64Lh/GvRTZRJ/62g7va5aO8MDz2', 'TIMBALAN PENGARAH KOMUNIKASI KORPORAT', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(150, '5966', 'JULAILI BINTI ABDUL AZIZ', 'julaili@felcra.com.my', '$2y$12$YcfhMHy96grIic7Ltwj66.1TEjo7HXUJsnnAI80ZhSfjVl9VCMxVG', 'PENOLONG EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(151, '5967', 'MUNIZA AYU BINTI MUSTAFA', 'muniza@felcra.com.my', '$2y$12$mo02pFsaSiPEP.0vOYLppeELoN8wNOyYiJBTW.S19Qb2IpyR5DUVe', 'PENOLONG EKSEKUTIF PENTADBIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(152, '5988', 'NURUL AIN BINTI MUHAMAD SAUKI', 'nurul@felcra.com.my', '$2y$12$v5vcvhHajc.bWWpbe7CqvOFqIiHvhEhCHyPwv/nRlLVaKiqo8vIO2', 'SETIAUSAHA SYARIKAT', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(153, '5990', 'JUHAIDA BINTI JAMALUDIN', 'juehaida@felcra.com.my', '$2y$12$V0aYYcvVM28hS3E1zFALtOkaUaStDUrA4oeYpOFVVU5QelyOfX5aK', 'EKSEKUTIF KANAN KEWANGAN', 113, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(154, '6006', 'SHERI MAZNI BINTI HASSAN', 'sheri@felcra.com.my', '$2y$12$PzU4/xPW8WyCtQmcWytilenIcpwUnibNvMFcViZvSQJemQtGZJXSS', 'PENGURUS KEWANGAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(155, '6007', 'MOHD FIRDAUS BIN MOHD AMIN', 'firdaus@felcra.com.my', '$2y$12$wHO6jhmDZC01Am6p0O45COe/juXVqZ6IJVG8WaU2of71gNpzB7IFe', 'PENGURUS KEWANGAN', 60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(156, '6043', 'ZAMZURIANA BINTI ZAINUN', 'zamzuriana@felcra.com.my', '$2y$12$EwgXfuyeuGEbwOn15bOli..QVmDQYVMFflkKJk3xRX4QEYizyEtyy', 'PENGURUS KANAN PENTADBIRAN PEMBANGUNAN', 51, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(157, '6045', 'ROHANA BINTI JAMIL', 'rohana.j@felcra.com.my', '$2y$12$ds2HlVFT1qzwlKzjj524ieQlQBAmSqCnkIGgbbVBsbuHZEPXvbLJG', 'TIMBALAN PENGARAH KELESTARIAN', 83, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(158, '6046', 'FAZLINA YAZMIN BINTI SUHAILIN', 'yazmin@felcra.com.my', '$2y$12$YSghd4Akfnpyg0Vk3foySuqExnqOjntahfnFFkJQYTTjMQD29fBsC', 'PENGURUS KANAN PENGHASILAN WILAYAH 2', 52, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(159, '6047', 'MOHD KUSAINI ZANIR BIN ABD. MANAN', 'kusaini@felcra.com.my', '$2y$12$xaoSDlWjI1efZDVmDyZnqu2sm8rG6BHatg7XneaMbjNgS.xGfj0d2', 'TIMBALAN PENGARAH ESTET KOMERSIAL', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(160, '6069', 'MOHD NORWAHIDI BIN MOHD JAMAL', 'norwahidi@felcra.com.my', '$2y$12$R5LkRwO5IrT4hDofSABMcegV1nldUL4G5MeCND3PYeH/mQD6Y4EY6', 'PENOLONG PENGURUS PENTABIRAN', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(161, '6090', 'MOHD SAIDI BIN WAHAB', 'saidi@felcra.com.my', '$2y$12$W8ZZ7QbDS2pJdC/9gZl3BeSJ7DYkgOK4acOsNSWJm1czzHJmFu50a', 'EKSEKUTIF KANAN PERLADANGAN', 55, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(162, '6094', 'NIK NOOR HAFIZA BIN NIK IBRAHIM', 'nikhafiza@felcra.com.my', '$2y$12$nSsDdMSCJDFNXyw9eboExeDwO3aK9c//P/He3lVskKEo/On8X8xhS', 'PENOLONG PENGURUS PERLADANGAN', 60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(163, '6118', 'CHE NORMA BINTI MAT NASIR', 'cnorma@felcra.com.my', '$2y$12$2IZgKuBjHTSauWkg9JpxoOJmK3gm5croGiQpuugWH8eoT0M8Ro2Um', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(164, '6119', 'NUR FARIZA BINTI ROSLI', 'nurfariza@felcra.com.my', '$2y$12$t5sLVdDJIFuDLILoiuzRQel/FKBhCBUaW3sKWP06SLEipiz.uU9Ce', 'PEMBANTU KHAS', 105, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(165, '6125', 'MOHD ESWANDI BIN MOHD SALLEH', 'eswandi@felcra.com.my', '$2y$12$LJecg44HVzA2AeJlmdwkXOowhVvTawcSjtR83T7pfYjx5IPamdv96', 'PENOLONG EKSEKUTIF KANAN PERLADANGAN', 53, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(166, '6126', 'MOHD FAIRUS BIN MOHAMAD YUSUF', 'fairus.yusuf@felcra.com.my', '$2y$12$0wGt76jU8HyJOQhTXfgISuxgBzlrJr4PocQdmCh.2E.0zFdFjX/4G', 'PENGURUS KANAN', 13, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(167, '6132', 'NUR MARLYANA BINTI ABD.MAJID', 'nurmarlyana@felcra.com.my', '$2y$12$lLbfCLagn11TF86b.TadleX5PfOaZE62aaYbsHwBOFMRhPgV6pZDq', 'PENOLONG PENGURUS PENTABIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(168, '6143', 'MOHD MASRI BIN BASIRAN', 'masri.basiran@felcra.com.my', '$2y$12$qmsCmsPNcbPCSUJJf3umsuwU7Mgqg1XmjYT7MRnFn6sjnkz0pJJx6', 'EKSEKUTIF PENTADBIRAN', 22, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(169, '6164', 'SITI FATIMAH NOOR BINTI AHMAD', 'sitifatimah@felcra.com.my', '$2y$12$4I.WXxi6Zj8EzzJ5SWryxe7xKxz6dHoYmfTvYCqY5vRzmupMISblG', 'PENGURUS KANAN SUMBER STRATEGIK 2', 119, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(170, '6165', 'HARNIDA BINTI ANNUAR', 'harnida@felcra.com.my', '$2y$12$2lDVTLf0KJpQNkR/DVSNdeGheDWI.Y77/UX5G7A2l4Yty9u0WBSRS', 'PENGURUS KANAN LATHAN & KOMPETENSI', 76, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(171, '6166', 'NORHAFIZAH BINTI MOHD ESRAKH', 'norhafizah.esrakh@felcra.com.my', '$2y$12$T/FwmYPjMOwri/DJy2JToukffLuC.hklJq.8Bukyxg9xEFXHK7Ntq', 'PENGURUS KANAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(172, '6167', 'ERNI FAZRINA BINTI ZOL KEPLI', 'fazrina@felcra.com.my', '$2y$12$REdTNJcoaSkwiRQgV86EOuz6NYjmNK5zAHBs0qqe84Ze48lq/NkUq', 'PENGURUS KANAN KHIDMAT INFORMASI PESERTA', 37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(173, '6168', 'NORHAZRIN BINTI HASAN', 'norhazrin@felcra.com.my', '$2y$12$.8GbtyzMf.fO1u1VUh4Vo.hbJNh2m9fAF1GVqXzgYGxwHgPU1hx6u', 'PENGURUS KANAN SUMBER STRATEGIK 1', 122, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(174, '6169', 'DAYANG ROSLINDA BINTI YAACOB', 'dayangroslinda@felcra.com.my', '$2y$12$zNOjHIJ2YBDmbCchsJh1yuoEidMxDn.BmD2b9S.IVUjXIwXTc1d8S', 'PENGURUS KANAN PENJUALAN BTS', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(175, '6170', 'NOR AFIZAH BINTI ABDULLAH', 'norafizah@felcra.com.my', '$2y$12$lcXI9.B1EZgrYYlropdSked9necwNMgr0TcgfWTeQWFV6g/giLyWm', 'PENGURUS KANAN PEMABNGUNAN SUMBER MANUSIA & HRIS', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(176, '6171', 'MUHAMMAD ANUAR BIN ZAMALI', 'muhdanuar@felcra.com.my', '$2y$12$YkUkBzvO0Y2p.QKDUI3so.cybEwAOZ4VVwgU/PIXJ3JlzLls59gYm', 'TIMBALAN PENGARAH PENGURUSAN PESERTA', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(177, '6179', 'KHAIRUL HASRAM BIN KASSIM', 'khairul.haeram@felcra.com.my', '$2y$12$hhln7XO6akedBlxekLzMAu3mhPG82szqqcaDk6JJ6kMqPH/IxwW0e', 'EKSEKUTIF KANAN MEKANIKAL', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(178, '6185', 'MUNIRA BINTI TALIB', 'munira@felcra.com.my', '$2y$12$.9FsSNRdE7JMNE0EtxQJnOpwcHRdK9f/6d6/hxmoAkcRQn3syCRiy', 'PENOLONG EKSEKUTIF PENTADBIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(179, '6186', 'NUR AIESYIAH BINTI ROZLAN', 'nuraiesyiah@felcra.com.my', '$2y$12$2eU9eqG5LloCBd5RdfkiYuycJSpXulzT6TtbgUSwnozRPeEYqjHl2', 'PENOLONG EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(180, '6187', 'FADHILATON BINTI ABD MALIK', 'fadhilaton@felcra.com.my', '$2y$12$P6S.ahXiQw7VOtM/cLEIGO1DO082QzLVnbO7yrIaq.BxKi0YlSTCa', 'PENOLONG EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(181, '6207', 'NADIA BINTI AHMAD', 'nadia@felcra.com.my', '$2y$12$INOMX30Iu8O7Ao0seDKnXeFkrqsaszbOiKxM9nLjX7N//srha7BtC', 'PENGURUS KANAN STRATEGI & KESELAMATAN IT', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(182, '6208', 'AIZUL FARIQ BIN ABU BAKAR', 'aizul@felcra.com.my', '$2y$12$.2zoIbhZzQeeOQox2o0SQOyMXV03AbcqKfGadxUugrMnM6tnPU67m', 'PENOLONG PENGURUS PENTABIRAN', 101, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(183, '6209', 'KAMARUL HISHAM BIN MD KARIM', 'kamarul@felcra.com.my', '$2y$12$XBhYmcr1K1aXx68taa7f4uZP/aHRRkUjl4sTFn5UrUUSxVF93Mrc2', 'PENGURUS BINAAN', 101, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(184, '6211', 'MUHAMMAD AIZAT BIN AZMY', 'aizat.azmy@felcra.com.my', '$2y$12$a0tIurAt7ilxonOxGbnEA.oK7/RlKqtUzgd5rS/hE9SBEf67jynVS', 'PENOLONG PENGURUS PENTABIRAN', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(185, '6219', 'MOHD RAZIF BIN YAHIL', 'razif@felcra.com.my', '$2y$12$VEnTzAV2QcGp.BA.KvfFae.6UUSYCvpY76FVhqMbIywhg628zKKmK', 'EKSEKUTIF KANAN SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(186, '6221', 'NORHANIZA BINTI ALANG', 'haniza@felcra.com.my', '$2y$12$Kk28glkrV3hiLSc0NkjgceJj1CHGfXTXteQQGUPLJc5roIDRjmaGW', 'PENGURUS KANAN PENGURUSAN SUMBER MANUSIA', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(187, '6222', 'MOHD FAIRUZ BIN SARUJI', 'fairuz@felcra.com.my', '$2y$12$Ktd40VWN55hRDf/G9JTqU.5OWiQCn2zp5sbnZDu/K2IL5bPmaADQi', 'PENGURUS KANAN PEMBANGUNAN KOPERASI', 29, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(188, '6230', 'MAHATHIR BIN RUSDI', 'mahathir@felcra.com.my', '$2y$12$K80s97xDfPprcWSzBIEP8elECSmzbe1t2k/hR45Ag2i2rfqvusTPa', 'PENOLONG PENGURUS PENTABIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(189, '6231', 'SAIFUL HISHAM BIN ABD KASSIM', 'saiful.hisham@felcra.com.my', '$2y$12$Hp/NKxdD63ewe7YRX6URRO7DXocywT0rrbhQ7UnT.3alodrwjkpDi', 'PENOLONG EKSEKUTIF BINAAN', 102, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(190, '6238', 'MOHD FARIZAL BIN AWANG', 'farizal@felcra.com.my', '$2y$12$CGpFS7h5pzignScjmhFmNejBJ6P/y9ZYt83mwBQH9Ful994oMKXz6', 'PENOLONG PENGURUS PENTABIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(191, '6255', 'SYED FAHMI BIN SYED OMAR', 'fahmi@felcra.com.my', '$2y$12$lxYKzS/GLzrkLCVHK2K8iOM1Ajb9Y1SQtKG27sKcMrOoTXqTF5aii', 'PENGURUS SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(192, '6257', 'HAFIZUL HAKIM BIN MUHAMMUD', 'hakim@felcra.com.my', '$2y$12$8yW6N.WaiG22AcYqbDt9HeQqOGAvhAy5kdn.iArR2.pBtRXRhhzh6', 'EKSEKUTIF SISTEM MAKLUMAT', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(193, '6258', 'MOHD EZAIDI BIN ALI', 'Ezaidi@felcra.com.my', '$2y$12$ZKrxMtVORL9N5CS.9GE1Ru/t8m6E6JcN5IoLqksOgMoq6NP1.fjv6', 'EKSEKUTIF KANAN SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(194, '6260', 'MOHD AZUAN BIN OTHMAN', 'azuan@felcra.com.my', '$2y$12$.j2kHlei4BNoGafIlCDZ5OGECpCojcbhFb8mTxNqP75vzDGpqZsSS', 'PENOLONG EKSEKUTIF BINAAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(195, '6265', 'AZHANIZA BINTI JAMALUDIN', 'azhaniza@felcra.com.my', '$2y$12$d8MgAawWf05jhoa6ewHxj.MdLUsD8kHXP9wBZc1ODOTI80rx/7/ya', 'PENGURUS KANAN KHIDMAT PESERTA', 44, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(196, '6266', 'HANI HAYATI BINTI ABDUL RAHIM', 'hanie@felcra.com.my', '$2y$12$dj/u.wqAsrH8N4xidG.R0.A2lK5ATSXiAw7qj2fewNKbk3TNZc51.', 'EKSEKUTIF KANAN PENTADBIRAN', 34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(197, '6282', 'BAKRI A/L SUBRAMANIAM', 'bakri@felcra.com.my', '$2y$12$6wj2G6JgEpXXNkGUkQ4AAeUGW1P5ZIkJDxI53n1DWFVKK0RZrqcyy', 'PENOLONG PENGURUS PENTABIRAN', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(198, '6283', 'MAZLINAWATI BINTI ISMAIL', 'mazlinawati@felcra.com.my', '$2y$12$xVMaV8VR8DI9RkzFKVfyY.85ThAyYz1uMFiAxyoc.eBocXhH3/5Vu', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(199, '6286', 'SHUKRI BIN MAT SAHAR', 'shukri@felcra.com.my', '$2y$12$mxGjFPhOug34vqGDy1s4d.HqIUQpqJOebeaGQ6S6pxplojE8T5BL.', 'PENGURUS KANAN TRADING CPO', 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(200, '6289', 'NOR HARWINA BINTI ISMAIL', 'norharwina@felcra.com.my', '$2y$12$uXN7ScLLYaRqwGIa8mH4xOq5P1YnAfLSOUn3/c2pW88aMlO9HIZO.', 'PENGURUS KANAN UNDANG-UNDANG', 72, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(201, '6292', 'MOHAMMAD REDUAN BIN KHAIRUDIN', 'reduan@felcra.com.my', '$2y$12$JBscBLF34sChZLsGs8Jws.SEOjOyiyQ8.fx7m/0YTHBYPU2iMpP1m', 'PENOLONG EKSEKUTIF KANAN PERLADANGAN', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(202, '6304', 'MUHAMMAD IQBAL BIN ASMONI', 'iqbal@felcra.com.my', '$2y$12$TnJQ7Mpo2jLWREfx2BFauekw43wuiz1AhC2zsmJEECWpv7jr6DVey', 'PENGURUS KANAN ESTET KOMERSIAL', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(203, '6326', 'MOHD AKRAM BIN ZAIDI MANSOR', 'akram@felcra.com.my', '$2y$12$TYKHyXC2HbFurztmA9sNDu9dRhuLsYx9UwzxhBRuoABIg8CJZg4wC', 'TIMBALAN PENGARAH PEMBANGUNAN LADANG', 33, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(204, '6340', 'NURHIDAYAH BINTI SAMSUDI', 'nurhidayah@felcra.com.my', '$2y$12$6/d81wS9OHxBvaAAj3DxY.FygYAyx2.xMKjWMzAX9LrDEm44onYMi', 'PENGURUS KANAN BISNES BARU', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(205, '6348', 'NOR AZAH BINTI ANAS', 'norazah@felcra.com.my', '$2y$12$4R5kk7qmaciMULyfo8qiJ.HK7BMKlCddOzx9H6NEZvLjtsk.Eweve', 'EKSEKUTIF PENTADBIRAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(206, '6349', 'AISAMUDDIN BIN ZAINOORIN', 'aisamuddin@felcra.com.my', '$2y$12$zeQK71zwoHEKwV/VCI9BvuTtVHStjh4ODvXgLuZQhSqNuU7azyrwy', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(207, '6350', 'JULIANA BINTI JAMALLUDIN', 'juliana@felcra.com.my', '$2y$12$VU3e21rNSirabiBAIoHe0O9PBr5bCWP3uYavvJg62EvG5twqMjGtG', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 79, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(208, '6353', 'MOHAMMAD AZLAN BIN SALLEH', 'azlan.salleh@felcra.com.my', '$2y$12$wHwwpM7dil5dZZVXhG1TJeCvmDpD6Lt0SH2QJTcil0zq0pA9BDPzu', 'PENOLONG EKSEKUTIF UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(209, '6355', 'AMIRUL NAJMI BIN AZMAN', 'amirul.najmi@felcra.com.my', '$2y$12$3vZP/lvVPKYYOAiNeXxnm.M0iyUFblFnC526QVphfhvVu7P.xQFhq', 'PENOLONG EKSEKUTIF PENTADBIRAN', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(210, '6357', 'MOHD AFFANDI BIN ABDULLAH', 'mohdaffandi@felcra.com.my', '$2y$12$ozWrV15eNbI2gD7RE6LgOuvIT.8L8TuI0OC52xc22bK4FjiXca/s.', 'EKSEKUTIF KANAN PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(211, '6359', 'AFFAZULIATY NONY BINTI MOHD RUSLI', 'affazuliaty@felcra.com.my', '$2y$12$BQ2iS7TnRwdrTdjh4EX6LO40OHQjPBgpiTSRIkWYlKyRKgi1zonhy', 'EKSEKUTIF KANAN PENTADBIRAN', 66, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(212, '6364', 'SAYYID ABDUL RAHMAN BIN SYED AHMAD', 'sayyid@felcra.com.my', '$2y$12$d/QxW59MVS0n1ksFVkg1V.F0pddU..7LWAje8VNHmrG2Sjub/SsPW', 'PENOLONG PENGURUS PENTABIRAN', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(213, '6380', 'NORSHAWANA BINTI SHAZALI', 'norshawana@felcra.com.my', '$2y$12$onc2OKnMxkZha71InbR3SugTQZtQ0xCcQp0cUVV5EXAnd2vJagUxG', 'PENOLONG EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(214, '6389', 'AINUL HAFIZAH BINTI HUSSIN', 'ainul@felcra.com.my', '$2y$12$tfdDgqDwj4YEqQQFAjVjIuSpRDyEtkX0DHokli8hPifl98/ILTfkG', 'PENOLONG PENGURUS PENTABIRAN', 105, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(215, '6393', 'SITI FARHANA BINTI ALI AHMAD', 'siti.farhana@felcra.com.my', '$2y$12$5A/zOiIGE6xuqzMUQYCy7.3SrBzvlgIiMviSQM/sBLsIUpD.K3xa6', 'PENOLONG EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 29, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(216, '6425', 'NURAZILA BINTI ABD. AZIZ @ ABD. RAZAK', 'azila.aziz@felcra.com.my', '$2y$12$BHWx4rIh.rXhCO3KMiKJJOfovog7NoyJnxGYW80WYRbPuEROuc9de', 'EKSEKUTIF PENTADBIRAN', 106, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(217, '6431', 'NOORAZLINA BT ALIASIN', 'noorazlina.aliasin@felcra.com.my', '$2y$12$aRLPqth1jEiffQmIkHRlr.khiPwst26HDSz8RxKvQp2xMVWnhj.5q', 'PENOLONG EKSEKUTIF UKUR BAHAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(218, '6454', 'WAN NORHASHIKIN BINTI WAN JAAFAR', 'norhashikin@felcra.com.my', '$2y$12$VIbMMVNUqK7xMyasJ1nwguECsunSAzjEy8KpQ7XeLwgLkJxSRr5u6', 'PENOLONG PENGURUS PENTABIRAN', 107, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(219, '6470', 'AZRUL BIN ABDU RAHIM', 'azrul.rahim@felcra.com.my', '$2y$12$jMVK7sphvKRXMN.YyOez6uRy64Y7XSk0melB2gJ4PrKcxoze2TTTK', 'PENOLONG EKSEKUTIF KANAN PERLADANGAN', 35, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(220, '6472', 'NORASIKIN BINTI IBRAHIM', 'norasikin@felcra.com.my', '$2y$12$20zkrd1T3g11drmckCfkNuEsooePyT8viSBTePH6M2qnSCH/REsne', 'PEMBANTU KHAS', 98, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(221, '6475', 'NURUL MUNIRAH BINTI ABU BAKAR', 'munirah@felcra.com.my', '$2y$12$v.rzq4ruxRxPM2degaNWX..mJTVoQrXzCW.ffcjPpkhpCSEV67/K.', 'PENOLONG EKSEKUTIF PENTADBIRAN', 109, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(222, '6476', 'NURUL IKHWANA BINTI ABU BAKAR', 'ikhwana@felcra.com.my', '$2y$12$Ba4DkK09hlp6uyiuGK7JGOwA9Qd1xW1FIIE.oo1WEj8TcGgRV4gse', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(223, '6477', 'SITI RUSNIYANTY BINTI IDRUS', 'rusniyanty@felcra.com.my', '$2y$12$5BmHxm40KvCC805mmMFMfO.7lyAdjfBbX6zUyh4Nqebp1fiWn/QL.', 'PENOLONG PENGURUS PENTABIRAN', 31, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '');
+INSERT INTO `users` (`id`, `no_staff`, `name`, `email`, `password`, `jawatan`, `lokasi`, `created_at`, `updated_at`, `role`, `profile_pic`) VALUES
+(224, '6482', 'NATASHA BINTI ABD.AZIZ KARAM BHAN', 'natasha@felcra.com.my', '$2y$12$NdZ/X62wL0khHLUWPnOPNexYB5hC1b4zs6O07CI4iZ1k3/bcfyGBm', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(225, '6485', 'NUR FAZLINIE BINTI HAMZAH', 'fazlinie@felcra.com.my', '$2y$12$j5t0yrUzu8MYAvp/v0n9JuuNtlDFUsua/empZ47bKZfF5TxyaoiEC', 'PENOLONG EKSEKUTIF PENTADBIRAN', 79, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(226, '6486', 'NUR ASMARIA BINTI ABDUL AMZAH', 'nurasmaria@felcra.com.my', '$2y$12$ecTDFMZsaUKEevixqx6oWOWv6cN7IxDI.nmp696eS5I9raSpp2fmK', 'PEMBANTU KHAS', 25, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(227, '6489', 'NOOR HAZLINA BINTI ISHAK', 'hazlina.ishak@felcra.com.my', '$2y$12$.jnWjbNIR6FJ8Wv9rQPpheeMgELHPlEk2aH5e5OjVqdBE6IeWQh02', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 121, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(228, '6493', 'NUR ZURIATI RAHAYU BINTI ZURAIDI', 'zuriati@felcra.com.my', '$2y$12$eEz7ZMRPd1hE0XzxbalrcOaaLmSAPGaSgAbFJ4b7CQxI9XYry.D16', 'EKSEKUTIF KANAN PENTADBIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(229, '6505', 'HABSAH BINTI MOHAMAD', 'habsah.mohamad@felcra.com.my', '$2y$12$k5beXDCZafO7OkmcvMTkQek1ksj1rnD8dU.hkcmK4GPhfZofx.N/S', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(230, '6515', 'SHAHARUDIN BIN SAHIL ALIAS TAHIR', 'shaharuddin@felcra.com.my', '$2y$12$QO3vip6k9mtAAC7r2GnjjeQi.a6GVVCG9YylfBkmpACYxXjxjqxZy', 'PEMBANTU EKSEKUTIF PEMANDU', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(231, '6517', 'MOHD FAHMI BIN RUSLI', 'fahmi.rusli@felcra.com.my', '$2y$12$RQbN0T0lclTMFrbI26AHjeOGkqsTU0Q1m6EV210sdFDE1FvBZLEz2', 'PENOLONG EKSEKUTIF PENTADBIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(232, '6520', 'HAIRIL ASHRAF BIN MOHAMMAD FOWZEY', 'hairil.ashraf@felcra.com.my', '$2y$12$nBHs5exAH9VWhr2LbZUGq.B3e3Sl3vPiUHR8Z8tg/.Y0oCsJRZUxa', 'PENOLONG EKSEKUTIF PENTADBIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(233, '6553', 'SUHASHIMI BINTI MOHD HASHIM', 'suhashimi.hashim@felcra.com.my', '$2y$12$vGIoLeXnC4BIzLY6GDLsxePB2VVIUB8poZbz2pLpFDXMIdU1IZVKa', 'PENOLONG EKSEKUTIF PENTADBIRAN', 32, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(234, '6601', 'UMI KALSOM BINTI ABU BAKAR', 'umi.kalsom@felcra.com.my', '$2y$12$KrXBQelUeTa74jXnGuhrzeX6MrztoUmmXFJd60x/yPnl3gS2jBiAW', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 77, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(235, '6625', 'AZMIR BIN ABU BAKAR', 'azmir.abubakar@felcra.com.my', '$2y$12$48GOXonvr5KP/EcrWZPQt.5v2sKUefPDd9nCUmNdoGY/EUDGm0Rdi', 'PENOLONG EKSEKUTIF UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(236, '6626', 'NADIA FARHANA BINTI MANJA', 'farhana@felcra.com.my', '$2y$12$c8S60zdPF.dEc.TwqFvsD.IXMrWN5mnZEBzFF9kyXTp6r19SuHUSi', 'PENOLONG PENGURUS PENTABIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(237, '6627', 'MOHD ZHARIF ZHAFRI BIN TAJUDIN', 'zhafri@felcra.com.my', '$2y$12$mGzysW15wR4MoMcFDC6kfeDjfhdV8nVOZYHJ967w7xSIygRC9QNru', 'PENGURUS KEWANGAN', 60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(238, '6629', 'SHAHRUL AKMAL BIN SHAHRIN', 'akmal@felcra.com.my', '$2y$12$6dOhgS3eFUAVrFuZzwgUtOPPCuCeYQcuKUm431tAqinc1KfKNS4mm', 'PENGURUS KEWANGAN', 24, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(239, '6630', 'MAISHARAH BINTI ENDOT', 'maisharah@felcra.com.my', '$2y$12$YRBeCIacoYYMKF/7TdPlyOuXBgH4DDzzsMxnlSLDLwjGP2HVl7hpS', 'EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 44, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(240, '6632', 'NOOR ARZURA BINTI MAD ARIS', 'arzura@felcra.com.my', '$2y$12$clmUA2K5zl8OY1iKKgOvMuEVEOmeOf390XqdpyBdJmEUnOuXJv5c2', 'PENGURUS KANAN AKAUN ESTET FB', 90, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(241, '6635', 'MOHAMED ISMI BIN ABDUL MAJID', 'ismi@felcra.com.my', '$2y$12$6szGXU./bLfMyZlBfJrvW.pj6QPoQklffVz.ydcPw7Nmbegc4TsVa', 'TIMBALAN KETUA PEGAWAI EKSEKUTIF', 125, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(242, '6639', 'NORJUMALI BIN JUSOH', 'jumali@felcra.com.my', '$2y$12$Gi8xn5spIDl7Uj.1ZIStfu4Z3HdnXf/FwLTebFRgQrqNIO49qgfjK', 'EKSEKUTIF KANAN UKUR BAHAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(243, '6682', 'INTAN ZAHARAH BINTI ABDUL KADIR', 'intanzaharah@felcra.com.my', '$2y$12$i2hpvFAoGp6BIeMEytS1b.hiPlFiYk5Wr3YVz7bJ8cHgPiGqP/eGy', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 17, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(244, '6688', 'HAYATI BINTI MOHD YAAKUB', 'hayati.yaakub@felcra.com.my', '$2y$12$NHYB8W62M80tByFU.fOVSuOuKP9NMEvm92VcLlB4vEimDsFyPH8qe', 'PEMBANTU KHAS', 93, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(245, '6689', 'NOR LAILI BINTI JAAFAR', 'norlaili.jaafar@felcra.com.my', '$2y$12$SZV37vzIZ.ufEOdlemzs1ek0trY81XLtxY8u7H3uIPfPegJGsvBqi', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 82, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(246, '6712', 'MOHD CAIRIL JOHARI BIN AWANG', 'cairil.johari@felcra.com.my', '$2y$12$UHgiUKlwLqvJFLVQl3bHvO/HTbxzbFOAkaluyT1mqCddFdRhhv8.K', 'PENGURUS PERTANIAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(247, '6723', 'HILMI BIN ALI', 'hilmi.ali@felcra.com.my', '$2y$12$Qka2drfR.qo15/wVDDY7gOICyjguCHXjycQTmSWtVKeZbzV3VgpC2', 'TIMBALAN PENGARAH TRADING CPO', 7, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(248, '6724', 'MOHAMMAD NORHAFIZI BIN MOHAMED YUSOF', 'norhafizi@felcra.com.my', '$2y$12$f0QKIyxb5.ojowWUvAtkbOLOw6Tj4pEhCNCj3ymjr71WB21gCLj1i', 'PENGURUS KANAN OPERASI', 12, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(249, '6793', 'SAHIRA BINTI CHUKI', 'sahira@felcra.com.my', '$2y$12$THg74xZ3lrivayBj8MhCH.WCe5UUAx4C.qZFyd0ok2qJUu/17nhNu', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 65, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(250, '6824', 'MOHD KHAIRUL ARIFF BIN MOHAMAD DZULKIFLI', 'khairul.ariff@felcra.com.my', '$2y$12$nwVyTYWMHOtleJK0XO9jXu3VccKpny8bpoOsFxCbfWIR9aha957je', 'PEMBANTU KHAS', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(251, '6829', 'NORHAZWANI NADIAH BINTI HARUN', 'hazwani@felcra.com.my', '$2y$12$1YTg89QQnlcwIUsYhZ2wDepspvGjnx/XC9UvrJH/092vXC/O6VC0y', 'PENOLONG EKSEKUTIF PENTADBIRAN', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(252, '6830', 'NORHADI BIN JAMAL', 'norhadi@felcra.com.my', '$2y$12$tgX0JVSwpP/lgTCNqablPu5YFCAPv7RyHXhliC65MD6oQBlo/fMS6', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(253, '6831', 'MOHD FAHMI BIN MOHAMAD AZEMI', 'mfahmi@felcra.com.my', '$2y$12$.fx.CxpY6H563dfyPoT/Wee.W5maeMzojYadQi9A8BXm9GmC28h6q', 'AKAUNTAN', 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(254, '6833', 'IBRAHIM BIN MD TIA', 'ibrahim.mdtia@felcra.com.my', '$2y$12$qSIp.C41y7wa.Ph.RziQSevX64eTlQEOyz7KdFwavJgvDzFqhjYsC', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(255, '6835', 'LIYANA BINTI TAJUDDIN', 'liyana.tajuddin@felcra.com.my', '$2y$12$jj1oj8va6BGQ4/0oAgo0rO/VcF0/mZAfMrYVBaMb5kM/3S4NT9yq6', 'EKSEKUTIF PENTADBIRAN', 94, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(256, '6836', 'NURULHANA BINTI AZMI', 'nurulhana@felcra.com.my', '$2y$12$HdPzQqqUq8lH1hGG40nPXO1h3Cm8/up7yeaTo0oWBnEP6RjuQGtEW', 'PENOLONG EKSEKUTIF PENTADBIRAN', 34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(257, '6837', 'NUR ZAHRINI BINTI ZAMBERI', 'zahrini@felcra.com.my', '$2y$12$Cs5MXfhZ9HZXW5MIIIk5d.oQmQHHqBnh8glg2/0xsIwzBWO4RnoPW', 'PENOLONG PENGURUS PENTABIRAN', 34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(258, '6838', 'NORHAFIZA BINTI HASSAN', 'hafizah.hassan@felcra.com.my', '$2y$12$Tt36qTEZiM8uKT5VBQ5Bm.IC8ZmRGSQoB2fdRMtVD9JiAJZAvz8ny', 'EKSEKUTIF PENTADBIRAN', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(259, '6839', 'MOHD NIZWAN BIN MOHD SHAH ALIAS', 'cntr.nizwan@felcra.com.my', '$2y$12$KU1.M1iDCm3Fkz7gIKglT.VkR4tZvNERaWP.zQCMBmBUpmH3571QG', 'PENOLONG EKSEKUTIF PENTADBIRAN', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(260, '6878', 'SA\'IDAH BINTI SA\'DIAR', 'temp.saidah@felcra.com.my', '$2y$12$UuM4Pxye2djJ0WmoTYrTReEKkiB7mwOEd7uGZIoGK69h62wPYWdFq', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 40, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(261, '6879', 'NORAFIZA BT ISMAIL', 'temp.norafiza@felcra.com.my', '$2y$12$AoWGvWFKWXQgUoZchoAJduN5SnNvEmEoB9dShrG50aD74m4JB9O8O', 'EKSEKUTIF KANAN PENTADBIRAN', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(262, '6884', 'NUR ADILAH BINTI ZAINAL', 'temp.adilah@felcra.com.my', '$2y$12$h1GLTcqLuIoXhJxCF8A4semQRH5AZB7bQmEzQO42hkPshoFFVX0ay', 'EKSEKUTIF KANAN PENTADBIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(263, '6886', 'AIDATUL MURNIRAH BINTI ADAM', 'aidatulmurnirah@felcra.com.my', '$2y$12$ItIp5Mc7k1MuEfeRmjhhjei8N/d6X9Z2A71VqeQVosrNgCAL0I69q', 'EKSEKUTIF KANAN PENTADBIRAN', 43, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(264, '6889', 'MUHAMMAD YAZID BIN MOHAMAD', 'yazid@felcra.com.my', '$2y$12$mZ1N3x4nDc9EigB7IhWyHOCRRVwXjKYmbQMadi5zKJSilpVMT/nf.', 'PENOLONG EKSEKUTIF PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(265, '6894', 'NOOR HIDAYAH BINTI SHARIP', 'hidayah.sharip@felcra.com.my', '$2y$12$E7vnvxYZyJdJ6GsXKP9TPeOWK3iCtvPEiMqvdPv//87aDDUKt7YdW', 'EKSEKUTIF KANAN PENTADBIRAN', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(266, '6895', 'AINUDDEEN BIN AHMAD', 'ainuddeen@felcra.com.my', '$2y$12$lpj..WkEKpIEO5DH/0EqSu39cmkPD3rZx/ovoK7CHuvXqLq3.xG/6', 'PENOLONG PENGURUS PENTABIRAN', 66, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(267, '6896', 'NOR LIYANA BINTI MOHD IZAM', 'norliyana@felcra.com.my', '$2y$12$ZOAT9W7xz7tG7ebrJsatGunTIOxroMmOT68BNhqkt4WlgrOSYdu16', 'PEMBANTU KHAS', 56, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(268, '6937', 'SYAHZANA BINTI MOHD MARZUKI', 'syahzana@felcra.com.my', '$2y$12$Uq1S5l.B8qaAoNO6mJ1p4uGfFWSnMVtH2.UhSTWXNgYFY7Elml4xC', 'PENGURUS SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(269, '6995', 'MOHD HAFIZ AZUAN BIN WAHID', 'hafiz.azuan@felcra.com.my', '$2y$12$S860v3ZkCXhwz9bZTDBAEOwbn/Rpmcy3aex0L46Q0tEBJ5xplX9ai', 'PENOLONG EKSEKUTIF MAKMAL', 12, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(270, '7003', 'NORASIAH BINTI MUSA', 'norasiah.musa@felcra.com.my', '$2y$12$YcI6YVlDpcytQKljFEDWHu4Jv5nSnllOUAd40LfQUAVZiPoN2taty', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(271, '7036', 'MUHAMAD HAFIZ BIN ABD RAZAK', 'hafiz.razak@felcra.com.my', '$2y$12$6TYOZqUQfk90/1PUpKS2Du87sNKV/RfYLKHpf7WreTsNEKFoLITpK', 'PENGURUS KANAN', 33, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(272, '7049', 'NORSURYATI BINTI DOLBAH', 'norsuryati@felcra.com.my', '$2y$12$9YE7ochN6I8LRpP3pY8eDOsFfKWjMRfTbg1zsD25ATkKAkUCMHndO', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(273, '7052', 'SITI RAHAYU BINTI MOHAMAD NAZER', 'rahayu.nazer@felcra.com.my', '$2y$12$LBPb/pnZbruwukmM8J0j9uqg4Om6IRPpESIu.b2va2ifQjzg0JjEm', 'PEMBANTU KHAS', 64, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(274, '7057', 'NORMEY BINTI MUDA', 'normey@felcra.com.my', '$2y$12$6rWskxku4qCP.dURkxeIF.ABmrec2bNfxdNo0TcXBzHq2hfVBPdJm', 'PENOLONG EKSEKUTIF PENTADBIRAN', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(275, '7095', 'WAN MOHD ROZAINY BIN WAN RAMLY', 'rozainy@felcra.com.my', '$2y$12$ZwYMm7yoZT2rJoR7MqNqCetIEY/CWhoat38Uapbw3VQ87lZF0UC.m', 'EKSEKUTIF KANAN UKUR BAHAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(276, '7119', 'MUHAMMAD ASRAF BIN ABD KHAPIZ', 'temp.asraf@felcra.com.my', '$2y$12$pSkCryj6r.FhZNvTI5TjYulnNdqthWq3Dx63NvWVp.BE/szAg./.y', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 63, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(277, '7120', 'KHAIRUL IZWAN BIN ABDUL KAHAR', 'temp.izwan@felcra.com.my', '$2y$12$Tlk44bGODfoJ7laVATOWv.LDmw54wbCEqvz/od3ATOitdnW6tZbsi', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 38, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(278, '7121', 'NUZUL AMYFARHAIN BTE AZMI', 'amyfarhain@felcra.com.my', '$2y$12$u8h8p2EzUGNBGFZrWxF86uKqSu5eyVjmnqQAqkABO8t6/ga7DekDC', 'EKSEKUTIF KANAN PENTADBIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(279, '7125', 'MERNA BINTI SAIDINA ALI', 'merna@felcra.com.my', '$2y$12$hd6ASJrtqcCeXYrT4OzkDO0AfSCU37nDXwR6W5MR.Brr0naNxOWby', 'PENOLONG EKSEKUTIF PENTADBIRAN', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(280, '7126', 'MOHAMAD IKRAM HAMIDI BIN HAMZAH', 'ikramhamidi@felcra.com.my', '$2y$12$3n6PsLyEr.1BeOj7DZGEPeQGVeNPPyscD5REL5MuJWxQXKzkOzjEC', 'PENOLONG EKSEKUTIF PENTADBIRAN', 31, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(281, '7127', 'MUHAMMAD ZABARI BIN MAT DIN', 'zabari@felcra.com.my', '$2y$12$TXy3Yu36rFOsMO3J54/H2.em2/L1GfxqPqX5IBdnOOBTPoDQ3inz.', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(282, '7133', 'NUR IZZATI BINTI MUHIJAN', 'nur_izzati@felcra.com.my', '$2y$12$QW/nZKFvBVSQGQ82nB8TmexK1v9PYDR0USIMcKeexCsXtfqCNwzhO', 'EKSEKUTIF PENTADBIRAN', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(283, '7139', 'FARAH LINA BINTI MOHAMMAD ZULKIFLY', 'farahlina@felcra.com.my', '$2y$12$kKtKKOPc7yhlqRU0eCKhB.BYFl6wlv2RFXLSMNtNZmZ.YspcbiTFq', 'EKSEKUTIF KANAN PENTADBIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(284, '7145', 'MOHD SUFIAN BIN ZAINOL ABIDIN', 'sufian@felcra.com.my', '$2y$12$8afWL9/di.QBeBrlgSmmMukvFoTTVgW3dXA64BqicJjgOhEqRQaia', 'PENOLONG PENGURUS PENTABIRAN', 83, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(285, '7156', 'HAFIZUDIN BIN MUHAMMAD', 'hafizudin.muhammad@felcra.com.my', '$2y$12$oHFW4QJyX28gIY742au3hurJb/RBijddgHRUadtekQnzSVfKEbF.C', 'PENOLONG PENGURUS PENTABIRAN', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(286, '7170', 'WAN MOHD ASYRAF BIN WAN MAHMOOD', 'wanasyraf@felcra.com.my', '$2y$12$p1DLYmgqtIgHEKmRcdi0P.xWBOkORSlfCCF38Ef071XRpWmpC3kkW', 'EKSEKUTIF SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(287, '7171', 'SALMELLY BINTI MUHAMAD', 'salmelly@felcra.com.my', '$2y$12$kNUDKGoL1QGkvbi4WgfdReP.dK.o1QhHpOyJxgal8XqyfO6G2/.Ne', 'PENOLONG PENGURUS PENTABIRAN', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(288, '7172', 'NORHUDA BINTI MOHAMAD LUTFI', 'norhuda@felcra.com.my', '$2y$12$m0X73idZzYvwjMSrq8jEu.FemARRF8pfTAny4PWaX3KvhrxtJaoqu', 'EKSEKUTIF SISTEM MAKLUMAT', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(289, '7173', 'RAFHANAH BINTI MESBAH', 'rafhanah@felcra.com.my', '$2y$12$UH1lsTpgyASHKVL8DOlx6elsa4ko2Vidi436jOiXse7RP9OxVaLEi', 'EKSEKUTIF SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(290, '7175', 'NUR IZATI BINTI ABDULLAH ZAWAWI', 'izati@felcra.com.my', '$2y$12$pixbAtl.6xVR7fO6YIm1Xu8hLjnFg7z8xi1bXuEOBKSQsrhpJFTZ.', 'EKSEKUTIF KANAN KEWANGAN', 65, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(291, '7179', 'NORSHAKILA BINTI MANSON', 'norshakila@felcra.com.my', '$2y$12$4FJ5bAewLoVKXVaBDTVCK.INj6tlPRGR7xYjHH6zhuvTtXbP9vtEO', 'PENGURUS KEWANGAN', 64, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(292, '7180', 'NOOR SHADATUL AMIRA BINTI SUHAIME', 'noorshadatul@felcra.com.my', '$2y$12$ynYEfn0aJyqIcQUnEcxD5.zH0QNTldqt4DNZHOn3X6oMgGBwcFrk.', 'EKSEKUTIF KANAN KEWANGAN', 114, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(293, '7184', 'NUR JANNAH BINTI MOHAMAD RADZI', 'nurjannah@felcra.com.my', '$2y$12$yVC0tm0I6031yJGQASgRceiQdZFekutrzJbQUF7//U9qwSSDHZ.FO', 'PENGURUS KANAN SETIUSAHA SYARIKAT 2', 59, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(294, '7188', 'MUHAMMAD BIN MD TIA', 'muhammad.tia@felcra.com.my', '$2y$12$RE1/RrlaZX9UXz8NM6nTD.Zxw/xnuhOBmV5gZEMehmlD8A8E4/q0i', 'PENOLONG EKSEKUTIF KANAN VETERINAR', 121, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(295, '7215', 'MUHAMAD FAIZAL BIN ABDUL MALEK', 'faizal@felcra.com.my', '$2y$12$DF8SSyJWmr7xKjcT.MDrEey.f.D8OT76hrFtzAyhd1z8cPCY06Juu', 'EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 30, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(296, '7216', 'NURAIN SUHAIDA BINTI MUHAMMUDDIN', 'nurainsuhaida@felcra.com.my', '$2y$12$aw.0fo6AK22zu04tJcUGnubLXQEGReAkF1ro87uTzu.aKHrh8JDUG', 'PENOLONG PENGURUS PENTABIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(297, '7217', 'NURUL NADIA BINTI ABDUL RAHMAN', 'nurulnadia@felcra.com.my', '$2y$12$V19468QtfP0wKBILJtIxt.zUIwX4d1n3P9ymPudfLQ4YWH//aHf/2', 'EKSEKUTIF KANAN PENTADBIRAN', 121, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(298, '7219', 'SITI KHADIJAH BINTI ABD AZIZ', 'khadijah@felcra.com.my', '$2y$12$es8LK24kwifWaZKzbzUoj.27rtw7RoA8f768IDX7dLuqd0GPBdj3S', 'EKSEKUTIF KANAN KEWANGAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(299, '7224', 'ZULKIFILI BIN ZAINON ABIDIN', 'zulkifili@felcra.com.my', '$2y$12$k7OTgBSZjmoxZPV1OruXNucbuQ/coJxMRQ3vEhLj9NHrlH4xr4r0W', 'PENOLONG EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 30, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(300, '7242', 'NADIA BINTI MOHD FADZLI', 'nadia.fadzli@felcra.com.my', '$2y$12$XBJ7yrTp//iIsk8iFjJQmOcPTAlNUCW4fOKFYRseD.IjqgCEBfETe', 'TIMBALAN PENGARAH PENYELIDIKAN & PEMBANGUNAN', 24, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(301, '7243', 'FAIZAL BIN ABDUL SALAM', 'faizal.salam@felcra.com.my', '$2y$12$Ze6Jv7s1VejFmqTQf/7cHO3MOKMjDAzgNO0j.1hZ2OZhBXRSxyIUS', 'PENOLONG EKSEKUTIF DRAUGHTSMAN', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(302, '7257', 'NUR AMEERA BINTI MOHD ZOLKIFLI', 'nurameera@felcra.com.my', '$2y$12$GNyBZbhHRDTnX6KkAdDZAOt45JTiOIBoVkZj4YJetAmE.TiRapg32', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 12, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(303, '7259', 'AHMAD MUSTAKIM BIN ABDULLAH', 'mustakim@felcra.com.my', '$2y$12$gSDhkHlrvbPrfRvA/mB79eY4vAlWmIScQslqkLkhCuNtk09bfjPaO', 'EKSEKUTIF VETERINAR', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(304, '7261', 'MOHD HAFIZAN BIN HALIMI', 'hafizan.halimi@felcra.com.my', '$2y$12$p1/YSCtMYPTlpBvHWWOC0ui3k7TUOza6DeSNf6BW0MwcvZNZGjTMm', 'PENOLONG EKSEKUTIF UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(305, '7262', 'MUHAMMAD HAZWAN BIN MD RASID', 'hazwan.rasid@felcra.com.my', '$2y$12$o8pWD9WwMKeLqHoT/TfL4.z.uPNO5Ak2Vj5yUMwugVGLNPNysRbpa', 'PENOLONG EKSEKUTIF UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(306, '7273', 'RASMI BINTI MIDE', 'rasmi@felcra.com.my', '$2y$12$9D9JLcggSdn/4dS2MP5UKup/WM7mpXACdT5n8VEExu8ps4tpQfvqO', 'PENOLONG PENGURUS PENTABIRAN', 63, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(307, '7302', 'MOHD AZRIL BIN SHAHARANI', 'azril@felcra.com.my', '$2y$12$gw1RQsKxpeY0vra0kw4biuZ2JFDwCYPTzQldHTeRE/14xa03e5q82', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(308, '7304', 'AFZAL\'ALAMIN BIN AZIZ', 'afzal@felcra.com.my', '$2y$12$Z1eVNJS3trQOB2N0q7lAk.NImMDGwV6kBLA/WOj19cZ14EZ8PTceS', 'PENGURUS KANAN PENGURUSAN TANAH', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(309, '7305', 'NOOR IZRA BINTI MAD ROSIP', 'noorizra@felcra.com.my', '$2y$12$85lxNI7SMP6Ovj.13P25iuAbA9SQhAGs3yamPFb86z0UlW0Q/k1G6', 'PENOLONG PENGURUS PENTABIRAN', 53, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(310, '7306', 'ANIS ROOZAINE BINTI AB RAHMAN', 'anis.roozaine@felcra.com.my', '$2y$12$iGOsJZy7HP1/m9toE6SZOOF6TRYNfWUaYx99W6y/nbNTUwP9ZZ3G6', 'EKSEKUTIF KANAN PENTADBIRAN', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(311, '7307', 'MUHAMMAD AFIQ BIN MD YUSOF', 'muhd.afiq@felcra.com.my', '$2y$12$ugvwdQMx480GMWinRyPJp.9jNqGeoK.E2FHMKl2HyxCuqqKGiyrki', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 96, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(312, '7310', 'NOR AZIZI BIN SHAHBUDIN', 'norazizi@felcra.com.my', '$2y$12$bIqanBxxg0ZCsyAhRgi2U.CbRR1TbLh3ajQ6PFXynKTKhDfJsQXiO', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(313, '7311', 'AHMAD FAHMI BIN ALI', 'fahmi.ali@felcra.com.my', '$2y$12$n9CBmRpg2svhju5tUJQ/Y.DC4T9lSYD4/YAbvYQ/.BqwsgR02KIya', 'EKSEKUTIF PENTADBIRAN', 87, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(314, '7314', 'RABI\'ATUL ADAWIYYAH BINTI RUSLI', 'rabiatul@felcra.com.my', '$2y$12$jI.5WjUrTO0g7TjSanSmA.e8aOaoQiCIV22ELEP6pzFapGNjk8zf6', 'EKSEKUTIF SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(315, '7317', 'MOHD ZAKRI BIN CHE MEE', 'mzakri@felcra.com.my', '$2y$12$hRjCjMDZi6k.LOliLiQjvelLzpoLLtfL92OJhEMprkcHqssEC9yJC', 'EKSEKUTIF SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(316, '7319', 'MUHAMMAD AZRIN ADHA BIN MOHD AZHAM', 'azrin@felcra.com.my', '$2y$12$Nm330Gmw37MWUratT6hyBOi4Ce5t8XqLL6ZEUud2WUG/DLzuDQGZC', 'PENOLONG EKSEKUTIF SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(317, '7320', 'AHMAD SYAFIK BIN MOHAMAD AZIP', 'syafik@felcra.com.my', '$2y$12$2Zr1oNOianGjyp9NnhJPNOW7ew8B.CpedCmlGBrW0HKXbyNb9s1.e', 'PENOLONG EKSEKUTIF SISTEM MAKLUMAT', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(318, '7322', 'ANASHRULLAH BIN HAMDAN', 'anashrullah@felcra.com.my', '$2y$12$aggvDSjmfJq9SY3rJtRv0uSwqgvnYrYu4R/uOXoNDyDwtopuWleqm', 'EKSEKUTIF SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(319, '7324', 'MOHD KHAIRUL ALAM BIN MUNGAWAN', 'khairul.alam@felcra.com.my', '$2y$12$xdJ3TL49WjFWkDrcizvom.qfjTQw3N837smipwB.c/UHfUq8OK.Tq', 'PENOLONG EKSEKUTIF SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(320, '7332', 'NORFADHILAH BINTI NOORDIN', 'norfadhilah@felcra.com.my', '$2y$12$gnFprjKRTK06SBucnj4baOFx6e4G3fAOgxUEYprn.uhBf8OE5.Yiu', 'EKSEKUTIF KANAN KEWANGAN', 112, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(321, '7346', 'ROSTINAH BINTI SALLEH', 'rostinah@felcra.com.my', '$2y$12$0pwNyPfX592IEupXlVQCaevjW7NnI1Y0FAcyXw5vIQOivUvMKFqpW', 'PENOLONG EKSEKUTIF PENTADBIRAN', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(322, '7347', 'ALIASAN BIN KERMAN', 'aliasan@felcra.com.my', '$2y$12$sKJdXEY/0QqnkqQr3pg39O4G1foluNBz0JN3OxoeoOkIpv/puvq3a', 'PENGURUS KANAN PERANCANGAN PROJEK P&P & TANAM SEMULA', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(323, '7352', 'NUR ATIKAH BINTI BAHRUDIN', 'nuratikah@felcra.com.my', '$2y$12$62SRTa8RD4u/ApnHqvLrpOCakNh3hu3obtugf5aqNghwl7bsQ81kS', 'EKSEKUTIF KEWANGAN', 119, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(324, '7354', 'NURSYAHIRAH BINTI ABU ZAID', 'nursyahirah@felcra.com.my', '$2y$12$FXwlF6fSDVpVXrCqg1e8DepQUlMooBFfdoWauXu8aehEu3HjnknLy', 'EKSEKUTIF SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(325, '7361', 'MUHAMMAD ALIFF BIN MOHAMAD RAMLY', 'aliff.ramly@felcra.com.my', '$2y$12$PwD/xptsUJ2cdcaTd0dLru7JKgqVyofysGQxQbO9ixqGP1BjicEca', 'PENOLONG PENGURUS PERLADANGAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(326, '7386', 'SITI NOOR ASHIKIN BINTI ZAINAL ABIDIN', 'noor.ashikin@felcra.com.my', '$2y$12$7LLxahLa8jtiOEsxMCh54u/6LyEUGUiGljC30Z7ZdGjBQpAe9zto2', 'EKSEKUTIF PENTADBIRAN', 89, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(327, '7389', 'MOHD ARIF FADZILAH BIN HUSNAN', 'arif.fadzilah@felcra.com.my', '$2y$12$kTaNaeeqLa2ex0mE2JpuZujcC382W7/cXuLSgAKfvWnayeXsXiwAC', 'PENOLONG EKSEKUTIF PENTADBIRAN', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(328, '7395', 'SITI MERIAM BINTI SALEH', 'mariam.saleh@felcra.com.my', '$2y$12$01R6ZOReiZT6jYyKOWZqQ.DTTm1CUQyu64hkP/E38X4a48XbI27wq', 'EKSEKUTIF PENTADBIRAN', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(329, '7399', 'NOR KAMARIAH BINTI AB KARIM', 'norkamariah@felcra.com.my', '$2y$12$aGnCZhfKvB.8HhWOjRUFNOg6hvY8ptNM/SDkdJwOtzAL9N/6dGzXq', 'PENOLONG EKSEKUTIF PENTADBIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(330, '7408', 'MUHD RIDZUAN BIN RAMLI', 'ridzuan.ramli@felcra.com.my', '$2y$12$2XFCCmsWPgXDg6CkWKvFgOGn/zN6.F4ofjAKg/8G2BPcth.4xZJp2', 'PENOLONG PENGURUS PENTABIRAN', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(331, '7410', 'SITI FATIHA BINTI HASSAN', 'fatiha.hassan@felcra.com.my', '$2y$12$8bFeLnDqQ.sHFTgYlmmbg.ypEpJqZAp0oeI03ZJLGMaOMR5veSMsK', 'PENOLONG PENGURUS PENTABIRAN', 47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(332, '7429', 'NUR SYAAFIQHA ZHURIAH BINTI ABD MALIK', 'nursyaafiqha@felcra.com.my', '$2y$12$MbqE/lQocbiaHFtU7e.yVOaiNJ.WTiUBte6PKvdKUpFiYKCeG38r2', 'EKSEKUTIF PENTADBIRAN', 76, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(333, '7430', 'MOHD SHAFIE BIN MOHD HAMDARI', 'shafie.hamdari@felcra.com.my', '$2y$12$tyZ1oltUCQ/y4F91fG1wsOIEWE0S/.jotVzQICVYkrdz0d0TDpn8K', 'PENOLONG EKSEKUTIF KANAN PEMBANGUNAN PESERTA', 47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(334, '7437', 'NORAIN BINTI RASIDI', 'norain@felcra.com.my', '$2y$12$BsVHQ6bQUIE9EFGVx2/BC.9vpRtFowlbiQMWckO48jr8wzxejUwuu', 'PENOLONG PENGURUS PENTABIRAN', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(335, '7465', 'SITI ROHANI BINTI MOHAMMAD', 'rohani.mohmmad@felcra.com.my', '$2y$12$3Es79h0SDC/UkrnA3eCGxurLOu59vioRTShInS1.IgAQh66B9cByS', 'PENOLONG PENGURUS PENTABIRAN', 19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(336, '7471', 'NOR IKHWAN BIN ALIAS', 'ikhwan@felcra.com.my', '$2y$12$s8JTTw2gBxEBSgp1Kv9Rd.FClUUBwaLhXPuUnn.hF77oLG2oZSt1W', 'EKSEKUTIF PENTADBIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(337, '7472', 'AL AMIN BIN ABDULLAH', 'alamin@felcra.com.my', '$2y$12$6uV5GQse2.BCF0T6KuzvaObIO.BKglndmuMX8bVTb5SW2q1eN1KdC', 'PENOLONG EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(338, '7494', 'NUR ROHAYA BINTI MOHD NOR AZMI', 'rohaya.azmi@felcra.com.my', '$2y$12$HkC6MgSEk9hreCTa6I3SpO.q.P4LRj.Ee71JoqC9MUvXCC8oEpMre', 'PENOLONG EKSEKUTIF PENTADBIRAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(339, '7498', 'HAZARUDIN BIN MURAD', 'hazarudin@felcra.com.my', '$2y$12$ed/57VU1Oe5urAQsNAgmFOTIfLEKLNO6ZfWZRbI7Uhv7lPbAeoo2u', 'PENOLONG EKSEKUTIF PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(340, '7500', 'SITI HAJAR BINTI ABDUL AZIZ', 'siti.hajar@felcra.com.my', '$2y$12$CFacM1a4O6go6Utk2Mqunek5J.CMnGlbnSv3ngyyYe0XkneFNR9zy', 'PENOLONG PENGURUS PENTABIRAN', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(341, '7501', 'MUHAMMAD AIMAN BIN KAMAR RUDDIN', 'aiman.kamar@felcra.com.my', '$2y$12$ppDile/vqu5y1O3otKWjR.Tgfkk85UEFMnn8MX93W.uG5.1mQIGPW', 'PENGURUS KANAN SETIUSAHA SYARIKAT', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(342, '7502', 'NURUL NAZIHAH BINTI HASSAN', 'nazihah.hassan@felcra.com.my', '$2y$12$rBM7ZiVzoGMOYynM0bqBfOToSgECvyTKKWpg5r81CpXvj.3CknP2K', 'PENGURUS KANAN PENGAJIAN, ELAUN & KEMUDAHAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(343, '7534', 'AKMAL BIN MOHD BADRON', 'akmal.badron@felcra.com.my', '$2y$12$fdIRflvnTWGm0jLWw13Ooe3NZVZAhitwO.sqZsZwzu8WWhAKixmq6', 'EKSEKUTIF PENTADBIRAN', 87, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(344, '7535', 'SYED IZZUL NAZMI BIN SYED IDRUS', 'syed.izzul@felcra.com.my', '$2y$12$74EvPE8jXxRqDzE2jCY9oONHW/ruUSmr/d3SPAzT6W8oGN3ai/MxG', 'PENOLONG EKSEKUTIF PENTADBIRAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(345, '7537', 'NOOR ZULAILI BINTI AHMAD KHAIRANI', 'noor.zulaili@felcra.com.my', '$2y$12$ejCX0k4OXQaaF7e56vqfAOYR7mrKGqtxobHxPd2l8vMop9U/SVuvi', 'PENOLONG PENGURUS PENTABIRAN', 117, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(346, '7538', 'NUR AFIFAH BINTI ZAKARA', 'afifah.zakara@felcra.com.my', '$2y$12$FICh9tc8bsSQiTqM2j4a7uh0t0efSMut98CfAQV5GelYAnhcNJF9W', 'PENOLONG EKSEKUTIF PENTADBIRAN', 119, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(347, '7541', 'MOHAMAD HAFIZ BIN ABDUL RAHMAN', 'hafiz.rahman@felcra.com.my', '$2y$12$KQkE8ySDKPSzt1cScZHLLe7CPPGhJThrx3CSTqTHbtZIjoehCi2dO', 'PENOLONG EKSEKUTIF PENTADBIRAN', 53, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(348, '7546', 'LAINA BINTI INDUS', 'laina.indus@felcra.com.my', '$2y$12$0xGFJXgcphUSppQlz.q2ne9Mdlb/2MEV44dadu5ahY4qHrTyv14.2', 'PEMBANTU KHAS', 74, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(349, '7547', 'AZHAR BIN AB WAHAB', 'azhar.wahab@felcra.com.my', '$2y$12$AU6c28i2kUebIltxRNXPUuUj8S4dmQuPH2u7PNutw2rCImUEF/Hya', 'PENGURUS KANAN KESELEMATAN, KESIHATAN & PERSEKITARAN', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(350, '7552', 'MUHAMMAD BADRAN BIN ASHA\'ARI', 'badran@felcra.com.my', '$2y$12$r2SgP2Sp4Uc5G9lmIkCgKOjd1RiXk2N5.An32YjVVreusqoIO/Q8i', 'PENGURUS KANAN INFRASTRUKTUR & KOMUNIKASI', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(351, '7553', 'MOHD AIZUDDIN BIN TAJUDIN', 'mohd.aizuddin@felcra.com.my', '$2y$12$teito8UwVCdkQDhMbKUp4OwCJc0s3EZ4ac3/ZDverJlO0TPwGIDOG', 'PENGURUS KANAN AUDIT DALAM SIASATAN', 116, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(352, '7556', 'NUR WAHEEDA BINTI RAMLI', 'waheeda@felcra.com.my', '$2y$12$E0Lm6evA5OpxhUeQbr7qa.DHoeruFrVeL8aCrjccjoaJw3U/Z6e4e', 'PENGURUS KEWANGAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(353, '7559', 'KHAIRUNNISA LIYANA BINTI JEKEFFI', 'liyana.jekeffi@felcra.com.my', '$2y$12$we6R/ozB1vIp5Ifog1fFQ.n56Nb3B2lec4PniB27vIiswkBJF49wW', 'PENGURUS KEWANGAN', 81, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(354, '7594', 'NUR RAZMIEZURA BINTI AB RAZAK', 'razmiezura@felcra.com.my', '$2y$12$jnaK84EyhxffjRR/Cgl7buro2.kV53XwYS4gTyMFSLr4wwH6Y8gva', 'PENOLONG PENGURUS PENTABIRAN', 45, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(355, '7596', 'MOHD FARHAN BIN MOHD FAUZI', 'farhan.fauzi@felcra.com.my', '$2y$12$eCV5I7nNJbu35ougTMrfMeE4Rpikn1q0zn7mTxMiMsWcEMUjPpkjO', 'EKSEKUTIF KANAN PENTADBIRAN', 60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(356, '7598', 'DEENA SOFIA BINTI AZHAR', 'deena.sofia@felcra.com.my', '$2y$12$nqWXH2/0/1pIYQQ2P4ft.eyr6DcuUH7fXg2C7hJTs2PCdcgUkziLG', 'EKSEKUTIF PENTADBIRAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(357, '7601', 'MOHAMMAD AMIR AZFAR BIN JAMANI', 'amir.azfar@felcra.com.my', '$2y$12$HHlc1Jb9gTP4Hmy9./V9huQVjPxJZUXX4iw7zMpPTKV79XyohVirm', 'PENOLONG EKSEKUTIF PENTADBIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(358, '7602', 'ANIS BINTI ANGAH LUDIN', 'anis.angah@felcra.com.my', '$2y$12$qT2I.JBRS1IYbhoz0zgUH.E.Lw5s3SMeKVrdHIj9v/s9afoLwVwcC', 'PENOLONG EKSEKUTIF PENTADBIRAN', 77, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(359, '7603', 'MOHAMMAD MIRZA BIN MD YUSOF', 'mirza.yusof@felcra.com.my', '$2y$12$iwvV8dG75LcbJronNb8NceSzVnys5lToSTpS3HIAiJHvobhlYQPNa', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(360, '7604', 'NURADLIN BINTI KHALID', 'nuradlin.khalid@felcra.com.my', '$2y$12$.0.I9MS8Zhe9orbJg012Ae9O0WCDAybCn9FAtQzcu0WJKVlkj8R6a', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 43, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(361, '7605', 'MUHAMMAD FADZLI BIN ROSLI', 'fadzli.rosli@felcra.com.my', '$2y$12$TL4sGcaXT9WPQbahxvYwNOYovyHMffWc7yZzyVcmH78CX6HBgii7G', 'EKSEKUTIF SISTEM MAKLUMAT', 61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(362, '7606', 'MOHAMMAD LUKMAN HAKIM BIN ISA', 'lukman.isa@felcra.com.my', '$2y$12$QZHvExJ9W6monzfCK4ATwuNdkEaE1.zo4udR8c9b/YNGgk1sUdr72', 'PENOLONG EKSEKUTIF PENTADBIRAN', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(363, '7608', 'QURRATUAINI BTE MOHAMMAD ZAKI', 'qurratuaini@felcra.com.my', '$2y$12$3u1cdxsH/lj5msH3Yv2LHuyHkeE9iIYMBDYY0CJOtl16NDRewsyVK', 'PENOLONG EKSEKUTIF PENTADBIRAN', 91, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(364, '7609', 'NOOR SYAHIDA BINTI ABD RANI', 'syahida.rani@felcra.com.my', '$2y$12$8zzzwPeFBookVl2.vql5K.sDlvFKfu36ftBXRXIBZBsWa1fqhlkD.', 'PENOLONG EKSEKUTIF PENTADBIRAN', 117, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(365, '7614', 'SYAIMA BINTI AHMAD ZAMRI', 'syaima.zamri@felcra.com.my', '$2y$12$lB.BAYjhX9nY1oaF6aa5IeZ.fpuhv66lLG0ha3cIitZx.wDCFmNL2', 'PENOLONG EKSEKUTIF PENTADBIRAN', 70, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(366, '7615', 'NUR SYAFIQAH BINTI MOHD RASHID', 'syafiqah.rashid@felcra.com.my', '$2y$12$drl2sFm8kIqamho0bpP4mu42fBzhh9JRbcxVuNTUDpSlnOfdJBVo2', 'PENOLONG PENGURUS PENTABIRAN', 43, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(367, '7617', 'NUR ATIQAH BINTI ALI', 'atiqah.ali@felcra.com.my', '$2y$12$AjGSNZArYD79T/4ggIOWEu79Nl62ED0uwJa/ONNJuAyGRdQTPNd2q', 'PENOLONG EKSEKUTIF PENTADBIRAN', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(368, '7618', 'SITI AFIQAH BINTI MD SANI', 'afiqah@felcra.com.my', '$2y$12$Xo0iS2iJuMNkl2mRxce9vOsNcCQbPaBmhBwrlWbVpoT9fcxWG58gG', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(369, '7619', 'NOR AZLIN BINTI STAMAN', 'azlin.staman@felcra.com.my', '$2y$12$7miN9A/OwSt0lzrDE6saNOV4i4Z0wBWCJSGk0k.2niP8TLJjjPX6S', 'PEMBANTU KHAS', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(370, '7621', 'MOHD SYAFIQ BIN HASAN', 'syafiq.hassan@felcra.com.my', '$2y$12$fZ084nZQzqNQLuilUFRrfOEOEWB10IYWWLn7MuG33cxROdnWpOIqa', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(371, '7625', 'WAN IZZAT IZZARUDDIN ALIFF BIN WAN ISMAI', 'wan.izzat@felcra.com.my', '$2y$12$0/2gJlrR3zAzVWCqxkwzjeyU0vLxtj8sUHZ/up8.0tiaQm8Mw8hqO', 'PENOLONG EKSEKUTIF PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(372, '7627', 'BADRY PUTRA BIN MUHAMAD', 'badry.putra@felcra.com.my', '$2y$12$QRalPMOWAwOGZcFdpCzVJOgrWuYrFiHqYApXdQPdzLUpHJGHLpHh2', 'EKSEKUTIF MEKANIKAL', 101, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(373, '7664', 'MOHAMAD FAKHRI HADI BIN JAAFAR', 'fakhri.hadi@felcra.com.my', '$2y$12$kH6g1xMzbQfnGoqCGX8Pae3K3rDbUjbAmDWGCyDUJEa/Me0mWet6e', 'EKSEKUTIF KANAN PERLADANGAN', 21, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(374, '7670', 'IZZUL IZZUDDIN BIN MOHD YATIM', 'izzul.yatim@felcra.com.my', '$2y$12$oZOC5XEI0BNlD1tnUlAA9OssDGSm.RMeEsBcL3px0Upo7vFU7XvlG', 'EKSEKUTIF KANAN PERLADANGAN', 34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(375, '7707', 'NORHIDAYAH BINTI AHMAD', 'norhidayah.ahmad@felcra.com.my', '$2y$12$t.xyEi9TWxbAJnXxmNGmJObAbHt5AzyWGwCPrTuBFvxRSZ38pjw72', 'PENGURUS PENGURUSAN ERGONOMIK', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(376, '7708', 'LUQMAN\'UL HAKIM BIN NAJEMUDIN', 'luqman.alhakim@felcra.com.my', '$2y$12$tHkOKPswuowGeRnbv2x0B.Fy9URgrppI9eRfb0STWvtJRZ46WxEgG', 'PENOLONG PENGURUS PENTABIRAN', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(377, '7709', 'NURAMIRA SURIAYANTY BINTI ZULKARNAIN', 'nuramira@felcra.com.my', '$2y$12$UJ2xH7NHMxoYJh6tNVAf2O5H5oPJB1eiHTbErYf0N4ubT0C.00DwW', 'EKSEKUTIF KANAN PENTADBIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(378, '7711', 'NUR\'FARAHIN BINTI ISMAIL', 'farahin.ismail@felcra.com.my', '$2y$12$i5pbdsRfrOZ5Z7aInXKtSOdCQcItDCaoOsu7meJl4fejCnAbUr1PK', 'PENGURUS KANAN BAHAN TANAMAN & INPUT PERTANIAN', 54, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(379, '7713', 'ANIS ZAFIRAH BINTI MAT RONI', 'anis.zafirah@felcra.com.my', '$2y$12$LbK.xB/OAymLTMewVeHsO.F7jTIm9l5n9PBYHuvhxRd7bRBBCdc1y', 'PENGURUS KANAN KESEJAHTERAAN PESERTA', 19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(380, '7714', 'NUR \'ATHIQAH BINTI ABDULLAH TAHMIDI', 'nurathiqah@felcra.com.my', '$2y$12$KlTLsh4Ik9SJsMofGTbc5.NHNcPAfgnjnpHu.XRHBdCP74byfLCVG', 'PENGURUS KANAN DALAM P&P 2', 115, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(381, '7715', 'ILANNUR AFIA THAM MEI SHAN', 'ilannur@felcra.com.my', '$2y$12$z.kDKtGUTVIm504favM06.dINJ3wx/ayB2oCsK6upBvkAbptwURwC', 'PENOLONG PENGURUS PENTABIRAN', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(382, '7720', 'MOHD FAIQ BIN ABDUL FATTAH', 'faiq.fattah@felcra.com.my', '$2y$12$stL/wKBiZEZ.cziVHmfDKeOvu/kEWAxzjONC.0o75.4msq7JNDlSO', 'PENOLONG PENGURUS PENTABIRAN', 94, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(383, '7722', 'NORFADILAH AINI BINTI ZULKIFLI', 'norfadilah@felcra.com.my', '$2y$12$Y7bComgP5ghM.jLbBGqQDONf6B05anDF/0dwRzEUxsf46e7QItAyy', 'PENOLONG PENGURUS PENTABIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(384, '7726', 'MUHAMMAD HABIBULLAH BIN ABU BAKAR', 'habibullah@felcra.com.my', '$2y$12$2LacvYE..isUblM4tidayuD9dSDK29PCxeQ/VFVsxPivKEYEQj2wK', 'PENGURUS KANAN PEMATUHAN KUALITI & PENTADBIRAN', 55, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(385, '7727', 'MOHAMMAD ZULHELMI BIN ABD LATIF', 'zulhelmi.latif@felcra.com.my', '$2y$12$ria5gKef0SOM5gofVboLIOeyCUva.EFaOGR.M5mGIq5DVDkCU.h2G', 'PENGURUS KANAN PENGHASILAN WILAYAH 1', 20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(386, '7728', 'NUR \'AIN BINTI NOOR DIN', 'nur.ain@felcra.com.my', '$2y$12$v82OPCIwTi02flva8GN1rOzjR/biPTizfvtvtN/o9pdc18MuVVQte', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(387, '7729', 'MOHAMAD FAUZUN AZIM BIN GHAZALI', 'fauzun.azim@felcra.com.my', '$2y$12$gevpBz1oO4crmtQGVUiUm.A9LO7XPHTluN1qJ9g/ovhFkiatiNrjy', 'EKSEKUTIF KANAN PENTADBIRAN', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(388, '7730', 'PUTERI SURAYA BINTI JAAFAR', 'puteri.suraya@felcra.com.my', '$2y$12$bVX.XpjjL/uzYR5j5rfwyOLzzuSCdFdUvSDTjNHrPy67aRfXzXOLe', 'PEMBANTU KHAS', 57, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(389, '7737', 'NOR MAZITA BINTI SIDEK AHMAD', 'mazita.sidek@felcra.com.my', '$2y$12$2h27B15vBNpMCIKFCwYPMuobIWRXj9Mx5U0i0VpTzJHteg0Oq1Gp.', 'PENOLONG PENGURUS PENTABIRAN', 117, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(390, '7738', 'INTAN BAIZURA BINTI AHMAD', 'intan.baizura@felcra.com.my', '$2y$12$RzFOWCbt.2BKkg5mNE37PebCgiG2ZRWIeC9C0gomyBGfasNuu9I2a', 'PEMBANTU KHAS', 27, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(391, '7740', 'ABDUL RAHIM BIN ZENAL', 'rahim.zenal@felcra.com.my', '$2y$12$uDmOMi3vE45Aa58pDA20..Cawk89WEACFQUZQJ6iZNBYKljK9pG/C', 'EKSEKUTIF KANAN PENTADBIRAN', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(392, '7741', 'MOHAMAD ARIF BIN JAMAL', 'arif.jamal@felcra.com.my', '$2y$12$4V3zo7gkKdLrLn1Zm1cBv.bwUhiDeUj89NntF5.5ZEbgBNANIW0WW', 'EKSEKUTIF KANAN PERLADANGAN', 51, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(393, '7747', 'MAHSHILAH BINTI MAT AZAMI', 'mahshilah.azami@felcra.com.my', '$2y$12$fmn9w2Go9jPuOSwktsCWU.vDTQ3YZl20HpZUjqt4.nfcAPOq41gb6', 'PENOLONG EKSEKUTIF PENTADBIRAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(394, '7758', 'MOHD AIZAT ZHAFRAN BIN MAT RONI', 'aizat.zharran@felcra.com.my', '$2y$12$M4kLmB4ZUNGYh7rNEJYFreANHelRt4Cu3V.WQDPaLyxON/NShkt9i', 'PENOLONG PENGURUS PENTABIRAN', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(395, '7781', 'AIDA AZREENA BINTI ROSLI', 'aida.azreena@felcra.com.my', '$2y$12$hzY2O2iL.OQr1H4JnMRBu.jKBne90ob37n36roycnMnp6Wjs8kcSa', 'PENOLONG PENGURUS PENTABIRAN', 87, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(396, '7783', 'NOR ASHIKIN BINTI ZULKIFLI', 'ashikin.zulkifli@felcra.com.my', '$2y$12$L4RQnFPNjFpohDD5qxvsGu0jE4IuHmeCDH0M3jhh6uDDgqVrJ1/eS', 'PENOLONG EKSEKUTIF PENTADBIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(397, '7788', 'MOHD BAZIL SHAH BIN MOHD SUPAR', 'bazil.shah@felcra.com.my', '$2y$12$eYqGEttNH2ynX9tIIlv0U.w0X3ARd25ASQYt5hWTQcKhZ.wkbovYK', 'PENOLONG PENGURUS PENTABIRAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(398, '7793', 'SHARIFFAH SAIDATUL BADRUL MUIN BINTI SYE', 'shariffah@felcra.com.my', '$2y$12$vQJ3W2LA6bD84s4Z0oiYFelcMplAoSs/IN/3MZT8x5FD9pyraIcz6', 'PENOLONG PENGURUS PENTABIRAN', 37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(399, '7794', 'AHMAD HAFRIDZ BIN AZHARI', 'hafridz.azhari@felcra.com.my', '$2y$12$yzeNqvNvuC5dUUlXCRBAnO87InUpsX7A7lZAUKbwEoDHmcNQ8Na4y', 'PENGURUS KEWANGAN', 66, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(400, '7797', 'MAHATHIR BIN ABDUL RAZAK', 'mahathir.razak@felcra.com.my', '$2y$12$Q9hTX1lC3/l4BB9j4JHEzudgAPMu3Ipgi/tZibVRUlIfEghFfFaDK', 'EKSEKUTIF SISTEM MAKLUMAT', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, ''),
+(401, '7801', 'AMIRUL ASYRAF BIN KAMARUDIN', 'amirul.asyraf@felcra.com.my', '$2y$12$dYwkqAoRX5QodqLv6vKvnex.upX/WeGXU32aVJWWN/j1ESXohHNky', 'EKSEKUTIF SISTEM MAKLUMAT', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(402, '7803', 'WAN LIUZA IQLIMA BT WAN SHARIFUDDIN', 'wan.liuza@felcra.com.my', '$2y$12$0UE9UJdkqpcDE4OVFmLi5u6vRisOxmrPBpePCLqRGHZEdWpsWPG4O', 'PENGURUS KEWANGAN', 64, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(403, '7804', 'RIDHA BIN ABDUL RAZAK', 'ridha.razak@felcra.com.my', '$2y$12$DMuxhA9N9YC0oEJJOvhOvOFoxGbVwMKHLMj1vlH3sNFKz/DLJlMsG', 'EKSEKUTIF SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(404, '7814', 'NURHIDAYATEE BINTI RUSLI', 'nurhidayatee@felcra.com.my', '$2y$12$blcH1tQCgUN4hGXTlVeBRuNfyrcEE44gxBK3p2xzfaAsHLfgH7WZ2', 'KAUNSELOR', 89, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(405, '7818', 'MUHAMMAD IZZUDDIN BIN MOHD JAMALLUDIN', 'izzuddin.jamalludin@felcra.com.my', '$2y$12$VelSKhx.JUpu9LgKuhAQoOfcbkXegsxPeiq3D9FTCdY2TYgxJkE6m', 'PENGURUS MEKANIKAL', 16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(406, '7820', 'MOHD KHAIROOL HAFIZIE BIN RAMLI', 'khairool.hafizie@felcra.com.my', '$2y$12$IN1oVPRkazRVnMJFDJ3abumXtB6JLqLnD4MvVZcEDyufO/NXN2IJW', 'PENGURUS MEKANIKAL', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(407, '7826', 'MUHAMMAD ZULHILMI BIN ZAINAL ABIDIN', 'zulhilmi@felcra.com.my', '$2y$12$SW84Cd.GKUogjxScDW9JsuW9rfQ4SFA5bxXbQovwqHKhm5LsYXmsK', 'PENGURUS KESELAMATAN BAHAN KIMIA', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(408, '7842', 'MUHAMAD HAZIQ BIN MOHD YUNUS', 'haziq.yunus@felcra.com.my', '$2y$12$F9HzcBrb/lIUq.vPFsK.ruiE1d41ohERPq4lZDCp4yn8OxbBiSM5.', 'PENOLONG EKSEKUTIF KANAN PERLADANGAN', 22, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(409, '7945', 'FATIN FARHAN BINTI ABU BAKAR', 'fatin@felcra.com.my', '$2y$12$pz7wCeC4AwKrW2sUB51z.OLpOikCMFhXmvX9wQxA2fGFUZ4kfyq6K', 'PENGURUS KEWANGAN', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(410, '7946', 'HANI AMIRA BINTI JAMALUDDIN', 'hani.amira@felcra.com.my', '$2y$12$AM0UzgH7ISeptq.3/jAoWeIB/H7PjJQKWOgOy281ydNybj1y.lMxW', 'AKAUNTAN', 79, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(411, '7947', 'MUHAMMAD AKMAL BIN RAMLI', 'akmal.ramli@felcra.com.my', '$2y$12$EjzGhHVJKFZggBJIlBAfTOjTGySysHbi4zzvnTzmUTOtb2wlT.C3G', 'EKSEKUTIF PENTADBIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(412, '7951', 'MUHAMMAD SUWADI BIN NASIR', 'suwadi@felcra.com.my', '$2y$12$IRxL3URRGP8D0xfq/6saKuaaRVFMTOwLgrvEGd7lHhguELoK1XT9O', 'PENGURUS KEWANGAN', 79, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(413, '7958', 'SITI ZAFIRAH BT AMAN TOUZIN', 'zafirah@felcra.com.my', '$2y$12$24l2HiDHMeMLaUvpQ2zDlOIybnNUd1XS5EfXL7h5jkOB8GlFi3yjW', 'EKSEKUTIF PENTADBIRAN', 47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(414, '7960', 'MUHAMMAD LUQMAN BIN MOKHTAR', 'luqman.mokhtar@felcra.com.my', '$2y$12$mMF8OGW0cwm1Wt14cYjMhut/ZKcTdI8NYzFgGfLEE7CNW53FW/pdq', 'EKSEKUTIF PENTADBIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(415, '7961', 'IZZAT DARWISY BIN ZULKEFLI', 'izzat.darwisy@felcra.com.my', '$2y$12$.iZnsmQWdH1VgHbcNPkpWOOcpTVSlz1bJyqOak2F1Ztcb5fHtXbO2', 'EKSEKUTIF PENTADBIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(416, '7964', 'NADREENA BINTI MOHD NASIR', 'nadreena@felcra.com.my', '$2y$12$GEsY.R7L9QNQ5kYmIueryus4Ht6fu6RAJeO/PZSQ0VMId0uUQYNB2', 'PENGURUS KANAN AUDIT DALAM KOMERSIAL 2', 113, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(417, '7965', 'ROZLISHAM BIN ABD WAHAB', 'rozlisham@felcra.com.my', '$2y$12$pnYBYryfYKVPzoNqfU.HtudFr.WzSNgfNzCwa9Anj2XD.fRvdPz8q', 'TIMBALAN KETUA AUDIT DALAM AKTIVITI KOMERSIAL', 99, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(418, '7976', 'HASRINA BINTI WAKIRAN', 'hasrina@felcra.com.my', '$2y$12$oFsJX7t2MTMhQgiF3AdFaOaprkXsp2AA2ZjNttn3Nc9FM0YCkxvUa', 'PENGURUS KANAN UNDANG-UNDANG', 72, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(419, '7977', 'NORSAFILA BINTI ZAKARIA', 'norsafila@felcra.com.my', '$2y$12$SsKJwPh2SeGxCy2MehMeGup3mLIUmSeuFo/qiFh5B9aHHnZgoWhAC', 'PENOLONG EKSEKUTIF PENTADBIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(420, '7980', 'MOHD AZMAN BIN MD RAZALI', 'azman.razali@felcra.com.my', '$2y$12$Y69x.vdi0yDDm18TYipqauJxegeXepL36s..DGOEmrSYP4Zw8jG0i', 'KETUA AUDIT DALAM', 70, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(421, '7984', 'ZAMZURI BIN AZUL ISLAMI', 'zamzuri@felcra.com.my', '$2y$12$aJTuGEjFRkYT.K7NyZYFru0bI5K2pkZyEcZgk0PPE3By3rJFcjFGC', 'TIMBALAN PENGARAH KEWANGAN P&P', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(422, '7990', 'NURUL ULFAH BINTI ISMAIL', 'nurul.ulfah@felcra.com.my', '$2y$12$UXhA4EmffOPNDmq2qk45bullQGahnp5.GCAcIRo5NhperPXuQsNJS', 'PENGURUS PERTANIAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(423, '7995', 'AZRUL BIN AHMAD MUSTAFFA', 'azrul.mustaffa@felcra.com.my', '$2y$12$CJ8NsN1xjiS33l8jObE29.SDX/bquf5gyTZibU7Wxx5rVhmg4y3D.', 'PENOLONG PENGURUS PENTABIRAN', 35, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(424, '8004', 'ZAHID BIN ZAINAL', 'zahid@felcra.com.my', '$2y$12$GY1lxNLLmuLp2dkBkap8JOlpCikysaIpFGT.EOI3IhU8A2A6Vcs3K', 'PENOLONG PENGURUS PENTABIRAN', 78, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(425, '8005', 'MOHAMAD IZZUDDIN BIN ISMAIL', 'izzuddin@felcra.com.my', '$2y$12$JHmXt5uf5urO9wraP7rGm.sDe4vozjlMi77xPAYgd.qrXuj0dCK4y', 'PENOLONG EKSEKUTIF PENTADBIRAN', 66, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(426, '8006', 'NORAZIZUL BIN ABDUL AZIZ', 'azizul@felcra.com.my', '$2y$12$D8XBqNkSHDZXX13pWoHEE.9qVV8xh2.f8nbB7kk1.3aaFkICp/oJK', 'PENGURUS KANAN RISIKO & TADBIR URUS', 126, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(427, '8007', 'YUSAINI HISHAM BIN MOHAMED', 'yusaini@felcra.com.my', '$2y$12$3Mg473noC6e/zLf4EUvfyO7U0nNB8ardN1kcygcrSTK9UKRDpIQ32', 'PENOLONG PENGURUS PENTABIRAN', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(428, '8008', 'ILI SAHIRA BINTI MOHD IZANI', 'ili.sahira@felcra.com.my', '$2y$12$yugf6jcwuXYdNewvfBzmXeRKXbbddl9oJ..jwDwIgDqFZZNTf1FFe', 'PEGAWAI KESELAMATAN', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(429, '8015', 'NURFATHIN AINI BINTI SHAHAROM', 'nurfathin@felcra.com.my', '$2y$12$CnlhFcOHlIwUdjy7PWhR9.ONZWF3/lw/g4qw0SXwaGLJOa4HYQegi', 'PENOLONG PENGURUS PENTABIRAN', 31, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(430, '8016', 'KHAIRUL ANUAR BIN MAT ZAKI', 'anuar.zaki@felcra.com.my', '$2y$12$kpBGO4icQwdLxj6midQYBOD/XCIeHmo4yJjRndjN2l2vbHKAW4j1O', 'PENGURUS PERTANIAN', 97, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(431, '8020', 'NUR NADIA BINTI AB RAJAB', 'nadia.rajab@felcra.com.my', '$2y$12$3yHxUVTUV7xDE5gZyfTtp.BitITjUJ9dtlRYDpNTdwFvgE8X8unLu', 'PENOLONG PENGURUS PENTABIRAN', 122, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(432, '8021', 'IDA ROZITA BINTI MOHD TAIB', 'rozita@felcra.com.my', '$2y$12$LKswFScxJxit7Kk7Uh4HXODIXFdMKqjldZEIlnh7Gpi.UgrozdPEi', 'PENGURUS KANAN KAWALAN KEWANGAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(433, '8022', 'NURUL HUDA BINTI ISMAIL', 'huda.ismail@felcra.com.my', '$2y$12$nz4ZdgEEpnTufF8xfrWGKOwiw0Nsp04WwrDcwYOXdeDXM.EOMoIcS', 'EKSEKUTIF KEWANGAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(434, '8023', 'NUR ARASYI BINTI YAHAYA', 'nurarasyi@felcra.com.my', '$2y$12$tcqwWQa1XagiWK3Hm/0q3.OG65UlELxxRVFHBWzgyAEav0bjduwdK', 'PEGAWAI KESELAMATAN', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(435, '8036', 'NUR MUZAKKIR BIN MOHAMAD RUSLI', 'muzakkir@felcra.com.my', '$2y$12$C5B9UKcLmfD2j/K.Xk9mUOIBDwLFbsp7tXRMC7ms0c4DLAFF/PQcm', 'EKSEKUTIF PERLADANGAN', 97, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(436, '8039', 'NURULSYUHADA BINTI MOHAMED', 'syuhada@felcra.com.my', '$2y$12$I8aAauSbrLVMYRR9rOE8xOxkss.TRAADuiy9FU3Rfxi/Aq4z22q56', 'PENGURUS PERTANIAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(437, '8051', 'MOHAMAD HALID BIN A RAZAK', 'halid.razak@felcra.com.my', '$2y$12$/qzL0O9mm6tEUvYIRK8I4Of2VFW1ZIlltG/kD1NZHviso2gxa.a7O', 'PENGURUS PERTANIAN', 34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(438, '8053', 'NUR\'IZZATI BINTI MOHD KAMAL', 'nurizzati@felcra.com.my', '$2y$12$ADx2lMJi0/pBXB2oUc5Xh.7KghADVFX3NGUnp6YXwcywwkfIoHaMW', 'PENGURUS PERTANIAN', 34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(439, '8054', 'NOR FARHANA BINTI FADZULLAH SUHAIMI', 'norfarhana.suhaimi@felcra.com.my', '$2y$12$BW77cD5CuiygZB69Y0yMye6Cr5eywfuKfQaqI85B4HT1rDj3hze2O', 'PENGURUS PERTANIAN', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(440, '8056', 'WAN MOHAMAD ZULFAHMI BIN WAN IBRAHIM', 'zulfahmi.ibrahim@felcra.com.my', '$2y$12$SpljhHeOjmIU/gCsFpBHv.eFBmNvdjkxc3a9Xe1KyeVpcXUgb6H3K', 'PENGURUS PERTANIAN', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(441, '8058', 'MOHD HAFIFI BIN ABDULLAH', 'hafifi.abdullah@felcra.com.my', '$2y$12$S/JrHo6pSRjaLPf.OQhaMOQacZKJtC8N9S9BVGWP0M5XT8nZ0.TlW', 'PENGURUS KANAN OPERASI PEMBANGUNAN', 21, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(442, '8060', 'MOHAMAD SYAZWAN BIN MOHAMED ANNUAR', 'syazwan@felcra.com.my', '$2y$12$qxPx5/nEZZK7.G2r6JLfseaEVw28X0JrkP.ByaoKI2m8DghCO1WYa', 'PENOLONG PENGURUS PERLADANGAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(443, '8063', 'AMIR NASRIQ BIN ABDUL HAMID', 'amir.nasriq@felcra.com.my', '$2y$12$gB/PVaf.coXCCr1TJ8Pdt.CcIjbC8ma9QCjrUHO//0xdvnPlFEi4u', 'PENOLONG PENGURUS PERLADANGAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(444, '8064', 'SYAFIQ AFANDI BIN HARUN', 'syafiq.afandi@felcra.com.my', '$2y$12$qEsMUUZtNVpR/H/zKyNTkOktv1x4u9SyM7HSl9j6pBfkwRsEewPCe', 'PENOLONG PENGURUS PENTABIRAN', 117, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(445, '8065', 'MOHAMAD SAQUAN BIN HARUN', 'saquan.harun@felcra.com.my', '$2y$12$Hibl3kwNI8dNjtOBac6oYeNnUpcQkxidQ.jKr49gpnugZW/M1JIAq', 'PENOLONG PENGURUS PENTABIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '');
+INSERT INTO `users` (`id`, `no_staff`, `name`, `email`, `password`, `jawatan`, `lokasi`, `created_at`, `updated_at`, `role`, `profile_pic`) VALUES
+(446, '8067', 'KARTINA BINTI NASRAH', 'kartina@felcra.com.my', '$2y$12$HKGXBh7raDVlAp7JrfhHIun04TVSpqiHWoPShFung0Rs3x6R48bxm', 'PENOLONG PENGURUS PENTABIRAN', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(447, '8068', 'NORSYAHIDA FARHANIM BINTI MAHMOOD', 'norsyahida@felcra.com.my', '$2y$12$yNOeBtxhDYYu5mYkAKcwvuJEdod...o/BJLV2VUFgklnhb3721.oG', 'PENOLONG PENGURUS PENTABIRAN', 76, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(448, '8069', 'ROSHIDAH BINTI ROSLEE', 'roshidah.roslee@felcra.com.my', '$2y$12$KZjIDky.fo9op1zxSvuqP.9HsvofquA.tLSVZi0hA0xWMDptMaCN2', 'PENOLONG PENGURUS PENTABIRAN', 28, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(449, '8070', 'NUR ASYIQIN BINTI AB GHANI', 'asyiqin.ghani@felcra.com.my', '$2y$12$mfKcuoVaDTLB80iEn5Cm2uouk782dQ63/HohxijNkE8ap3xxFPY.a', 'PENOLONG PENGURUS PENTABIRAN', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(450, '8071', 'NURUL MASTURA BINTI MD AZIZAN', 'mastura.azizan@felcra.com.my', '$2y$12$aL6go0VElDFzBXzbN6Jw2uiW9NU1BAW5oU.cusX/JaWEoCYcO5fVe', 'PENOLONG PENGURUS PENTABIRAN', 113, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(451, '8072', 'ELIZA BINTI JOHARI', 'eliza.johari@felcra.com.my', '$2y$12$EZ2sU4eAOPQLTBW/YMpW0.xmTAnv4vTyghfqSwkqSzRybDdEChnBC', 'PENOLONG PENGURUS PENTABIRAN', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(452, '8074', 'NUR \'AMIRAH BINTI ABDULLAH TAHMIDI', 'amirah.tahmidi@felcra.com.my', '$2y$12$sCND/sDyQJM7PWo56BKMgeo1dY9DT2j6ZVjIhLS25BNtvk9dtxxI6', 'PENOLONG PENGURUS PENTABIRAN', 32, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(453, '8079', 'DAYANG HABIBAH BINTI ABANG MOHAMADIN', 'dayang.habibah@felcra.com.my', '$2y$12$YGawshrteQ5ozOvWhb/6WubYt/r6jDF78H/IMLMHZCeHjc6h.HWxO', 'PENOLONG PENGURUS PENTABIRAN', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(454, '8096', 'MUHAMMAD SAIFUDDIN BIN NUWAWI', 'saifuddin@felcra.com.my', '$2y$12$dwj6ls2iEbVALIvvbPH0U.jhfMORSCyW54gZbdIJZSztzpO3v53Wi', 'PENOLONG PENGURUS PENTABIRAN', 97, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(455, '8097', 'MOHAMAD NURULDINKAMAL BIN YAAKOB', 'nuruldinkamal@felcra.com.my', '$2y$12$pBZYE46hUONKLagDe01/I.VAeuYLDY8LmBQnj2so9To806ld25fle', 'PENOLONG EKSEKUTIF UKUR (PELUKIS PELAN)', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(456, '8103', 'NOR ANIZA BINTI SAMAT', 'noraniza.samat@felcra.com.my', '$2y$12$g101AzRKUq43S4PiDZOL/uk3Y9pKt0tVG5porqrT5YHzc8QmMGjcq', 'EKSEKUTIF PENTADBIRAN', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(457, '8109', 'ABDUL HAKIM BIN MD ZAIN', 'abdul.hakim@felcra.com.my', '$2y$12$Ujja7DQeWB.ZEiDDYybii.L4ZE4sRSPPGVdBDYX7qslJQ.N130Wcm', 'PENOLONG PENGURUS PENTABIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(458, '8115', 'ABDUL AZIZ BIN MOHAMAD', 'aziz.mohamad@felcra.com.my', '$2y$12$mCCtKA6DbdwjrXs9CK5XrOktkWxoaVcItzjT83fdfWbOL3EaXv6V2', 'EKSEKUTIF MEKANIKAL', 53, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(459, '8219', 'SHAFINA HANOM BINTI SAHARUDIN', 'shafina@felcra.com.my', '$2y$12$iZGzefDydb3DIXWsvcshqOB4e8flxdiIN133fDGVklQx13/S7P6ny', 'PENOLONG EKSEKUTIF PENTADBIRAN', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(460, '8220', 'SITI NURFARAHHIN BINTI MOHD RASID', 'nurfarahhin@felcra.com.my', '$2y$12$rOZJvkQmri125K4EWC6lT.4/MCusX/elGJrHHwEVA4kAroWAsZbky', 'PENGURUS KEWANGAN', 81, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(461, '8221', 'NOR ATIKA BINTI TAJARAHIM', 'noratika@felcra.com.my', '$2y$12$GFlEbXhmKG92CPk4VqR4R.FEcVv.pFXG6U24FJ6QmJ6g2kBbXSILS', 'PENOLONG PENGURUS PENTABIRAN', 66, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(462, '8224', 'SUKRIAH BINTI A MUBIN', 'shukriah@felcra.com.my', '$2y$12$WxO.bcoIpofhVgQIKwPNk.7uSiYW1zkLAhEZLv2rnyY0xIEzsjaY.', 'PENGURUS KANAN PENTADBIRAN PERANCANG PROJEK', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(463, '8226', 'MOHD AKHIL BIN YAAKUB', 'akhil@felcra.com.my', '$2y$12$DDAiIrR7Tkh/3Q7GyxCnLujbFnyLvoRwl1.iZixIahDvK2taF6Olm', 'PENOLONG PENGURUS PENTABIRAN', 87, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(464, '8229', 'SYAFIK IZWAN BIN AHMAD KAMAL', 'syafik.izwan@felcra.com.my', '$2y$12$SZ/7w2NT.nVz61fi3b2ro.CeJVtwRmBCE/E8nd1VmRnbW4/tOg.s2', 'PENGURUS KANAN PENTADBIRAN PEROLEHAN', 121, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(465, '8230', 'NURUL NADIA BINTI HASSAN', 'nadia.hassan@felcra.com.my', '$2y$12$fjl.JgKUDrPcdS8Byjwsy.QjnQUvdKptjYkjq6gJktXrxkKWzHb8O', 'EKSEKUTIF UKUR', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(466, '8231', 'NORHUZAIME BIN TAMALDIN', 'norhuzaime@felcra.com.my', '$2y$12$LbDhN8JC8L8YihJoJAvQqOKA4O5YfLrddZrFYVuENMPgiOr5y445e', 'PENOLONG PENGURUS PENTABIRAN', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(467, '8238', 'KHAIRUL KHALILY BIN KHAIRANI', 'khairul.khalily@felcra.com.my', '$2y$12$9TzlF6FCiOB6Xx3AfiXJTOOvcFUxS5q10pU/.oyCVjd80b8MMRsH2', 'PENOLONG EKSEKUTIF PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(468, '8240', 'MOHD HANAFIAH BIN OTHMAN', 'hanafiah@felcra.com.my', '$2y$12$RBUau2WM82c4W9nXVWoQpuMAc6Y7dKv/s4ASRiAh.iHVXtOnQ81rW', 'PENOLONG EKSEKUTIF PENTADBIRAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(469, '8242', 'SITI NUR ATIQAH BINTI ALIAS', 'atiqah.alias@felcra.com.my', '$2y$12$Jiz1ZCXUx.lUsJD7CuJe9OUmoArPIaIR8h0o/1.VbM0NavTy4b6bG', 'PENOLONG EKSEKUTIF PEMBANGUNAN PESERTA', 28, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(470, '8245', 'HANIS ARIFAH BT MOHD SHAUKI', 'hanis.arifah@felcra.com.my', '$2y$12$dliQ7vI9pqR8hUnf8vkS3upKLmkMinSbL4sWIBW72YBYOaxIa8dSK', 'PENOLONG PENGURUS PENTABIRAN', 37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(471, '8259', 'AZAM AZI BIN RUSDI', 'azam.azi@felcra.com.my', '$2y$12$CrChbBlHZshb0NY5GM2h0.uj4Yxu6B062Z1uFPJzv/sfNlWByzOwa', 'PENGARAH KEWANGAN', 58, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(472, '8263', 'TUAN MUHAMMAD HISYAMUDDIN BIN TUAN ZAINO', 'hisyamuddin@felcra.com.my', '$2y$12$i9he5MAbXLfSW8Be9PFfC.8Pepoc4TUzk56wdm5HQqgJbVW5R9O5O', 'PENOLONG PENGURUS PENTABIRAN', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(473, '8294', 'NOR AINI BINTI DAUD', 'noraini.daud@felcra.com.my', '$2y$12$NESDvaAcZI3Z7lba.7LmPOS5/1lac13mQaJkKwj1j6uTfA7ORzBEC', 'EKSEKUTIF PENTADBIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(474, '8295', 'NORMARIANA BINTI OTHMAN', 'normariana@felcra.com.my', '$2y$12$6BcnDj498qv5id2O8ydgvuahZzun57Qn3V6vMu.R8S7jlatxyRo5q', 'PENOLONG PENGURUS PENTABIRAN', 77, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(475, '8304', 'SITI AIDAH BINTI ABD AZIZ', 'siti.aidah@felcra.com.my', '$2y$12$FdauVXpc8Y6SyhLMyU1KGeQtTBBUsriYC644qK6bDDtfP6fFvtV6K', 'EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(476, '8308', 'MOHD TONI BIN JAAFAR', 'mohd.toni@felcra.com.my', '$2y$12$3abj5Pnm9iQx9Do83eym/Oh7MtKiaeo.n8vd1HF0mao7IzbQgfC9O', 'PENOLONG EKSEKUTIF PENTADBIRAN', 37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(477, '8312', 'SITI NORMALA BINTI CHE UMOR', 'siti.normala@felcra.com.my', '$2y$12$O5sgybfYNicAq5m6/Zeh7.vNMegwd6thmbN4Oim/SMAoYV.NL.vrm', 'PENOLONG EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(478, '8315', 'EZZAH ATIRA BINTI MAT ZIDIN', 'ezzah.atira@felcra.com.my', '$2y$12$QNTAqBgpElq2XBDaqdq.4OBf4yQyK.InU5NfLYqty05qc.BKY8Xta', 'PENOLONG EKSEKUTIF PENTADBIRAN', 24, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(479, '8317', 'NURUL SAKINAH BINTI NASRI', 'sakinah.nasri@felcra.com.my', '$2y$12$KWsou8rzwxQSW9Rk1J4hIuKI.AjMhVFNcEUvuMvcvgDL4qRZ3tHtq', 'PENOLONG PENGURUS PENTABIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(480, '8319', 'ANISAH BINTI YUSOF', 'anisah.yusof@felcra.com.my', '$2y$12$LYHLl8qGxOlryKpflWhqruQd2wEA7kG9reHxjV.KNBpXXAsU4It4u', 'PENOLONG PENGURUS PENTABIRAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(481, '8320', 'ZAIFA AZUWANI BINTI ZAINUDIN', 'zaifa.azuwani@felcra.com.my', '$2y$12$ZHxyzgshext4HYZh5OwpF.80tE5VxOkjoh11o/36jCy.exJgwXQiO', 'PENOLONG PENGURUS PENTABIRAN', 122, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(482, '8322', 'SITI ATIKA BINTI ALI AHMAD', 'siti.atika@felcra.com.my', '$2y$12$uet0I/2GcS2hfW5IOAM7TOyjRHLwljqTZ3JWsAeGIidHCLAu2U77.', 'PENOLONG PENGURUS PENTABIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(483, '8323', 'NORHAYATI BINTI OTHMAN', 'norhayati@felcra.com.my', '$2y$12$NF.fz8qkuoO7t6h5o1fwieuWqK8X1hMki5cAxO1InSjbYYQPsyNTa', 'PENOLONG EKSEKUTIF PENTADBIRAN', 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(484, '8324', 'SITI NOORAIN BINTI SAAT', 'siti.noorain@felcra.com.my', '$2y$12$hjJ13rzn0Z3n6/Op2Qk2uef1E/qE2N8B/UuxNIDbzTKR07yPApOuq', 'EKSEKUTIF PENTADBIRAN', 14, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(485, '8330', 'MOHAMAD REDZWAN BIN IDRIS', 'redzwan@felcra.com.my', '$2y$12$rkJUL/YnWkuFktHycM7r4.kf82hnOxunqBAaAPn7RTH5GmRyRh8mq', 'EKSEKUTIF SISTEM MAKLUMAT', 37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(486, '8332', 'NUR AMIRAH BINTI JAMIL', 'amirah.jamil@felcra.com.my', '$2y$12$D9mnrswws1OH0TP2etFW9Oq3ClWFtZXcUtVds/XJxsz2TQG7480Lm', 'EKSEKUTIF ALAM SEKITAR', 16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(487, '8333', 'ISMANI ZIKRI BIN ISMAIL', 'ismani.zikri@felcra.com.my', '$2y$12$fHQCvK3xBfdsnX/9xaxF3e5.dXyg8AmD7UxNXGD6fcXee90so7Ar6', 'PENOLONG PENGURUS PENTABIRAN', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(488, '8336', 'NUR SYUHAIDAH BINTI ABDUL SHUKOR', 'nur.syuhaidah@felcra.com.my', '$2y$12$BsG7myNQKxAUZWHUIvFazef21SChl55KsYAxQjuQP4mrvoHiNKUO.', 'PENOLONG EKSEKUTIF PEMBANGUNAN PESERTA', 19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(489, '8337', 'NUR ATIQAH BINTI ABDUL MANAN', 'atiqah@felcra.com.my', '$2y$12$XrlRVYFhkPV3WGmH/3/37ubLi1FYVpxM3YY1vreevKQMEc/oy3Day', 'PENGURUS KEWANGAN', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(490, '8341', 'NUR AZZEMAH BINTI MOHTAR', 'azzemah@felcra.com.my', '$2y$12$7ZILJlUUWVJ1.yNiIEauPu8xZwFh59wIlojL9daxWH6.gY5KJNGlW', 'PENOLONG EKSEKUTIF PENTADBIRAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(491, '8349', 'MOHD RASHIEDY BIN ZAINAL', 'rashiedy@felcra.com.my', '$2y$12$wCjFD.I7TycP3O3YjFwWduOVq0T0FgQ5a.5BzlcziPILZ9zmGaa4O', 'EKSEKUTIF AKAUNTAN', 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(492, '8352', 'ILYANA BINTI CHE HASSAN', 'ilyana@felcra.com.my', '$2y$12$l/i7euQP89c/l5urFOh71uoUJrYA2XhK8zoSw1zJP7DarKrkOKkJ2', 'PENGURUS ALAM SEKITAR', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(493, '8353', 'AZHARI BIN MOHD PILUS', 'azharimp@felcra.com.my', '$2y$12$6XwptjRzTHEfOgVB84efF.goXKlgS4oFHqbU8ZYzqrpqQEG4K3MsS', 'PENOLONG PENGURUS PENTABIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(494, '8355', 'MOHAMMAD AZZAT BIN OSMAN', 'azzat.osman@felcra.com.my', '$2y$12$bxwg9NW5npvmXNM31krXdeYwPtLUj8dVilo5dj1QJCErvsCvvHTr.', 'PENGURUS PERTANIAN', 99, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(495, '8356', 'AZWANI BINTI MOHAMAD ALI', 'azwani.ali@felcra.com.my', '$2y$12$PrvjKl7PetyJ7fLxkd6VSen4t2fBga5i0Zp8E0V6mY8m2zGxcHCmC', 'EKSEKUTIF PENTADBIRAN', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(496, '8361', 'NURULIMANIAH BINTI ZAINURI', 'nurulimaniah@felcra.com.my', '$2y$12$sb5H0S7rzcM2A845.hvQ5OwVGBmuwRmdeYQbS0UT220nMUCN7YjZS', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 71, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(497, '8371', 'HAZIM AKHMAL BIN ANUAR', 'hazim.akhmal@felcra.com.my', '$2y$12$D0I3mJ6bzkBa6pwRjlM5qud6gyaCCaPtQv/ieu09nMSXR6x2gE/cG', 'PENOLONG PENGURUS PENTABIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(498, '8373', 'ABDUL AZIM BIN ARIFFIN', 'abdul.azim@felcra.com.my', '$2y$12$jRw9Y75FcoHMUXd/UipvSOrjIJp01nd1wJpaNaZjstUsdGyDULPaK', 'PENOLONG EKSEKUTIF KANAN PERLADANGAN', 33, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(499, '8374', 'NURUL JANNAH BINTI KAMALUDDIN', 'nurul.jannah@felcra.com.my', '$2y$12$F8esspGrKo5TpvmWpo3Tt.3w8pABE7Gw9MWHJnI7GTUml4Zr3Igwu', 'PENOLONG EKSEKUTIF PENTADBIRAN', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(500, '8375', 'MOHD SYAIFUL AMIR AL ZIKRI', 'amiralzikri@felcra.com.my', '$2y$12$lr4NYDHCgEONOyZg/YpjCe8.x3XtVgEBrZfUzQmGlvRIBIWkX/qXC', 'EKSEKUTIF PERLADANGAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(501, '8376', 'ZULAIKHA BINTI AHMAD ZAINUDIN', 'zulaikha@felcra.com.my', '$2y$12$/veDivhB3OcwxmFTvBekE.3ctgUw4gxHKDgUu02LzeJaTaH/EXUoS', 'PENGURUS KEWANGAN', 65, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(502, '8387', 'AIDA SYAHINDAH BINTI IBRAHIM', 'aida.syahindah@felcra.com.my', '$2y$12$SO/yeUVGg4Cofso.ebZM.elykEC7nYhNETv/qS41oDuWicZ59Qcse', 'PENOLONG EKSEKUTIF PENTADBIRAN', 26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(503, '8390', 'AHMAD AMINUDDIN BIN AMIR HISHAM', 'aminuddin@felcra.com.my', '$2y$12$4A08Sr3NYoANldyu1KcDPuYII3jT53J5SPFMcpTYeOTbJ2OMJt5cG', 'PENOLONG EKSEKUTIF PENTADBIRAN', 120, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(504, '8444', 'MUHAMMAD AMIRUL LUQMAN BIN ABDUL MANAH', 'amirul.luqman@felcra.com.my', '$2y$12$JoRFjhukDNRi6sZyhR5uHOYEjZHw7jGcTMAUMJnFRv19ZeTpi54zC', 'EKSEKUTIF PENTADBIRAN', 60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(505, '8445', 'MOHD ZAHAR BIN ZAINUDIN', 'zahar@felcra.com.my', '$2y$12$dbvAnJ23IFLc2d8fyXhsReM4kLQIK0n4lxHxL7uMxH1EA9uK.Hvl.', 'EKSEKUTIF PENTADBIRAN', 126, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(506, '8455', 'AHMAD FAIZUL AMIN BIN OTHMAN', 'faizul.amin@felcra.com.my', '$2y$12$LaDnTPTs8DV355nDuRfqjep0Tq1MVF7cUjQk.vjvirkKDlM2P6SMy', 'PENGURUS KEWANGAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(507, '8459', 'MOHD SYAHRIL HELMY BIN HASSAN BASRI', 'syahril@felcra.com.my', '$2y$12$CdqO/xPVsEy4Sg8KrdpA8OIKEtHtxIFgaeXa3xXSq4df6OAYwy3om', 'EKSEKUTIF PENTADBIRAN', 126, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(508, '8461', 'FARAHANIS WAHEDA BINTI ZAMRI', 'farahanis@felcra.com.my', '$2y$12$OsI86gV6bPotCsh77os0MeXogoXSSfRyI4GQEwFcrgzw/aXHWtT7O', 'PENOLONG PENGURUS PENTABIRAN', 41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(509, '8462', 'NUR ARDIANIE BINTI SHAIFUL AZHA', 'ardianie@felcra.com.my', '$2y$12$4a9g6YWGjLb8QxXjR/Tcxenb3VGG4Nz8MmidI8jxoifNmp2PsuYXO', 'PENOLONG EKSEKUTIF PENTADBIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(510, '8472', 'MUNIRAH BINTI AHMAD', 'munirah.ahmad@felcra.com.my', '$2y$12$ELZUDV0Vkua10iaQ8sX2PuiY1tQwnBhbyooXHEuLxo0ZvY5auhQiy', 'PENGURUS KEWANGAN', 79, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(511, '8476', 'MOHD NOR IMAN BIN AHMAD JAMALUDIN', 'iman.jamaludin@felcra.com.my', '$2y$12$AtdDk50CsKwFe9OcdshnaOVSMVEGxkPCrplhFfw2nxtayLuyP.KRe', 'PEMBANTU EKSEKUTIF TUKANG', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(512, '8477', 'MUHAMMAD FAZLEN BIN SALAIMA', 'fazlen@felcra.com.my', '$2y$12$AVq0D7.r5lqekR7q/YV73O4zOZexgzoCgt6My/8ynrLs.Wg9hQv8y', 'EKSEKUTIF KANAN PERLADANGAN', 53, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(513, '8482', 'NURHAZNISYA BINTI AJIB', 'haznisya@felcra.com.my', '$2y$12$ZfxDe1orf8f2Kaz3b/EJjeD5PdD7ESPxlb9DXbMMmYUSIPPf73yzq', 'EKSEKUTIF PERHUBUNGAN PELANGGAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(514, '8483', 'NUR AMIRA ERINA BINTI ASLAHUDDIN', 'amira.erina@felcra.com.my', '$2y$12$/tTNU9BY0hLNX9J.jTbhw.6hngjG3.H1sxKkIrFNQAAZmc56VnjEG', 'EKSEKUTIF PERHUBUNGAN PELANGGAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(515, '8486', 'MOHD SUHAIMEE BIN UYUB', 'suhaimee@felcra.com.my', '$2y$12$MlJ/iVOElZDTMdwT90T1GeSWjsn7Sf0MrFdKGjIZeTu5cX.8DISKS', 'EKSEKUTIF KANAN PENTADBIRAN', 122, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(516, '8491', 'MUHAMMAD HAMIZAN BIN ROSLI', 'hamizan.rosli@felcra.com.my', '$2y$12$YGQZrviGLKu8UAcPHd8jUuLvkyBijIgdmeEIf/35Z8yKB3kQphpzS', 'EKSEKUTIF KEWANGAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(517, '8499', 'SAYUTI BIN SULAIMAN', 'sayuti@felcra.com.my', '$2y$12$xvE2jOFj8Sf.agkMtGbBKesIzBZ2HMHBmdhWElHh/wjQ7nAqvJAZa', 'PENGURUS KANAN EMERGING TECHNOLOGY', 110, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(518, '8500', 'MOHAMMAD ZAHIR BIN MD-KARIM', 'zahir.karim@felcra.com.my', '$2y$12$0ielpnh7uEDkKtlM7RQnLOe0jbn9oE48H/xi97RAHarB37b92F5m2', 'PENOLONG PENGURUS PENTABIRAN', 43, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(519, '8501', 'NURHIDAYATI HANNANI BINTI AHMAD', 'hannani@felcra.com.my', '$2y$12$fNl8k6mu3TBMJA3cX2/rTeGO2jT7FdI50Nx3YWLKHFQ9n3gOv4Frq', 'PENOLONG PENGURUS PENTABIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(520, '8504', 'WAN MUHD FAUZI BIN WAN AZIZ', 'fauzi.aziz@felcra.com.my', '$2y$12$tXzCAHNWLmeOmtqW5z2J6eju71l3avtuh9j87DCI2cHgH6MVqHhxO', 'PENOLONG PENGURUS PENTABIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(521, '8505', 'FATIN ZULAIKHA BINTI BASHARIN', 'fatin.zulaikha@felcra.com.my', '$2y$12$g88kC6YZiKU96blY7LLgR.SLHWoDN5yLooUNtPYsfVNdET.CGc.Fm', 'PENOLONG PENGURUS PENTABIRAN', 78, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(522, '8509', 'NUR ANNISA BINTI MOHD ARIF', 'annisa@felcra.com.my', '$2y$12$Cg773f4ImxGnaFPhlfRlieRopCwODrN3rxdnlzYAPTBCr4A15wcuK', 'PENOLONG PENGURUS PENTABIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(523, '8510', 'SITI NASIHA BINTI ZAINON', 'nasiha@felcra.com.my', '$2y$12$8fpF8V/kCK7bHs5xzVYfXOBzTt2Xcbx6W4lKEz8hON90/B76Ausoa', 'PENOLONG PENGURUS PENTABIRAN', 72, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(524, '8511', 'FARAH NABIHAH BINTI KAMIL HADI', 'farah.nabihah@felcra.com.my', '$2y$12$juSRYibkojj7X8yI3SCkS.PY6ucY.ie9NeopWdu2n1CziILmb3gMu', 'PENOLONG PENGURUS PENTABIRAN', 78, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(525, '8520', 'NOOR NAZIMA BINTI DAUD', 'nazima.daud@felcra.com.my', '$2y$12$OS8eRrQM9FTylKSPzPPYLuMMJGBWxf0ONTfoPjBZ0oCJ.MQHAjA1u', 'EKSEKUTIF KEWANGAN', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(526, '8535', 'HASHIM BIN ISA', 'hashim.isa@felcra.com.my', '$2y$12$weEs6wrA0FrvNtKt9q3fjOPdkhTYmjgT7EZ8pau1LucwVXam3wDk.', 'PENGURUS KANAN DOWNSTREAM', 9, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(527, '8536', 'SYAZWANI RAHIMI BINTI MOHAMAD', 'syazwani.rahimi@felcra.com.my', '$2y$12$UyszgfSsYkAAl0fLOguKFOHdY0qEgKueKHeXik/bEChDxi6bSfZZK', 'PEMBANTU KHAS', 23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(528, '8658', 'TUAN MOHD HAFIZUDDIN BIN TUAN ZAINOL', 'hafizuddin.zainol@felcra.com.my', '$2y$12$gYDEeqEe2SvosZhorVb7Te4EUQvXWUl1u4RnarQsutbYHAAlde3Ui', 'EKSEKUTIF PENTADBIRAN', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(529, '8661', 'MOHAMMAD ASHRAFF BIN AB MANAF', 'ashraff.manaf@felcra.com.my', '$2y$12$zrDM7MmGSoY4DrjA6L5/6um2b9neeA4glOBbu/GCW/RzLbdkZf5Bm', 'PENOLONG PENGURUS PENTABIRAN', 85, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(530, '8708', 'AMZARI AKMAR BIN ABDUL LATIF', 'amzari.akmar@felcra.com.my', '$2y$12$y2foSQDAay2LkfXZdz8GGuy6YM0pco3hU6ahhxi6pLYzn.8hsQpnG', 'EKSEKUTIF SISTEM MAKLUMAT', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(531, '8742', 'NORLILA BINTI MOHD HANIJAS', 'norlila@felcra.com.my', '$2y$12$c9wQ4zGK.LwbZHXn3fjlfO4aywaYuBEQFKGDmFBqpi9DrDgQcFpVe', 'PENOLONG PENGURUS PENTABIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(532, '8744', 'MUHAMMAD AMMAR HAZIQ BIN ONN', 'ammar.haziq@felcra.com.my', '$2y$12$iMSyzd8GR3Ackfut1UYQLuFpieVDfOex9cCh2mufz0MJneQgkELoG', 'EKSEKUTIF ALAM SEKITAR', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(533, '8789', 'SITI HAJAR HIRDAYU BINTI AZMI', 'hajar.hirdayu@felcra.com.my', '$2y$12$P9Ij1BOdmT9dInPyi7mXu.qSbEwuwSnC6ui7S6k0TlMPmGboDNIkK', 'PENOLONG PENGURUS PENTABIRAN', 88, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(534, '8857', 'ZAIDI BIN SHAHOR', 'irzaidi@felcra.com.my', '$2y$12$5n9.a9xzlWTVohBK5gSduOuVcEgeY0G98NcGN49l7pYQBAKV2mP8W', 'TIMBALAN PENGARAH', 13, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(535, '8921', 'ASMA\'AMALINA BINTI MD YUSOF', 'asma.amalina@felcra.com.my', '$2y$12$iQOoUzUFZzCT9yHpCotdduEB/P6k93JUtST6tXJi32nxIIM.Gac16', 'PENOLONG EKSEKUTIF UKUR (PELUKIS PELAN)', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(536, '8935', 'MOHAMMAD AZRI BIN ABDUL AZIZ', 'azri.aziz@felcra.com.my', '$2y$12$BvwlqhGZnXQhyuSzgfE73uygN/WVUlj7Xdx6O0fUSGj9k8pYwaesm', 'PENOLONG PENGURUS PENTABIRAN', 57, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(537, '8938', 'NIK AZMIL BIN HARUN', 'azmil.harun@felcra.com.my', '$2y$12$zBei5vfZBPaEVAzP9a1xSOh3ehWBKQmJHSiiQB85qjJWxAoWJvmme', 'PENOLONG EKSEKUTIF TEKNIKAL WIREMAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(538, '8944', 'MD SUHAFIZI BIN HAZRI', 'suhafizi@felcra.com.my', '$2y$12$Te0S9Fv6Ae6iq1Fzh6K0s.XRiPVCjA2tj.1foZmG4ZHvD8RLqiiCW', 'EKSEKUTIF BINAAN', 103, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(539, '8951', 'MOHD FAIZOL BIN MAZLAN', 'faizol.mazlan@felcra.com.my', '$2y$12$p7ywX8CbFIvfxiAhdrKvSO1QAWkIFvawKTCUoOxiL8OZqZ1Y0S8tK', 'PENOLONG EKSEKUTIF TEKNIKAL WIREMAN', 98, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(540, '8955', 'AISYAH BINTI AZMI', 'aisyah.azmi@felcra.com.my', '$2y$12$2I0g..EvQ6pDoBvqtS1BD.r919cOnwzJv9jeMTjgXgLuXfKlc3lKe', 'PENGURUS ALAM SEKITAR', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(541, '8956', 'NURSYAFIQAH AQILAH BINTI MOHD NIZAM', 'nursyafiqah@felcra.com.my', '$2y$12$ah11BOo46CKHX9oIBRKo4e/AXrL.A35euJMukVeuRa8zD1iGm.vFS', 'EKSEKUTIF PENTADBIRAN', 76, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(542, '8959', 'ABBAS BIN JOHARI', 'abbas@felcra.com.my', '$2y$12$FYeCmwTaT/LwV3aDxdGiouq7S5EIK4dmRp.mY5QSZL9mVbhLRAQqC', 'EKSEKUTIF PENTADBIRAN', 47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(543, '8963', 'NORFARAHAIN BINTI ISMAIL', 'norfarahain@felcra.com.my', '$2y$12$7dfzQv34wa3FnlSMTinTxeUzzuGH3Ma51lxO7RlvBMkMs/TU9wQc6', 'PENOLONG EKSEKUTIF PENTADBIRAN', 80, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(544, '8964', 'MOHD HAZRI BIN HAMZAH', 'hazri.hamzah@felcra.com.my', '$2y$12$5b7831b9e2u0u17iPWsLoOhv5lpkoxwo.182SaESisrY6H4LKpkVC', 'PEMBANTU EKSEKUTIF PENTADBIRAN', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(545, '8967', 'SHARIFAH ATIKAH BINTI SYED HARMAN SHAH', 'sharifah.atikah@felcra.com.my', '$2y$12$UMKhjdcTsEWZhGBwggZp9uZc.6V2Me.FsEB24ha4ApmpVUJiN77JO', 'EKSEKUTIF PENTADBIRAN', 122, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(546, '8968', 'FATIMAH BINTI SULAIMAN', 'fatimah.sulaiman@felcra.com.my', '$2y$12$w/lk97FFEwLyRLxqpIl1xuPIQmvR/Bu5iGc7biBdxbyIh/dP7h5qW', 'EKSEKUTIF PENTADBIRAN', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(547, '8969', 'MUHAMMAD SYAFIQ HAKIM BIN KAMARUDIN', 'syafiq.hakim@felcra.com.my', '$2y$12$39k/vCYHOb0Q20jKrrgVTOdLImfTR/wF9/1TDNB9lJ2JNo9kcbAwi', 'PENOLONG PENGURUS PENTABIRAN', 95, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(548, '8970', 'NOR SYUHADA BINTI AZAHAR', 'syuhada.azahar@felcra.com.my', '$2y$12$qw2FCiq71upTXiZmRLBugOZaxIQ7ZyAlCO9LrpjATnAWqx6zIPr36', 'PENOLONG PENGURUS PENTABIRAN', 90, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(549, '8971', 'SURAYA BINTI KASDON', 'suraya.kasdon@felcra.com.my', '$2y$12$6t2Xqg8if8BeeGMAgajrde0Zk9quLZ0sXHpbiZx2mYYqGQkiRBaUi', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 68, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(550, '8974', 'NUR AMIRA BINTI SUHAIMI', 'amira.suhaimi@felcra.com.my', '$2y$12$IIqT94HUFF5a2y1G/R/9Z.uOIsYKgoFji06gy2Q4.xSDXmbuWz7rS', 'PENOLONG PENGURUS PENTABIRAN', 122, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(551, '8976', 'NOR ILHAMI BINTI IZHAR', 'ilhami@felcra.com.my', '$2y$12$Snpt7gs8Zf9LzkXyXmCbyO/BUOeIdMSlLvObs74IL5vwGJ7OGHyym', 'PENOLONG EKSEKUTIF KANAN PENTADBIRAN', 33, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(552, '8979', 'SITI BADARIAH BINTI JAMALUDIN', 'badariah@felcra.com.my', '$2y$12$xoU5Dwjkyeue6PsWcagUAux8wM3rS/iV77DPBvqyFBPUuWGZzdJUK', 'EKSEKUTIF KEWANGAN', 90, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(553, '8985', 'NAZIFAH BINTI IBRAHIM', 'nazifah@felcra.com.my', '$2y$12$P0GNI9pz27tvRgMqwHCTtu0xoh6p/cCs2ReJSdfxEvS1R1ofWXStu', 'PENOLONG EKSEKUTIF PENTADBIRAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(554, '9039', 'NURSYAZWANI BINTI ZULKIFLI', 'syazwani.zulkifli@felcra.com.my', '$2y$12$eFA0y0ta8wFhnUxqH.Ei9OO2fNt6X2ccK12vAVtVfVjL8GNcY1gNe', 'PENOLONG EKSEKUTIF PEMBANGUNAN PESERTA', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(555, '9040', 'NIK MAHAMAD FARHAN BIN NIK MAHAMAD FAUDZ', 'farhan.faudzi@felcra.com.my', '$2y$12$toh7rATT7of.fvfjMYhI6uyWhIU1JgweYqenfMRB5gDxrU0w75f42', 'PENOLONG EKSEKUTIF PENTADBIRAN', 62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(556, '9042', 'MUHAMAD DANIAL ASQALANI BIN AZHAR', 'danial.asqalani@felcra.com.my', '$2y$12$lU38yvpDdbrXudOsYJPoR.ZtW.6U0Cz3aM584g6KyVplaIZYS.7j6', 'PENOLONG EKSEKUTIF PEMBANGUNAN PESERTA', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(557, '9043', 'MOHAMAD SYAHMI BIN KATIMIN', 'syahmi@felcra.com.my', '$2y$12$XUpAw3V0XWjxXD473iF/XOqbe6hRP1mn43g3zU6.RRPmC9h4z0QbW', 'PENOLONG EKSEKUTIF SISTEM MAKLUMAT', 69, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(558, '9044', 'AHMAD MUZAKKIR BIN RAZALI', 'muzakkir.razali@felcra.com.my', '$2y$12$wvdtSq1KVLCEG9MLl5nPiutkNLwo.YjoI7ZAR.dhxpk4ekgYOx6ge', 'PENOLONG EKSEKUTIF PEMBANGUNAN PESERTA', 19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(559, '9045', 'NUR FATIHAH BINTI JAMALUDIN', 'fatihah.jamaludin@felcra.com.my', '$2y$12$jQmTpGqcAxq6/AlqgGz1J.GBovLjGuAO1DCh8/Ch09tQBk5a9G52W', 'PENOLONG EKSEKUTIF PEMBANGUNAN PESERTA', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(560, '9046', 'SITI NURSUHAILA BINTI BAHARIM', 'suhaila.baharim@felcra.com.my', '$2y$12$3DJfO/MvcCCY4g52Y.RyzeDtJHxGgC7DaFp84TzyQBm8VidcblzIy', 'PENOLONG EKSEKUTIF PEMBANGUNAN PESERTA', 46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(561, '9105', 'MOHD FARIS BIN MOHD FAUZEE', 'faris.fauzee@felcra.com.my', '$2y$12$6PRs15KXev9Rm8mAMJmbWOYMqz6mmTS8yHQFztgoo9ux9daSypSZS', 'PENGURUS PERTANIAN', 20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(562, '9106', 'MUHAMMAD AL-JAUHARI BIN JAMALUDIN', 'aljauhari@felcra.com.my', '$2y$12$tDdzyfwY0QLfsPTxYiXJBOtUEjJDd0eBFBpcuEiiuI5hJDXpbWvme', 'PENGURUS PERTANIAN', 54, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(563, '9115', 'AMALIA AFIQAH BINTI MAT RONI', 'amalia@felcra.com.my', '$2y$12$h1jINN9MRea6CN2xbutSUuu2Nu5XZ/g7GS6cYLIuVICjiHVD91Xb2', 'PENOLONG PENGURUS PENTABIRAN', 75, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(564, '9116', 'SURIYANAH BINTI LAUDE', 'suriyanah@felcra.com.my', '$2y$12$Dd0FOnCTWZoGFC9OuKA9IOLjsy0qi2/wxIbnEs0jVmi0ztSUVg0yq', 'PENOLONG PENGURUS PENTABIRAN', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(565, '9118', 'AHMAD FARUQ BIN AHMAD ZAHRAN', 'faruq.zahran@felcra.com.my', '$2y$12$2ND0UV9J0HEyxCys2i5oZ.Jnbh83vxdj8muRcCrWwZFB/jK1E/a9q', 'PENOLONG PENGURUS PENTABIRAN', 39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(566, '9121', 'WAN SHAHIRAH BINTI WAN ZULKIFLI', 'shahirah.zulkifli@felcra.com.my', '$2y$12$Zf.mdXwk6/j6Jo5xlubIUuKMxzORT3mbEQYowdDWpenennv14cAwi', 'PENOLONG PENGURUS PENTABIRAN', 72, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(567, '9124', 'MOHAMAD FIERZA HAZIQ BIN MOHD FAUZI', 'fierza.haziq@felcra.com.my', '$2y$12$Hm3QRuJVt0VvrX5gEvyPB.7mbBSZP.KJigMn1lVMyk/zB0R2mRh..', 'EKSEKUTIF PENTADBIRAN', 43, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(568, '9125', 'AMIRUDIN BIN ABU AMAN', 'amirudin.abu@felcra.com.my', '$2y$12$8KmqSS6cawBavot8rPO7P.HwLjjme8YNYX97rf1e4kjYeEMDSZbSW', 'PENGURUS PERTANIAN', 51, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(569, '9127', 'LUQMAN HAFIZI BIN ABD KARIM', 'luqman.hafizi@felcra.com.my', '$2y$12$oB8c2EKr0b6csEwM4UiNRezz7AFcKlFCeaqfBtsXhnp31tMEhcWAa', 'PENGURUS PERTANIAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(570, '9128', 'MOHD FADLIESHAM BIN A RAHMAN', 'fadliesham@felcra.com.my', '$2y$12$AEOK.opIYOgfkgvD7S.wQuKFB7LE8FpHaQ7TcbsI1/7CQqP8HmxRy', 'PENGURUS PERTANIAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(571, '9130', 'ABDUL WAFIY BIN RAHAZAT', 'abdul.wafiy@felcra.com.my', '$2y$12$E6gZK6jycGZxvPrdw.7S3.J2aRUQaHjStjFJI3BKSGn7Mq9UFzKs.', 'PENOLONG PENGURUS PENTABIRAN', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(572, '9133', 'SYAMIRA BINTI MOHD SAUDIN', 'syamira.saudin@felcra.com.my', '$2y$12$lA5pbdrkZvtx0PGf/9rVnenzzLUbUs7Qhu5J3iB6eGO2BXZlk3OlO', 'PENOLONG PENGURUS PENTABIRAN', 12, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(573, '9135', 'NOOR ILYANA BINTI MAD ROSIP', 'noor.ilyana@felcra.com.my', '$2y$12$yI9aNqp/rTfBV7mmbO2GVu8bAyn7WSYDDT0DqzuXS1qr/rfQY5BdW', 'EKSEKUTIF PENTADBIRAN', 76, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(574, '9136', 'A\'TIKAH BINTI JAAFAR', 'atikah.jaafar@felcra.com.my', '$2y$12$s/XB8rb4BEQxRAn4noMp..TccZUFu0pv1HKwD9Ekv29au7r6EAToW', 'EKSEKUTIF PENTADBIRAN', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(575, '9137', 'MOHAMAD SYAFUL AMIRUL BIN MOHD SYAFULIZA', 'syaful.amirul@felcra.com.my', '$2y$12$7S7rjDjc5e74BBCWClXIPeKMeoFG8UNphGaYbRIpaCErVGTHo8Rvm', 'EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(576, '9138', 'MUHAMAD IZZULHILMI BIN MOHD YUNUS', 'izzulhilmi@felcra.com.my', '$2y$12$8zv5ABBsnAt4IhRdp4wBLeJbPYDjSdHy4CpMV5N7qZQOfeDvwUU3S', 'EKSEKUTIF PENTADBIRAN', 42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(577, '9139', 'MUHAMMAD SYUHAIRIM BIN OSMAN', 'syuhairim@felcra.com.my', '$2y$12$9sT448HZ0RuqLsqct5urXuv4Qw74ix5SIiA59XGPjc9XQbzcbDkBq', 'EKSEKUTIF PENTADBIRAN', 119, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(578, '9140', 'NUR NATASHA BINTI AHMAD RAZALI', 'natasha.razali@felcra.com.my', '$2y$12$0eq31Bp75ms60Q8kbeiqC.31aEw27O3j8xywGvGci.7t9IG21nd9G', 'PENOLONG PENGURUS PENTABIRAN', 38, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(579, '9141', 'MUHAMMAD AMIN KHALILI BIN MOHD AZMI', 'amin.khalili@felcra.com.my', '$2y$12$txNKqqCllzyehnqNnCZUjOhp2BBeDUubkAueGPxyx0pUWm6jCuE6S', 'PENOLONG PENGURUS PENTABIRAN', 123, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(580, '9142', 'AHMAD LOQMAN BIN MOHAMAD', 'loqman.mohamad@felcra.com.my', '$2y$12$JR45k/spiPTT6b0cazgZZ.u/pGSsgDxOvqIvc3ONfUUvluyIF4TFy', 'PENOLONG PENGURUS PENTABIRAN', 15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(581, '9144', 'NUR UMMIRAH BINTI TARMIZY', 'ummirah@felcra.com.my', '$2y$12$8U7OhH1z0ioZC5Yy0TglaeMpLNv5gIQPSbY12J9SQFTbcxIqgFt9S', 'PENOLONG PENGURUS PENTABIRAN', 51, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(582, '9148', 'NURAZIEMAH BINTI MOHD KHIR', 'nuraziemah@felcra.com.my', '$2y$12$RMBu0RFezte.71bpSimAuuWWjg6ix0P36vWwRvkjoYehdRfKBtB12', 'PENOLONG PENGURUS PENTABIRAN', 121, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(583, '9149', 'NORAMIRAH BINTI ABDUL MUTALIB', 'noramirah.mutalib@felcra.com.my', '$2y$12$LsWd5vYvjDinSyEErvT6r./Zwe2pKjdeNVUsbwsuypApY/G.lHhaO', 'PENOLONG PENGURUS PENTABIRAN', 98, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(584, '9150', 'NUR AFIQAH BINTI KAMALUDIN', 'afiqah.kamaludin@felcra.com.my', '$2y$12$C9HoDlyCUx0bxD6RO/Fh7eIJlXH3cRvK.unzaoV0qM1Wk9FU0q2mS', 'PENOLONG PENGURUS PENTABIRAN', 66, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(585, '9151', 'ASYRAF BIN JASMAN', 'asyraf.jasman@felcra.com.my', '$2y$12$9/6tCofkQuWVpQg3gA7OY.3NdXe6IJCRiqtpG2iG3SipOoVrONdHm', 'PENOLONG PENGURUS PENTABIRAN', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(586, '9153', 'SUHAILEZA BINTI SAMSUDIN', 'suhaileza@felcra.com.my', '$2y$12$f/2z.QWSlv7nVQebAHzPjecAPtFpsapsOgkTVbXaCOpzdHvKTmAza', 'EKSEKUTIF PENTADBIRAN', 117, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(587, '9155', 'NUR AFIFI BINTI YUSRI', 'afifi.yusri@felcra.com.my', '$2y$12$FwwcpFAh9Xge8esTrD/1aeuaxq72cEqK40h0pKmW1GVSFfEBJksRC', 'EKSEKUTIF PENTADBIRAN', 118, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(588, '9157', 'NUR IZZATY ARMI BINTI ROSLAN', 'izzaty.armi@felcra.com.my', '$2y$12$2O/bgS6tGLK6CkFQnVVFG.sTtXnPnCvaNsgULsyWSdHDLQWHu8jlq', 'EKSEKUTIF PENTADBIRAN', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(589, '9162', 'MUHAMMAD ZULFADHLI BIN ISMAIL', 'zulfadhli.ismail@felcra.com.my', '$2y$12$/hOBHAbdbMJN9xSBxkPAJeIVp7K39XVi3yRpRdwdFOSrZ23IjmYNu', 'PENGURUS PERTANIAN', 97, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(590, '9163', 'NUR SHAZLINDA BINTI HARUN', 'shazlinda@felcra.com.my', '$2y$12$UfbSLVO4q8IF0kCG69FpU.w9aNCXHPgtbqTiVZ2eQVB5SE5jUEfK.', 'PENOLONG PENGURUS PENTABIRAN', 89, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(591, '9164', 'NAZATUL ALISHA BINTI MOHD SHARIF', 'nazatul.alisha@felcra.com.my', '$2y$12$lewLxuk1kmydl7pLeFDniOQY5PdbaEteeC5yOBCbBM40JNcgxs3Ta', 'PENOLONG PENGURUS PENTABIRAN', 65, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(592, '9165', 'NUR LIYANA BINTI RAZILAH', 'liyana.razilah@felcra.com.my', '$2y$12$9Rjpx05kSEkOLE56P4MdP.Er7gSkQr9EA.3x8JnWteEYTbQ1FFEb.', 'PENOLONG PENGURUS PENTABIRAN', 81, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(593, '9167', 'NUR AISYAH IZZATI BINTI JOHARI', 'aisyah.izzati@felcra.com.my', '$2y$12$IcKrhfkxB.ncPVQ00d7FmuiCQgnBm7hVMOlMvjDK5C17QjNPZ.V.e', 'PENOLONG PENGURUS PENTABIRAN', 106, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(594, '9168', 'NURUL NADIAH BINTI MOHD RASDI', 'nadiah.rasdi@felcra.com.my', '$2y$12$.LRbgk7Es2MukYnmtQ40IO28sx2OIf/IA49Qk6jApMfq3uv1Nu6Oa', 'EKSEKUTIF PENTADBIRAN', 76, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(595, '9169', 'NORDAMIA HANIS BINTI ROSZAINI', 'nordamia.hanis@felcra.com.my', '$2y$12$oksX6y6Q.e1eGHHf9T.mqOWgH1K5cQ8/IVaQbAAP.00gPdFZEj85W', 'EKSEKUTIF PENTADBIRAN', 64, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(596, '9174', 'UMMI UMAIRA BINTI MD. ROSLAN', 'ummi.umaira@felcra.com.my', '$2y$12$JEcAYyQ0NnQws//5Hq1.cOnCf.sLV1Cv69GlpdrAuvkIw2.0eUKgu', 'PENOLONG PENGURUS PENTABIRAN', 86, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(597, '9175', 'MUHAMMAD NURAZID AFIQI BIN NOOR AZLAN', 'nurazid.afiqi@felcra.com.my', '$2y$12$wkIaKoXXr2gqKoYV9SqmfubMoIY85H0QdBdrs.r7.nej/tq27AckK', 'PENGURUS PERTANIAN', 33, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(598, '9176', 'MUHAMMAD AFIQ HAIKAL BIN MAZLAN', 'afiq.haikal@felcra.com.my', '$2y$12$y/sL1SMHoPOamoLo5NZC1.aS8lweRyHT/GPH0KtgW27zFJA9eVHX2', 'JURUTERA MEKANIKAL', 104, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(599, '9177', 'LUQMAN BIN ISMAIL', 'luqman.ismail@felcra.com.my', '$2y$12$NubONEGvOJgSC8NsjAJ2guQDpeNUOSY9tuSThjxiDCzR01T0n88CC', 'EKSEKUTIF PENTADBIRAN', 84, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(600, '9180', 'MOHD SHARAFUDDIN BIN ABD HALIM', 'sharafuddin@felcra.com.my', '$2y$12$RTMmfT6LYvaTWFmtvBsW1OvbudtkWNn7hLNAPTis/iMo.k3VCRlqG', 'EKSEKUTIF PENTADBIRAN', 38, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(601, '9186', 'AHMAD SYAZWAN BIN SAHHARIMAN', 'syazwan.sahhariman@felcra.com.my', '$2y$12$qzGEvy5MZ/v.Rr0R4JvMLOd2yfN4uR0enjmEdwOyw31CNRbhVarxO', 'PENOLONG PENGURUS PENTABIRAN', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(602, '9187', 'ZHARIF MAULID BIN ZAINAL BASRI', 'zharif.maulid@felcra.com.my', '$2y$12$RpcBF3Gjf4aiiXt3K7VvzOIQ5bLCq95iWcZfoOqClIUQxQ6PQQCYS', 'PENOLONG PENGURUS PENTABIRAN', 92, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(603, '9199', 'MOHAMAD AIZIL BIN GANANG', 'aizil.ganang@felcra.com.my', '$2y$12$YfXMkdIKfV4K5phGniCivOyBtgmTptrulHMhtHTbSLEQwMCP1FEAG', 'EKSEKUTIF PENTADBIRAN', 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(604, '9226', 'FIKHRI AMIR BIN ABD HALIM', 'fikhri.amir@felcra.com.my', '$2y$12$FbDbyewOrwemI4ElMXm3tu4QIqyKbGTaSk5XBcYETaWyDqHMoA4/K', 'PENGURUS PERTANIAN', 36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, ''),
+(605, '9274', 'MOHAMMAD ANAS FADHLIN BIN MD AZIZAN', 'anas.fadhlin@felcra.com.my', '$2y$12$9.oIQCPT8GJvJafFkJ4oV.NxkUa.yeTQadE3A6BeiEyJILWH3L2Oy', 'PENOLONG PENGURUS PENTABIRAN', 70, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `active_sessions`
+--
+ALTER TABLE `active_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `fk_active_sessions_lokasi` (`lokasi`);
+
+--
+-- Indexes for table `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `ccs`
+--
+ALTER TABLE `ccs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_emails_ccs` (`email_id`);
+
+--
+-- Indexes for table `emails`
+--
+ALTER TABLE `emails`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `emails_delete` (`letter_id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `folders`
+--
+ALTER TABLE `folders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `folders_base_rujukan_no_unique` (`base_rujukan_no`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indexes for table `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `letters`
+--
+ALTER TABLE `letters`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `letters_rujukan_no_unique` (`rujukan_no`),
+  ADD UNIQUE KEY `rujukan_no` (`rujukan_no`),
+  ADD KEY `fk_kepada` (`kepada`),
+  ADD KEY `fk_daripada` (`daripada`),
+  ADD KEY `fk_folder` (`folder_id`),
+  ADD KEY `fk_user` (`user_id`);
+
+--
+-- Indexes for table `locations`
+--
+ALTER TABLE `locations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `lokasi_id` (`lokasi_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `old_memo`
+--
+ALTER TABLE `old_memo`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `rujukan_no` (`rujukan_no`),
+  ADD KEY `folder_id` (`folder_id`),
+  ADD KEY `fk_uploaded_by` (`uploaded_by`);
+
+--
+-- Indexes for table `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `recipients`
+--
+ALTER TABLE `recipients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_emails` (`email_id`);
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_no_staff_unique` (`no_staff`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `fk_lokasi` (`lokasi`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `active_sessions`
+--
+ALTER TABLE `active_sessions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ccs`
+--
+ALTER TABLE `ccs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `emails`
+--
+ALTER TABLE `emails`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `folders`
+--
+ALTER TABLE `folders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `letters`
+--
+ALTER TABLE `letters`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `locations`
+--
+ALTER TABLE `locations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `old_memo`
+--
+ALTER TABLE `old_memo`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `recipients`
+--
+ALTER TABLE `recipients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1255;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `active_sessions`
+--
+ALTER TABLE `active_sessions`
+  ADD CONSTRAINT `active_sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_active_sessions_lokasi` FOREIGN KEY (`lokasi`) REFERENCES `locations` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `ccs`
+--
+ALTER TABLE `ccs`
+  ADD CONSTRAINT `ccs_ibfk_1` FOREIGN KEY (`email_id`) REFERENCES `emails` (`id`),
+  ADD CONSTRAINT `fk_emails_ccs` FOREIGN KEY (`email_id`) REFERENCES `emails` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `emails`
+--
+ALTER TABLE `emails`
+  ADD CONSTRAINT `emails_delete` FOREIGN KEY (`letter_id`) REFERENCES `letters` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `emails_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `emails_ibfk_2` FOREIGN KEY (`letter_id`) REFERENCES `letters` (`id`),
+  ADD CONSTRAINT `fk_letters` FOREIGN KEY (`letter_id`) REFERENCES `letters` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `letters`
+--
+ALTER TABLE `letters`
+  ADD CONSTRAINT `fk_daripada` FOREIGN KEY (`daripada`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `fk_folder` FOREIGN KEY (`folder_id`) REFERENCES `folders` (`id`),
+  ADD CONSTRAINT `fk_kepada` FOREIGN KEY (`kepada`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `letters_daripada_foreign` FOREIGN KEY (`daripada`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `letters_folder_id_foreign` FOREIGN KEY (`folder_id`) REFERENCES `folders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `letters_kepada_foreign` FOREIGN KEY (`kepada`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `old_memo`
+--
+ALTER TABLE `old_memo`
+  ADD CONSTRAINT `fk_uploaded_by` FOREIGN KEY (`uploaded_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `old_memo_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `folders` (`id`);
+
+--
+-- Constraints for table `recipients`
+--
+ALTER TABLE `recipients`
+  ADD CONSTRAINT `fk_emails` FOREIGN KEY (`email_id`) REFERENCES `emails` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `recipients_ibfk_1` FOREIGN KEY (`email_id`) REFERENCES `emails` (`id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_lokasi` FOREIGN KEY (`lokasi`) REFERENCES `locations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

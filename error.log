@@ -1,0 +1,274 @@
+[2024-07-02 08:45:02] Error in submit_draft.php: Table 'memo_management.memos' doesn't exist
+[2024-07-02 08:45:36] Error in submit_draft.php: Table 'memo_management.memos' doesn't exist
+[14-Jul-2024 06:15:43 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[14-Jul-2024 06:15:43 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[14-Jul-2024 06:15:43 Europe/Berlin] Processed data - Subject: MEMO LATIHAN INDUSTRI
+[14-Jul-2024 06:15:49 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'sender' in 'field list' in C:\xampp1\htdocs\anis\anis\Templates\email_memo.php:332
+Stack trace:
+#0 C:\xampp1\htdocs\anis\anis\Templates\email_memo.php(332): mysqli->prepare('INSERT INTO ema...')
+#1 {main}
+  thrown in C:\xampp1\htdocs\anis\anis\Templates\email_memo.php on line 332
+[14-Jul-2024 06:17:18 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[14-Jul-2024 06:17:18 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[14-Jul-2024 06:17:18 Europe/Berlin] Processed data - Subject: MEMO LATIHAN INDUSTRI
+[14-Jul-2024 06:17:21 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'sender' in 'field list' in C:\xampp1\htdocs\anis\anis\Templates\email_memo.php:332
+Stack trace:
+#0 C:\xampp1\htdocs\anis\anis\Templates\email_memo.php(332): mysqli->prepare('INSERT INTO ema...')
+#1 {main}
+  thrown in C:\xampp1\htdocs\anis\anis\Templates\email_memo.php on line 332
+[14-Jul-2024 06:17:42 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[14-Jul-2024 06:17:42 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[14-Jul-2024 06:17:42 Europe/Berlin] Processed data - Subject: MEMO LATIHAN INDUSTRI
+[14-Jul-2024 06:17:47 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'sender' in 'field list' in C:\xampp1\htdocs\anis\anis\Templates\email_memo.php:332
+Stack trace:
+#0 C:\xampp1\htdocs\anis\anis\Templates\email_memo.php(332): mysqli->prepare('INSERT INTO ema...')
+#1 {main}
+  thrown in C:\xampp1\htdocs\anis\anis\Templates\email_memo.php on line 332
+[14-Jul-2024 06:19:12 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[14-Jul-2024 06:19:12 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[14-Jul-2024 06:19:12 Europe/Berlin] Processed data - Subject: MEMO LATIHAN INDUSTRI 3
+[15-Jul-2024 16:46:39 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[15-Jul-2024 16:46:39 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[15-Jul-2024 16:46:39 Europe/Berlin] Processed data - Subject: PERMOHONAN MENYERTAI KURSUS CYBER SHIELD STRENGTHENING IT WITH CYBER SECURITY ESSENTIALS (KKM:134/24)
+[15-Jul-2024 17:01:19 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+    [1] => anisumairaha@student.usm.my
+)
+
+[15-Jul-2024 17:01:19 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[15-Jul-2024 17:01:19 Europe/Berlin] Processed data - Subject: MEMO KELULUSAN SS (00-159) 175/17 Klt. 40 (1)
+[15-Jul-2024 17:03:30 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[15-Jul-2024 17:03:30 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[15-Jul-2024 17:03:30 Europe/Berlin] Processed data - Subject: FRF
+[16-Jul-2024 01:13:42 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[16-Jul-2024 01:13:42 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[16-Jul-2024 01:13:42 Europe/Berlin] Processed data - Subject:  MEMO KELULUSAN
+[16-Jul-2024 01:13:42 Europe/Berlin] Database error: Message body empty
+[16-Jul-2024 01:13:48 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[16-Jul-2024 01:13:48 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[16-Jul-2024 01:13:48 Europe/Berlin] Processed data - Subject:  MEMO KELULUSAN
+[16-Jul-2024 02:40:41 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => mahathir.razak@felcra.com.my
+)
+
+[16-Jul-2024 02:40:41 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[16-Jul-2024 02:40:41 Europe/Berlin] Processed data - Subject:  MEMO
+[16-Jul-2024 03:28:45 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+    [1] => anisumairaha@student.usm.my
+)
+
+[16-Jul-2024 03:28:45 Europe/Berlin] Processed data - CCs: Array
+(
+    [0] => norafizah@felcra.com.my
+)
+
+[16-Jul-2024 03:28:45 Europe/Berlin] Processed data - Subject:  MEMO KELULUSAN
+[16-Jul-2024 03:28:56 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+    [1] => anisumairaha@student.usm.my
+)
+
+[16-Jul-2024 03:28:56 Europe/Berlin] Processed data - CCs: Array
+(
+    [0] => norafizah@felcra.com.my
+)
+
+[16-Jul-2024 03:28:56 Europe/Berlin] Processed data - Subject:  MEMO KELULUSAN
+[28-Jul-2024 15:03:10 Europe/Berlin] Location ID: 85
+[28-Jul-2024 15:03:10 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[28-Jul-2024 15:03:27 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[28-Jul-2024 15:03:27 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[28-Jul-2024 15:03:27 Europe/Berlin] Processed data - Subject:  MEMO
+[31-Jul-2024 08:16:18 Europe/Berlin] Location ID: 85
+[31-Jul-2024 08:16:18 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[31-Jul-2024 09:04:21 Europe/Berlin] Location ID: 85
+[31-Jul-2024 09:04:21 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[31-Jul-2024 09:08:16 Europe/Berlin] Location ID: 85
+[31-Jul-2024 09:08:16 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[31-Jul-2024 09:09:06 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[31-Jul-2024 09:09:06 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[31-Jul-2024 09:09:06 Europe/Berlin] Processed data - Subject:  MEMO
+[31-Jul-2024 09:52:56 Europe/Berlin] Location ID: 85
+[31-Jul-2024 09:52:56 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[31-Jul-2024 09:53:20 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[31-Jul-2024 09:53:20 Europe/Berlin] Processed data - CCs: Array
+(
+    [0] => ashraff.manaf@felcra.com.my
+)
+
+[31-Jul-2024 09:53:20 Europe/Berlin] Processed data - Subject:  MEMO
+[31-Jul-2024 09:53:20 Europe/Berlin] Database error: Message body empty
+[31-Jul-2024 09:53:24 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => anisumairaha@gmail.com
+)
+
+[31-Jul-2024 09:53:24 Europe/Berlin] Processed data - CCs: Array
+(
+    [0] => ashraff.manaf@felcra.com.my
+)
+
+[31-Jul-2024 09:53:24 Europe/Berlin] Processed data - Subject:  MEMO
+[31-Jul-2024 09:58:54 Europe/Berlin] Location ID: 85
+[31-Jul-2024 09:58:54 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[31-Jul-2024 09:59:19 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => ashraff.manaf@felcra.com.my
+)
+
+[31-Jul-2024 09:59:19 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[31-Jul-2024 09:59:19 Europe/Berlin] Processed data - Subject:  MEMO PENGGUNAAN BILIK PRIDE
+[31-Jul-2024 10:00:34 Europe/Berlin] Location ID: 85
+[31-Jul-2024 10:00:34 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[31-Jul-2024 10:01:11 Europe/Berlin] Processed data - Recipients: Array
+(
+    [0] => norafizah@felcra.com.my
+)
+
+[31-Jul-2024 10:01:11 Europe/Berlin] Processed data - CCs: Array
+(
+)
+
+[31-Jul-2024 10:01:11 Europe/Berlin] Processed data - Subject:  MEMO JD
+[06-Aug-2024 11:21:17 Europe/Berlin] Location ID: 85
+[06-Aug-2024 11:21:17 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[08-Aug-2024 03:30:59 UTC] Location ID: 85
+[08-Aug-2024 03:30:59 UTC] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[08-Aug-2024 03:31:01 UTC] Location ID: 85
+[08-Aug-2024 03:31:01 UTC] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[08-Aug-2024 07:20:01 UTC] Location ID: 85
+[08-Aug-2024 07:20:01 UTC] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[18-Aug-2024 13:22:13 UTC] Location ID: 85
+[18-Aug-2024 13:22:13 UTC] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[18-Aug-2024 13:22:17 UTC] Location ID: 85
+[18-Aug-2024 13:22:17 UTC] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[18-Aug-2024 13:22:18 UTC] Location ID: 85
+[18-Aug-2024 13:22:18 UTC] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[18-Aug-2024 13:22:18 UTC] Location ID: 85
+[18-Aug-2024 13:22:18 UTC] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[18-Aug-2024 13:22:25 UTC] PHP Warning:  Trying to access array offset on null in C:\xampp1\htdocs\anis\anis - latest 1\Templates\generate_pdf.php on line 35
+[18-Aug-2024 13:22:25 UTC] PHP Warning:  Trying to access array offset on null in C:\xampp1\htdocs\anis\anis - latest 1\Templates\generate_pdf.php on line 43
+[18-Aug-2024 13:22:27 UTC] PHP Warning:  Trying to access array offset on null in C:\xampp1\htdocs\anis\anis - latest 1\Templates\generate_pdf.php on line 35
+[18-Aug-2024 13:22:27 UTC] PHP Warning:  Trying to access array offset on null in C:\xampp1\htdocs\anis\anis - latest 1\Templates\generate_pdf.php on line 43
+[20-Aug-2024 02:49:17 Europe/Berlin] Location ID: 85
+[20-Aug-2024 02:49:17 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:06:21 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:06:21 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:06:57 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:06:57 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:07:32 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:07:32 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:07:40 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:07:40 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:07:47 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:07:47 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:08:02 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:08:02 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:08:15 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:08:15 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:08:21 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:08:21 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:09:48 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:09:48 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:09:54 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:09:54 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:10:05 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:10:05 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:10:06 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:10:06 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:11:10 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:11:10 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:11:20 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:11:20 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:11:47 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:11:47 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS
+[20-Aug-2024 04:47:40 Europe/Berlin] Location ID: 85
+[20-Aug-2024 04:47:40 Europe/Berlin] Location Name: CAWANGAN PEMBANGUNAN SUMBER MANUSIA & HRIS

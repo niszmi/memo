@@ -1,0 +1,176 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #d8dcee;
+}
+
+.sidebar {
+    /*background-color: #ffffff;*/
+    /*width: 250px;*/
+    /*height: 100vh;*/
+    /*position: fixed;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    /*padding-top: 60px;*/
+
+    background-color: #ffffff;
+    width: 30vh;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    padding: 10px;
+    /*border-radius: 20px;*/
+    /*margin-top: 40px;*/
+
+    /*background-color: #ffffff;*/
+    /*width: 30vh; !* Adjust the width as needed *!*/
+    /*position: fixed;*/
+    /*height: calc(100% - 60px); !* Adjust height to account for gaps *!*/
+    /*top: 20px; !* Create a gap at the top *!*/
+    /*left: 20px; !* Create a gap at the left *!*/
+    /*overflow: auto;*/
+    /*border-radius: 20px; !* Apply border radius *!*/
+    /*box-shadow: 0 0 10px rgba(0.1, 0.1, 0.1, 0.1); !* Add shadow for better visibility *!*/
+    /*!*padding: 20px; !* Optional: Add padding inside the sidebar *!*!*/
+    /*z-index: 1000; !* Ensure the sidebar is above other elements *!*/
+    /*transition: width 0.3s, margin-left 0.3s; !* Add transition for smooth animation *!*/
+}
+
+/*.sidebar-content .btn {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    padding: 10px;*/
+/*    transition: all 0.3s;*/
+/*}*/
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sidebar .btn {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.sidebar .btn i {
+    margin-right: 10px;
+}
+
+.sidebar .btn.active {
+    background-color: rgb(40, 158, 173);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+}
+
+.sidebar .btn:hover {
+    background-color: #45a3b2;
+    transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/*.sidebar .logout-btn {*/
+/*    !*margin-top: auto; !* Pushes the button to the bottom *!*!*/
+/*    margin-bottom: 30px; !* Adds some space at the bottom *!*/
+/*    margin-right: 20px;*/
+/*}*/
+
+.user-panel {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.user-panel .info {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.main-content {
+    margin-right: 150px;
+    padding: 20px;
+    background-color: #D9DCEF;
+    border-radius: 20px;
+    min-height: calc(100vh - 60px);
+    left: 0;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: #FFFFFF;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*padding-right: 20px; !* Add some right padding for spacing *!*/
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add text shadow */
+}
+
+/*.user-info {*/
+/*    background-color: #ffffff;*/
+/*    padding: 0.5rem 1rem;*/
+/*    border-radius: 20px;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    !*justify-content: flex-end;*!*/
+/*    !*white-space: nowrap; !* Prevent text from wrapping *!*!*/
+/*}*/
+
+/*.user-info .user-icon {*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*    border-radius: 50%;*/
+/*}*/
+
+/*.user-info .user-name {*/
+/*    margin-left: 10px;*/
+/*    font-size: 14px;*/
+/*    color: #333;*/
+/*}*/
+
+.user-panel {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.user-panel .info {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+
+.content{
+    margin-left: 16%; /* Same as the width of the sidebar */
+    padding: 20px;
+    min-height: 100vh;
+    background-color: #d8dcee; /* Set background color to white */
+    border-radius: 20px; /* Add rounded corners */
+    margin-top: 40px;
+}
